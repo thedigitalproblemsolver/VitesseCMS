@@ -1,0 +1,36 @@
+<section class="row" itemscope="" itemtype="http://schema.org/WebPage">
+    <article class="col-12 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3">
+        <header>
+            <h1 itemprop="name">
+                {{currentItem.name[]}}
+            </h1>
+        </header>
+        {{#currentItem.bodytext}}
+            <span itemprop="description">
+                {{{currentItem.bodytext[]}}}
+            </span>
+        {{/currentItem.bodytext}}
+    </article>
+    <div class="col-12 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3 gmaps-addresses">
+        <address itemscope itemtype="http://schema.org/Organization">
+            <b class="hidden-xs-up d-none" itemprop="name">{{currentItem.name[]}}</b>
+            <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+                <span itemprop="streetAddress">{{currentItem.street}} {{currentItem.houseNumber}}</span><br />
+                <span itemprop="postalCode">{{currentItem.zipCode}}</span><br />
+                <span itemprop="addressLocality">{{currentItem.city}}, {{currentItem.countryName}}</span><br />
+            </div>
+            {{#currentItem.phoneNumber}}
+            <a href="tel:{{currentItem.phoneNumber}}" itemprop="telephone" target="_blank">{{currentItem.phoneNumber}}</a><br />
+            {{/currentItem.phoneNumber}}
+            {{#currentItem.email}}
+            <a href="mailto:{{currentItem.email}}" itemprop="email" target="_blank">{{currentItem.email}}</a><br />
+            {{/currentItem.email}}
+            {{#currentItem.website}}
+            <a href="{{currentItem.website[]}}" itemprop="website" target="_blank">{{currentItem.website[]}}</a>
+            {{/currentItem.website}}
+        </address>
+    </div>
+    <div class="col-12">
+        <div class="container-gmaps" data-markericon="{{block.googleMapsMarkerIcon}}" data-zoom="10"></div>
+    </div>
+</section>

@@ -1,0 +1,11 @@
+<section class="row productlist" itemscope itemtype="http://schema.org/ItemList">
+    <header class="col-12">
+        <h1 itemprop="name">
+            {{currentItem.name[]}}
+        </h1>
+    </header>
+    {{#block.items}}
+        {{> shop/clothing_small }}
+    {{/block.items}}
+</section>
+{{> block/readmore}}

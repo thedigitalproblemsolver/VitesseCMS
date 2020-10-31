@@ -1,0 +1,30 @@
+{{#isDev}}
+{{/isDev}}
+{{^isDev}}
+    {{#GOOGLE_ADWORDS_CONVERSIONID}}
+        <script type="text/javascript">
+            /* <![CDATA[ */
+            var google_conversion_id = {{GOOGLE_ADWORDS_CONVERSIONID}};
+            var google_conversion_language = "en";
+            var google_conversion_format = "3";
+            var google_conversion_color = "ffffff";
+            var google_conversion_label = "{{GOOGLE_ADWORDS_CONVERSIONLABEL}}";
+            var google_conversion_value = "{{SHOP_CURRENCY_ISO}}{{block.order.total}}";
+            var google_conversion_currency = "{{SHOP_CURRENCY_ISO}}";
+            var google_remarketing_only = false;
+            /* ]]> */
+        </script>
+        <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+        </script>
+        <noscript>
+            <div style="display:inline;">
+                <img
+                    height="1"
+                    width="1"
+                    style="border-style:none;"
+                    alt=""
+                    src="//www.googleadservices.com/pagead/conversion/{{GOOGLE_ADWORDS_CONVERSIONID}}/?value={{block.order.total}}&currency_code={{SHOP_CURRENCY_ISO}}&label={{GOOGLE_ADWORDS_CONVERSIONLABEL}}&guid=ON&script=0"/>
+            </div>
+        </noscript>
+    {{/GOOGLE_ADWORDS_CONVERSIONID}}
+{{/isDev}}

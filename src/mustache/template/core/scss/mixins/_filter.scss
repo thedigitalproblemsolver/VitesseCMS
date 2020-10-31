@@ -1,0 +1,119 @@
+@mixin filter-xs($left:0, $top:0, $right:0) {
+    .container-filter {
+        position: relative;
+        .form-control {
+            border-color: $white;
+        }
+        .input-group-addon {
+            border-color: $input-group-addon-bg;
+            &:hover {
+                cursor: pointer;
+                background-color: $success;
+                border-color: $success;
+                color:$white !important;
+            }
+        }
+        .slider {
+            &.slider-horizontal {
+                width: 100%;
+            }
+        }
+        .slider-handle {
+            background-color: $black;
+            background-image: none;
+            top:-5px;
+            box-shadow: none;
+            &:hover {
+                background-color: $success;
+            }
+        }
+        .slider-track-low,
+        .slider-track-high {
+            background-image: none;
+            background-color: lighten($primary, 15%);
+        }
+        .select2-dropdown {
+            &.select2-dropdown--below {
+                border: 1px solid $white;
+            }
+        }
+        .select2-container--default {
+            .select2-selection--multiple {
+                border-color: $white;
+            }
+        }
+        .btn-toggle {
+            display:block;
+            .btn {
+                display:block;
+            }
+        }
+        .input-group-addon {
+            border-color:transparent;
+        }
+    }
+    .container-advanced-filter {
+        background-color: $primary;
+        @include transition( all 400ms);
+        position: absolute;
+        left:0;
+        top:55px;
+        right:0;
+        height:0;
+        overflow: hidden;
+        z-index: 100;
+        .arrow-up {
+            position: absolute;
+            left:0;
+            right:0;
+            bottom:3rem;
+            text-align: center;
+            width:100%;
+            a.fa {
+                color:$white;
+                font-size: 2rem;
+            }
+        }
+        .select2-container {
+            width:100% !important;
+        }
+    }
+
+    .container-filterresult {
+        position: absolute;
+        top: $top;
+        right: $right;
+        left: $left;
+        z-index: 100;
+        background-color: #fff;
+        opacity: 0;
+        overflow: hidden;
+        @include transition( opacity 400ms);
+        height:0;
+        .fa-times-circle-o {
+            display: block !important;
+            line-height: 1;
+            color: $primary;
+        }
+    }
+
+    .filter-open {
+        .container-filterresult {
+            opacity: 1;
+            height: 100%;
+            @include transition( opacity 400ms);
+        }
+        &.scrollspy {
+            #scrollspy-nav {
+                display: none
+            }
+        }
+    }
+    .filter-closed {
+        .container-filterresult {
+            height: 100vh;
+        }
+    }
+}
+
+@mixin filter-md() {}

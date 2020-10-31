@@ -1,0 +1,29 @@
+<section class="row productlist" itemscope="" itemtype="http://schema.org/WebPage">
+    <header class="col-12">
+        <h1 itemprop="name">
+            {{currentItem.name[]}}
+        </h1>
+    </header>
+    {{#block.items}}
+        <article class="{{_id}} col-12 col-lg-4 col-xl-3" >
+            <div class="card">
+                {{#image}}
+                    <a class="card-img-top text-center" href="{{slug[]}}" >
+                        <img
+                            src="uploads/{{ACCOUNT}}/{{image}}?h=250"
+                            alt="{{name[]}}"
+                        />
+                    </a>
+                {{/image}}
+                <div class="card-block">
+                    <h4 class="card-title">
+                        <a href="{{slug[]}}" >
+                            {{name[]}}
+                        </a>
+                    </h4>
+                </div>
+            </div>
+        </article>
+    {{/block.items}}
+</section>
+{{> block/readmore}}

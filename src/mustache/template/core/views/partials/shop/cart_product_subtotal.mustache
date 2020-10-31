@@ -1,0 +1,15 @@
+{{#subTotalDiscountSaleDisplay}}
+    <div class="container-discount-price">
+        <small>
+            <s>
+                {{{SHOP_CURRENCY_BASE}}}&nbsp;{{subTotalSaleDisplay}}
+            </s>
+        </small>&nbsp;
+        {{{SHOP_CURRENCY_BASE}}}&nbsp;{{subTotalDiscountSaleDisplay}}
+    </div>
+    <small class="hidden-md-up d-md-none text-muted"><br />{{quantity}} x {{price_discountSale}}</small>
+{{/subTotalDiscountSaleDisplay}}
+{{^subTotalDiscountSaleDisplay}}
+    {{{SHOP_CURRENCY_BASE}}}&nbsp;{{subTotalSale}}
+    <small class="hidden-md-up d-md-none text-muted"><br />{{quantity}} x {{price_sale}}</small>
+{{/subTotalDiscountSaleDisplay}}

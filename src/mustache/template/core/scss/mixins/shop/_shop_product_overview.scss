@@ -1,0 +1,30 @@
+@mixin shop-product-overview-xs() {
+    .productlist {
+        .card {
+            .container-colors {
+                > div {
+                    border-radius: 50%;
+                    width: 1.5rem;
+                    height: 1.5rem;
+                    line-height: 1.5rem;
+                    margin-right: 10px;
+                    box-shadow: 1px 1px 3px #999;
+                }
+            }
+            .card-img-top {
+                img {
+                    max-width: 100%;
+                    max-height: 250px;
+                }
+            }
+            .view-product {
+                text-transform: lowercase;
+            }
+        }
+        .container-discount-price {
+            small {
+                line-height:1.5rem;
+            }
+        }
+    }
+}

@@ -1,0 +1,25 @@
+{{#showCookieConsent}}
+    <script type="text/javascript">
+        window.addEventListener("load", function(){
+            window.cookieconsent.initialise({
+                "palette": {
+                    "popup": {
+                        "background": "{{COOKIECONSENT_POPUP_BACKGROUNDCOLOR}}",
+                        "text": "{{COOKIECONSENT_POPUP_TEXTCOLOR}}"
+                    },
+                    "button": {
+                        "background": "{{COOKIECONSENT_BUTTON_BACKGROUNDCOLOR}}",
+                        "text": "{{COOKIECONSENT_BUTTON_TEXTCOLOR}}"
+                    }
+                },
+                "theme": "edgeless",
+                "position": "top",
+                "content": {
+                    "message": "{{COOKIECONSENT_CONTENT_MESSAGE}}",
+                    "dismiss": "{{COOKIECONSENT_CONTENT_DISMISS}}",
+                    "link": "{{COOKIECONSENT_CONTENT_LINK}}",
+                    "href": "{{COOKIECONSENT_CONTENT_URL}}"
+                }
+            })});
+    </script>
+{{/showCookieConsent}}

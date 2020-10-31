@@ -1,0 +1,25 @@
+<address id="address_{{_id}}" class="address-item" itemscope itemtype="http://schema.org/Organization">
+    <a href="{{BASEURI}}{{slug[]}}">
+        <h5 itemprop="name">{{name[]}}</h5>
+    </a>
+    <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+        <span itemprop="streetAddress">{{street}} {{houseNumber}}</span><br />
+        <span itemprop="postalCode">{{zipCode}}</span><br />
+        <span itemprop="addressLocality">{{city}}, {{countryName}}</span><br />
+    </div>
+    {{#phoneNumber}}
+        <a href="tel:{{phoneNumber}}" itemprop="telephone" target="_blank">{{phoneNumber}}</a><br />
+    {{/phoneNumber}}
+    {{#email}}
+        <a href="mailto:{{email}}" itemprop="email" target="_blank">{{email}}</a><br />
+    {{/email}}
+    {{#website}}
+        <a href="{{website[]}}" itemprop="website" target="_blank">{{website[]}}</a>
+    {{/website}}
+    {{#latitude}}
+        <span itemprop="geo" itemscope itemtype="http://schema.org/GeoCoordinates">
+            <meta itemprop="latitude" content="{{latitude}}" />
+            <meta itemprop="longitude" content="{{longitude}}" />
+        </span>
+    {{/latitude}}
+</address>

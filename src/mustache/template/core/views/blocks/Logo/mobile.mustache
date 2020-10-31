@@ -1,0 +1,19 @@
+<div class="logo-mobile" itemscope itemtype="http://schema.org/Brand" >
+    <a href="{{BASE_URI}}">
+        <img
+            itemprop="logo"
+            src="{{UPLOAD_URI}}/{{SITE_LOGO_MOBILE}}"
+            alt="{{WEBSITE_DEFAULT_NAME}}{{#SITE_LABEL_MOTTO}} | {{SITE_LABEL_MOTTO}}{{/SITE_LABEL_MOTTO}}"
+        />
+    </a>
+    {{#block.displayMotto}}
+        {{#SITE_LABEL_MOTTO}}
+        <p itemprop="description">
+            <a href="{{BASE_URI}}">
+                {{{SITE_LABEL_MOTTO}}}
+            </a>
+        </p>
+        {{/SITE_LABEL_MOTTO}}
+    {{/block.displayMotto}}
+</div>
+

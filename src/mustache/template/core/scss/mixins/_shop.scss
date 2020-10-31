@@ -1,0 +1,24 @@
+@import "shop/shop_basket";
+@import "shop/shop_cart";
+@import "shop/shop_checkout";
+@import "shop/shop_product_overview";
+@import "shop/shop_product_detail";
+
+@mixin shop-xs() {
+    @include shop-checkout-steps-xs();
+    @include shop-product-detail-xs();
+    @include shop-product-overview-xs();
+    @include shop-basket-xs();
+}
+
+@mixin shop-sm() {
+    @include shop-basket-sm();
+    @include shop-product-detail-sm();
+}
+@mixin shop-md() {
+    @include shop-cart-md();
+}
+
+@mixin shop-lg() {
+    @include shop-checkout-steps-lg();
+}

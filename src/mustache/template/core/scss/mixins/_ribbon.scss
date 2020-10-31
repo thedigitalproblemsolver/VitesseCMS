@@ -1,0 +1,52 @@
+@mixin ribbon($width, $height, $deg, $primary-color, $secondary-color) {
+    .container-ribbon {
+        position: relative;
+
+        .ribbon {
+            position: absolute;
+            left: -5px;
+            top: -5px;
+            z-index: 1;
+            overflow: hidden;
+            width: $width;
+            height: $height;
+            text-align: right;
+        }
+        .ribbon span {
+            color: $white;
+            text-align: center;
+            line-height: 150%;
+            transform: rotate($deg);
+            -webkit-transform: rotate($deg);
+            display: block;
+            background: $primary-color;
+            background: linear-gradient($secondary-color 0%, $primary-color 100%);
+            box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+            position: absolute;
+            top: 19px;
+            left: -21px;
+        }
+        .ribbon span::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 100%;
+            z-index: -1;
+            border-left: 3px solid $primary-color;
+            border-right: 3px solid transparent;
+            border-bottom: 3px solid transparent;
+            border-top: 3px solid $primary-color;
+        }
+        .ribbon span::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 100%;
+            z-index: -1;
+            border-left: 3px solid transparent;
+            border-right: 3px solid $primary-color;
+            border-bottom: 3px solid transparent;
+            border-top: 3px solid $primary-color;
+        }
+    }
+}

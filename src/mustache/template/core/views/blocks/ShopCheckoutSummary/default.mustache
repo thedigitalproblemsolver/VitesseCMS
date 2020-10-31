@@ -1,0 +1,77 @@
+{{> shop/checkoutBar}}
+<div class="row container-checkout-summary">
+    <div class="col-12 col-lg-6 col-xl-4">
+        <h3>%SHOP_ADDRESS_INVOICE%</h3>
+        <blockquote>
+            {{block.user.firstName}}{{#block.user.middleName}} {{block.user.middleName}}{{/block.user.middleName}} {{block.user.lastName}}<br />
+            {{#block.shopper.companyName}}{{block.shopper.companyName}}<br />{{/block.shopper.companyName}}
+            {{block.user.street}} {{block.user.houseNumber}}<br />
+            {{block.user.zip}} {{block.user.city}}<br />
+            {{block.user.countryName}}<br />
+            {{block.user.phoneNumber}}
+        </blockquote>
+    </div>
+    <div class="col-12 col-lg-6 col-xl-4">
+        <h3>%SHOP_ADDRESS_SHIPPING%</h3>
+        <blockquote>
+            {{block.shiptoAddresses.firstName}}{{#block.shiptoAddresses.middleName}} {{block.shiptoAddresses.middleName}}{{/block.shiptoAddresses.middleName}} {{block.shiptoAddresses.lastName}}<br />
+            {{#block.shiptoAddresses.companyName}}{{block.shiptoAddresses.companyName}}<br />{{/block.shiptoAddresses.companyName}}
+            {{block.shiptoAddresses.street}} {{block.shiptoAddresses.houseNumber}}<br />
+            {{block.shiptoAddresses.zip}} {{block.shiptoAddresses.city}}<br />
+            {{block.shiptoAddresses.countryName}}<br />
+            {{block.shiptoAddresses.phoneNumber}}
+        </blockquote>
+    </div>
+    <div class="col-12 col-xl-4 container-checkout-ordermessage">
+        <h3>%SHOP_CHECKOUT_ADD_MESSAGE%</h3>
+        <form id="orderMessageForm" action="{{SITE_URL}}shop/order/storeOrderMessage/" method="post">
+            <textarea id="orderMessage" class="form-control" name="orderMessage"></textarea>
+        </form>
+    </div>
+</div>
+<section class="basket">
+    <header class="row hidden-md-down d-none d-lg-block">
+        <div class="col-md-6 font-weight-bold" >
+            %SHOP_PRODUCT%
+        </div>
+        <div class="col-md-2 font-weight-bold" >
+            %SHOP_PRICE%
+        </div>
+        <div class="col-md-2 font-weight-bold" >
+            %SHOP_QUANTITY%
+        </div>
+        <div class="col-md-2 font-weight-bold text-sm-right" >
+            %SHOP_SUBTOTAL%
+        </div>
+        <div class="col-12 hidden-md-down d-none d-lg-block" >
+            <hr />
+        </div>
+    </header>
+    {{#block.cart.products}}
+    <article id="product-row-{{cartItemId}}" class="row product">
+        <div class="col-12 col-sm-3 col-lg-2 product-image text-center" >
+            {{> shop/cart_product}}
+        </div>
+        <div class="col-12 col-sm-4 col-lg-4 product-name" >
+            {{> shop/cart_product_description}}
+            {{#packingName}}
+                <div>%SHOP_PACKING_TYPE% : {{packingName}}</div>
+            {{/packingName}}
+        </div>
+        <div class="col-2 col-sm-2  hidden-md-down d-none d-lg-block product-prijs" >
+            {{> shop/cart_product_price}}
+        </div>
+        <div class="col-6 col-sm-3 col-lg-2" >
+            {{quantity}}
+        </div>
+        <div class=" col-6 col-sm-2 text-right" >
+            {{> shop/cart_product_subtotal}}
+        </div>
+        <div class="col-12">
+            <hr />
+        </div>
+    </article>
+    {{/block.cart.products}}
+    {{> shop/cart_footer}}
+</section>
+{{> shop/checkoutBar}}

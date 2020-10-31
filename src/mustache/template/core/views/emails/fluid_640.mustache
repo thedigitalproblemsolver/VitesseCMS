@@ -1,0 +1,164 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <style type="text/css">
+        /* CLIENT-SPECIFIC STYLES */
+        body, table, td, a {
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+
+        table, td {
+            mso-table-lspace: 0pt;
+            mso-table-rspace: 0pt;
+        }
+
+        img {
+            -ms-interpolation-mode: bicubic;
+        }
+
+        /* RESET STYLES */
+        img {
+            border: 0;
+            outline: none;
+            text-decoration: none;
+        }
+
+        table {
+            border-collapse: collapse !important;
+        }
+
+        body {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+        }
+
+        /* iOS BLUE LINKS */
+        a[x-apple-data-detectors] {
+            color: inherit !important;
+            text-decoration: none !important;
+            font-size: inherit !important;
+            font-family: inherit !important;
+            font-weight: inherit !important;
+            line-height: inherit !important;
+        }
+
+        /* ANDROID CENTER FIX */
+        div[style*="margin: 16px 0;"] {
+            margin: 0 !important;
+        }
+
+        .bodyText p {
+            font-size:16px;
+            line-height: 160%;
+        }
+    </style>
+</head>
+<body style="margin:0; padding:0; background-color:#F2F2F2;">
+<center>
+    <div style="background-color:#F2F2F2; max-width: 640px; margin: auto;">
+        <!--[if mso]>
+        <table role="presentation" width="640" cellspacing="0" cellpadding="0" border="0" align="center">
+            <tr>
+                <td>
+        <![endif]-->
+        <table width="640" cellspacing="0" cellpadding="0" border="0" align="center" style="max-width:640px; width:100%;" bgcolor="#FFFFFF">
+            <tr>
+                {{#sendMailHeaderImage}}
+                    <td align="center" valign="top">
+                        {{#sendMailHeaderUrl}}
+                        <a href="{{sendMailHeaderUrl}}">
+                        {{/sendMailHeaderUrl}}
+                        {{^sendMailHeaderUrl}}
+                        <a href="{{BASE_URI}}">
+                        {{/sendMailHeaderUrl}}
+                            <img
+                                style="width:640px;height:auto"
+                                width="640"
+                                height="auto"
+                                src="{{UPLOAD_URI}}/{{sendMailHeaderImage}}"
+                            />
+                        </a>
+                    </td>
+                {{/sendMailHeaderImage}}
+                {{^sendMailHeaderImage}}
+                    <td align="center" valign="top" style="padding:10px;">
+                        <table width="600" cellspacing="0" cellpadding="0" border="0" align="center" style="max-width:600px; width:100%;">
+                            <tr>
+                                <td width="300" align="left" valign="top" style="padding:10px;">
+                                    <a href="{{BASE_URI}}">
+                                        <img src="{{UPLOAD_URI}}/{{SITE_LOGO_EMAIL}}" />
+                                    </a>
+                                </td>
+                                <td width="300" align="right" valign="top" style="padding:10px;">
+                                    <b>{{CONTACT_ADDRESS_COMPANYNAME}}</b><br />
+                                    {{CONTACT_ADDRESS_STREET}} {{CONTACT_ADDRESS_HOUSENUMBER}}<br />
+                                    {{CONTACT_ADDRESS_ZIPCODE}} {{CONTACT_ADDRESS_CITY}}<br />
+                                    {{CONTACT_ADDRESS_COUNTRY}}<br />
+                                    {{CONTACT_ADDRESS_PHONENUMBER}}<br />
+                                    <a href="mailto:{{CONTACT_ADDRESS_EMAIL}}">{{CONTACT_ADDRESS_EMAIL}}</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                {{/sendMailHeaderImage}}
+            </tr>
+        </table>
+        <table width="640" cellspacing="0" cellpadding="0" border="0" align="center" style="max-width:640px; width:100%;" bgcolor="#FFFFFF">
+            <tr>
+                <td align="center" valign="top" style="padding:10px;">
+                    <table width="600" cellspacing="0" cellpadding="0" border="0" align="center"
+                           style="max-width:600px; width:100%;">
+                        <tr>
+                            <td align="left" valign="top" style="padding:10px;" class="bodyText">
+                                {{{sendMailBody}}}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <table width="640" cellspacing="0" cellpadding="0" border="0" align="center" style="max-width:640px; width:100%;" bgcolor="#FFFFFF">
+            <tr>
+                <td align="center" valign="top" style="padding:10px;">
+                    <table width="600" cellspacing="0" cellpadding="0" border="0" align="center" style="max-width:600px; width:100%;">
+                        <tr>
+                            <td align="center" valign="top" style="padding:10px;">
+                                <hr />
+                                <p><b>{{CONTACT_ADDRESS_COMPANYNAME}}</b> {{CONTACT_ADDRESS_STREET}} {{CONTACT_ADDRESS_HOUSENUMBER}}, {{CONTACT_ADDRESS_ZIPCODE}} {{CONTACT_ADDRESS_CITY}} {{CONTACT_ADDRESS_COUNTRY}}</p>
+                                <p>%ADDRESS_PHONENUMBER%: {{CONTACT_ADDRESS_PHONENUMBER}}, %CORE_EMAIL%: <a href="mailto:{{CONTACT_ADDRESS_EMAIL}}">{{CONTACT_ADDRESS_EMAIL}}</a></p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        {{#sendMailAfterFooter}}
+            <table width="640" cellspacing="0" cellpadding="0" border="0" align="center" style="max-width:640px; width:100%;" bgcolor="#FFFFFF">
+                <tr>
+                    <td align="center" valign="top" style="padding:10px;">
+                        <table width="600" cellspacing="0" cellpadding="0" border="0" align="center" style="max-width:600px; width:100%;">
+                            <tr>
+                                <td valign="top" style="padding:10px;">
+                                    {{{sendMailAfterFooter}}}
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        {{/sendMailAfterFooter}}
+        <!--[if mso]>
+        </td>
+        </tr>
+        </table>
+        <![endif]-->
+    </div>
+
+</center>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<style>
+    th {
+        text-align: left;
+    }
+</style>
+<center><table width="800px">
+    <tr>
+        <td>
+            <a href="{{BASE_URI}}">
+                <img src="{{UPLOAD_URI}}/{{SITE_LOGO_EMAIL}}" />
+            </a>
+        </td>
+        <td align="right" valign="top">
+            <b>{{CONTACT_ADDRESS_COMPANYNAME}}</b><br />
+            {{CONTACT_ADDRESS_STREET}} {{CONTACT_ADDRESS_HOUSENUMBER}}<br />
+            {{CONTACT_ADDRESS_ZIPCODE}} {{CONTACT_ADDRESS_CITY}}<br />
+            {{CONTACT_ADDRESS_COUNTRY}}<br />
+            {{CONTACT_ADDRESS_PHONENUMBER}}<br />
+            <a href="mailto:{{CONTACT_ADDRESS_EMAIL}}">{{CONTACT_ADDRESS_EMAIL}}</a>
+            {{#CONTACT_VAT_NUMBER}}
+                <br />%CONTACT_VAT_NUMBER% : {{CONTACT_VAT_NUMBER}}
+            {{/CONTACT_VAT_NUMBER}}
+            {{#CONTACT_CHAMBER-OF-COMMERCE_NUMBER}}
+                <br />%CONTACT_CHAMBER_OF_COMMERCE% : {{CONTACT_CHAMBER-OF-COMMERCE_NUMBER}}
+            {{/CONTACT_CHAMBER-OF-COMMERCE_NUMBER}}
+            {{#CONTACT_PAYMENT_IBAN}}
+                <br />%CONTACT_IBAN% : {{CONTACT_PAYMENT_IBAN}}
+            {{/CONTACT_PAYMENT_IBAN}}
+            {{#CONTACT_PAYMENT_BIC}}
+                <br />%CONTACT_BIC% : {{CONTACT_PAYMENT_BIC}}
+            {{/CONTACT_PAYMENT_BIC}}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2"><br />{{{sendMailBody}}}</td>
+    </tr>
+    <tr>
+        <td colspan="2"><br /><hr />
+
+            <p><b>{{CONTACT_ADDRESS_COMPANYNAME}}</b> {{CONTACT_ADDRESS_STREET}} {{CONTACT_ADDRESS_HOUSENUMBER}}, {{CONTACT_ADDRESS_ZIPCODE}} {{CONTACT_ADDRESS_CITY}} {{CONTACT_ADDRESS_COUNTRY}}</p>
+            <p>%ADDRESS_PHONENUMBER%: {{CONTACT_ADDRESS_PHONENUMBER}}, %CORE_EMAIL%: <a href="mailto:{{CONTACT_ADDRESS_EMAIL}}">{{CONTACT_ADDRESS_EMAIL}}</a></p>
+            <p>
+                {{#CONTACT_VAT_NUMBER}}%CONTACT_VAT_NUMBER% : {{CONTACT_VAT_NUMBER}}{{/CONTACT_VAT_NUMBER}}
+                {{#CONTACT_CHAMBER-OF-COMMERCE_NUMBER}}%CONTACT_CHAMBER_OF_COMMERCE% : {{CONTACT_CHAMBER-OF-COMMERCE_NUMBER}} {{/CONTACT_CHAMBER-OF-COMMERCE_NUMBER}}
+                {{#CONTACT_PAYMENT_IBAN}}%CONTACT_IBAN% : {{CONTACT_PAYMENT_IBAN}} {{/CONTACT_PAYMENT_IBAN}}
+                {{#CONTACT_PAYMENT_BIC}}%CONTACT_BIC% : {{CONTACT_PAYMENT_BIC}} {{/CONTACT_PAYMENT_BIC}}
+            </p>
+        </td>
+    </tr>
+</table>
+</center>

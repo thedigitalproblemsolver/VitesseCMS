@@ -1,0 +1,73 @@
+{{#outOfStock}}
+{{/outOfStock}}
+{{^outOfStock}}
+    <table border="0">
+        <tr>
+            <td colspan="2" align="center">
+                <a href="{{BASE_URI}}{{item.slug[]}}">
+                    <img
+                        src="{{UPLOAD_URI}}/{{item.firstImage}}?h=250"
+                        alt="{{item.name[]}} | {{WEBSITE_DEFAULT_NAME}}"
+                    />
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <a href="{{BASE_URI}}{{item.slug[]}}" style="text-decoration: none;color:#000000;font-size:16px;font-weight: bold">
+                    {{item.name[]}}
+                </a>
+            </td>
+        </tr>
+        {{#item.price_discount_freeShipping}}
+            <tr>
+                <td colspan="2" align="right">
+                    <small><i>
+                        %SHOP_NO_SHIPPINGCOSTS_IN%
+                        {{#item.price_discount_freeShipping_countries}}
+                            {{name[]}}
+                        {{/item.price_discount_freeShipping_countries}}
+                    </i></small>
+                </td>
+            </tr>
+        {{/item.price_discount_freeShipping}}
+        <tr>
+            <td>
+                <table border="0">
+                    <tr>
+                        {{#item.variationsTemplate.colors}}
+                        <td>
+                            <div
+                                style="background-color:{{color}};width:15px;height:15px;margin-right: 5px;border-radius: 50%;border:1px solid #cccccc"
+                            ></div>
+                        </td>
+                        {{/item.variationsTemplate.colors}}
+                    </tr>
+                </table>
+            </td>
+            <td align="right">
+                {{#item.price_discountDisplay}}
+                    <small>
+                        <s style="color:#d9534f">
+                            {{{SHOP_CURRENCY_BASE}}}&nbsp;{{item.price_saleDisplay}}
+                        </s>
+                    </small>&nbsp;&nbsp;
+                    <b style="color:#5cb85c;">
+                        {{{SHOP_CURRENCY_BASE}}}&nbsp;{{item.price_discountDisplay}}
+                    </b>
+                {{/item.price_discountDisplay}}
+                {{^item.price_discountDisplay}}
+                    {{{SHOP_CURRENCY_BASE}}}&nbsp;{{item.price_saleDisplay}}
+                {{/item.price_discountDisplay}}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <br />
+                <a href="{{BASE_URI}}{{item.slug[]}}" style="text-decoration: none;color:#ffffff;background-color: #449d44;padding:6px 10px">
+                    bekijk op de website
+                </a>
+            </td>
+        </tr>
+    </table>
+{{/outOfStock}}
