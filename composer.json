@@ -1,6 +1,6 @@
 {
   "name": "vitessecms/vitessecms",
-  "type": "project",
+  "type": "library",
   "description": "CMS based on Phalcon 3 framework",
   "keywords": ["php","phalcon"],
   "homepage": "https://github.com/thedigitalproblemsolver/VitesseCMS",
