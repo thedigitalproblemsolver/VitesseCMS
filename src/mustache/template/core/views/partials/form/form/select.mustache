@@ -1,0 +1,39 @@
+{{#short}}
+    <div class="input-group">
+    {{> form/form/_flag_addon}}
+{{/short}}
+
+<select
+    id="{{elementId}}{{#short}}_{{short}}{{/short}}"
+    class="form-control{{#short}} {{short}}{{/short}}{{#attributes.inputClass}} {{attributes.inputClass}}{{/attributes.inputClass}}"
+    name="{{elementName}}{{#short}}[{{short}}]{{/short}}{{#attributes.multiple}}[multiple]{{/attributes.multiple}}"
+    {{#attributes.required}}
+        required="required"
+    {{/attributes.required}}
+    {{#attributes.disabled}}
+        disabled="disabled"
+    {{/attributes.disabled}}
+    {{#attributes.multiple}}
+        multiple="multiple"
+    {{/attributes.multiple}}
+    {{#attributes.data-url}}
+        data-url="{{attributes.data-url}}"
+    {{/attributes.data-url}}
+    {{#attributes.dataUrl}}
+        data-url="{{attributes.dataUrl}}"
+    {{/attributes.dataUrl}}
+    {{#formLabelAsPlaceholder}}
+        placeholder="{{elementLabel}}"
+    {{/formLabelAsPlaceholder}}
+    {{#attributes.readonly}}
+        readonly="readonly"
+    {{/attributes.readonly}}
+>
+    {{#attributes.options}}
+        <option value="{{value}}" {{#selected}}selected="selected"{{/selected}}>{{label}}</option>
+    {{/attributes.options}}
+</select>
+
+{{#short}}
+    </div>
+{{/short}}

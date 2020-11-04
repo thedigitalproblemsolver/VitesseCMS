@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col-2">
+        <a href="{{editBaseUri}}/edit/{{order._id}}"
+           class="openmodal"
+        >
+            {{{order.orderId}}}
+        </a>
+    </div>
+    <div class="col-4 text-left">
+        {{order.shopper.user.email}}
+    </div>
+    <div class="col-2 text-nowrap">
+        {{{SHOP_CURRENCY_BASE}}} {{order.total}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-4">
+        {{order.createdAt}}
+    </div>
+    <div class="col-5">
+        {{{orderStateForm}}}
+    </div>
+</div>

@@ -1,0 +1,20 @@
+{{#attributes.useRecaptcha}}
+<div
+    data-sitekey="{{GOOGLE_RECAPTCHA_KEY}}"
+    data-callback="parseRecaptcha"
+    class="g-recaptcha"
+></div>
+<input type="hidden" class="recaptcha-token" name="recaptcha-token" value="" />
+
+{{/attributes.useRecaptcha}}
+<button
+    id="{{attributes.elementId}}{{#short}}_{{short}}{{/short}}"
+    class="{{#attributes.inputClass}} {{attributes.inputClass}}{{/attributes.inputClass}}{{#attributes.elementId}} {{attributes.elementId}}{{/attributes.elementId}}"
+    type="{{attributes.buttonType}}"
+    {{#attributes.disabled}}
+        disabled="{{attributes.disabled}}"
+    {{/attributes.disabled}}
+>
+    {{elementName}}
+</button>
+

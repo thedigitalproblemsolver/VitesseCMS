@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="{{languageLocale}}">
+<head>
+    {{> seo/meta }}
+    {{{stylesheet}}}
+    {{#IS_ADMIN}}
+    {{/IS_ADMIN}}
+    {{^IS_ADMIN}}
+        {{> seo/hreflang }}
+        {{> seo/rss }}
+        {{> core/icons}}
+        {{{opengraph}}}
+        {{> seo/bing/validation }}
+        {{> seo/google/analytics }}
+        {{> seo/google/search_console }}
+        {{> seo/google/tag_manager_head }}
+        {{> seo/facebook/pixel}}
+        {{> seo/pinterest/domain_verify}}
+        {{> seo/mailchimp}}
+        {{> seo/cookieconsent}}
+    {{/IS_ADMIN}}
+</head>
+<body class="{{currentItem._id}} {{bodyClass}}" >
+{{#IS_ADMIN}}
+{{/IS_ADMIN}}
+{{^IS_ADMIN}}
+    {{> seo/google/tag_manager_body }}
+{{/IS_ADMIN}}
+{{#embedded}}
+    {{{content}}}
+{{/embedded}}
+{{^embedded}}
+    {{{adminToolbar}}}
+    {{{topbar}}}
+    {{> menu/aside }}
+    {{> menu/panel }}
+{{/embedded}}
+<div id="container-flash" class="fixed-top">
+    {{{flash}}}
+</div>
+{{{javascript}}}
+{{#IS_ADMIN}}
+{{/IS_ADMIN}}
+{{^IS_ADMIN}}
+    {{> seo/inspectlet}}
+{{/IS_ADMIN}}
+{{{timer}}}
+</body>
+</html>

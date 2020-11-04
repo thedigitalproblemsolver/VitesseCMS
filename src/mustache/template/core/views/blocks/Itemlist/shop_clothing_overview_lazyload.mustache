@@ -1,0 +1,10 @@
+<div
+    class="row"
+    itemscope itemtype="http://schema.org/ItemList"
+>
+    <link itemprop="url" href="{{BASE_URI}}{{currentItem.slug[]}}" />
+    {{#block.items}}
+        {{> shop/clothing_small_lazyload }}
+    {{/block.items}}
+</div>
+{{> block/readmore}}

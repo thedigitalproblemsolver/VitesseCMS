@@ -1,0 +1,15 @@
+a {
+    @include transition(color 400ms);
+    &:hover {
+        text-decoration: none !important;
+        img {
+            @include transition(opacity 400ms);
+            opacity: 0.8;
+        }
+    }
+}
+
+h1,h2 {
+    border-bottom: 2px solid $primary;
+    padding-bottom:5px;
+}

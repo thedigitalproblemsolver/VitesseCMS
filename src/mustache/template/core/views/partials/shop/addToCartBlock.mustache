@@ -1,0 +1,28 @@
+<form action="/shop/cart/addtocart/">
+    <div class="input-group">
+        <input
+            id="quantity"
+            class="form-control"
+            type="number"
+            name="quantity"
+            value="1"
+            min="1"
+            {{#stock}}max="{{stock}}"{{/stock}}
+        />
+        <button
+            type="submit"
+            class="input-group-prepend btn btn-success gaEvent"
+            data-category="webshop"
+            data-action="order-button"
+        >
+            %SHOP_ADDTOCART%
+        </button>
+    </div>
+    <input type="hidden" name="itemId" value="{{_id}}" />
+    <input id="variation" type="hidden" name="variation" value="" />
+    {{#variations}}
+        {{#stock}}
+            <input id="stock_{{sku}}" type="hidden" name="stock_{{sku}}" value="{{stock}}" />
+        {{/stock}}
+    {{/variations}}
+</form>

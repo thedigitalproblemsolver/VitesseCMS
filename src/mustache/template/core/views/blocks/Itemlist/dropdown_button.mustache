@@ -1,0 +1,22 @@
+<div class="container-drowdown-button dropdown">
+    <button
+        class="btn btn-secondary dropdown-toggle"
+        type="button"
+        id="dropdownMenuButton"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+    >
+        <span class="menu-title">
+            {{block.name[]}}
+        </span>
+        <i class="fa fa-bars"></i>
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        {{#block.items}}
+            <a class="dropdown-item {{_id}}" href="{{slug[]}}">
+                {{name[]}}
+            </a>
+        {{/block.items}}
+    </div>
+</div>

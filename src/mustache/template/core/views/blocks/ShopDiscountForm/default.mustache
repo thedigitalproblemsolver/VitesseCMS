@@ -1,0 +1,8 @@
+<div class="container-discount-form">
+    {{#block.discountUsedText}}
+        <div class="alert alert-success">{{{block.discountUsedText}}}</div>
+    {{/block.discountUsedText}}
+    {{^block.discountUsedText}}
+        {{{block.form}}}
+    {{/block.discountUsedText}}
+</div>
