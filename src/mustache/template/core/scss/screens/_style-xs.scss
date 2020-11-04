@@ -1,0 +1,133 @@
+@include filter-xs();
+@include header-image-xs(225px);
+@include menu-xs($primary, black);
+@include modal-xs();
+@include zoom-xs(50vh);
+
+body {
+    position: relative;
+}
+
+.form-control-feedback {
+    position: absolute;
+    right: 25px;
+    top: 7px;
+}
+
+.form-control[type='checkbox'] {
+    width:auto;
+}
+
+a.flag-icon {
+    color: rgba(0,0,0,0);
+    margin-right: 10px;
+    &:hover {
+        color: rgba(0,0,0,0);
+        -webkit-filter: grayscale(1);
+        filter: grayscale(1);
+    }
+}
+.flag-icon {
+    &.flag-icon-en {
+        background-image: url("/assets/default/images/flags/4x3/gb.svg");
+    }
+}
+
+.card {
+    .card-image {
+        a {
+            display:block;
+        }
+    }
+}
+
+.container-header {
+    margin-top: 65px;
+}
+
+.container-logo {
+    text-align: center;
+    a {
+        color:$body-color;
+        &:hover {
+            color:darken($white,10%);
+        }
+    }
+    p {
+        margin-top:10px;
+    }
+    .logo-default {
+        display:none;
+    }
+}
+
+.container-usp {
+    ul {
+        list-style: none;
+        padding-left: 0;
+    }
+    li {
+        line-height: 1.6em;
+        &:before {
+            display: inline-block;
+            font: normal normal normal 14px/1 FontAwesome;
+            font-size: inherit;
+            text-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            content: "\f00c";
+            color:$success;
+        }
+    }
+}
+
+.container-topbar {
+    background-color: $primary;
+}
+
+#container-flash {
+    height:0;
+}
+
+.container-maincontent {
+    padding-bottom:$grid-gutter-width;
+    article {
+        img {
+            max-width: 100%;
+            width: auto;
+        }
+    }
+}
+.container-socialmedia {
+    a {
+        color: $primary;
+    }
+}
+
+.container-news-overview {
+    .card {
+        .card-image {
+            img {
+                width:100%;
+                height:auto;
+            }
+        }
+    }
+    .container-read-more {
+        a {
+            display:block;
+        }
+    }
+}
+
+.container-latest-news {
+    .container-read-more {
+        a {
+            display:block;
+        }
+    }
+}
+
+.embedded {
+    padding-top: $grid-gutter-width;
+}

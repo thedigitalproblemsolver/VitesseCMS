@@ -1,0 +1,15 @@
+.container-gmaps {
+    width:100%;
+    height:60vh;
+    margin-bottom: $grid-gutter-width;
+}
+
+.container-address-list {
+    .address-item {
+        margin-bottom: $grid-gutter-width;
+        h5 {
+            font-size: $font-size-base;
+            margin-bottom:0;
+        }
+    }
+}

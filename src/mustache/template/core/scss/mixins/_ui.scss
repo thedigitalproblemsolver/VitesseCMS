@@ -1,0 +1,23 @@
+.fade-animation {
+    transition:opacity 300ms;
+}
+.fade-in {
+    opacity: 1 !important;
+    z-index:3 !important;
+}
+.fade-out {
+    opacity: 0 !important;
+    z-index:2 !important;
+}
+
+.sticky {
+    &.is-sticky {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        z-index: 1000;
+        width: 100%;
+        background-color: $white;
+    }
+}

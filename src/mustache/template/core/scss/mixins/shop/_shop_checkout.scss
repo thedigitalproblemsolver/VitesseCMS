@@ -1,0 +1,159 @@
+@mixin shop-checkout-steps-xs() {
+    .checkout-steps {
+        height: 2rem;
+        margin-bottom: $grid-gutter-width;
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        li {
+            display: none;
+            &.active {
+                display: block;
+                position: absolute;
+                width: 100%;
+                a {
+                    background-color: $primary;
+                    color: $body-color;
+                    &:hover {
+                        cursor:pointer;
+                    }
+                }
+            }
+        }
+        a {
+            display: block;
+            text-align: center;
+            font-size: 1rem;
+            background-color: $link-color;
+            line-height: 2rem;
+            color: $white;
+            text-transform: lowercase;
+            &:hover {
+                cursor:default;
+            }
+        }
+    }
+
+    .container-checkout-forms {
+        hr {
+            margin-bottom: $grid-gutter-width;
+        }
+    }
+    .container-checkout-invoice {
+        margin-top:$grid-gutter-width;
+        a {
+            color: $gray-400;
+        }
+    }
+
+    .container-checkout-shipto {
+        margin-top:$grid-gutter-width;
+        margin-bottom:$grid-gutter-width;
+        .btn {
+            white-space: normal;
+        }
+        .fa {
+            color: $white;
+        }
+        h3 {
+            .fa {
+                color: $gray-400;
+            }
+        }
+        blockquote {
+            display: none;
+            &.open {
+                display: block;
+            }
+        }
+        .btn-block + .btn-block {
+            margin: 0;
+        }
+        .btn-block {
+            margin-bottom: 0.5rem !important;
+        }
+    }
+    .container-checkout-summary {
+        margin-top:$grid-gutter-width;
+        margin-bottom:$grid-gutter-width;
+    }
+    .container-checkout-ordermessage {
+        textarea {
+            min-height: 20vh;
+        }
+    }
+    #agreedTerms.form-control {
+        min-width: 20px;
+        min-height: 20px;
+    }
+}
+
+@mixin shop-checkout-steps-lg() {
+    .checkout-steps {
+        ul {
+            display: flex;
+            justify-content: space-between;
+        }
+        li {
+            display: block;
+            flex-basis: 18%;
+            position: relative;
+            text-indent: 25px;
+            &:before {
+                content:"";
+                display:inline-block;
+                width: 0;
+                height: 0;
+                border-top: 16px solid transparent;
+                border-bottom: 16px solid transparent;
+                border-left: 16px solid #fff;
+                position: absolute;
+                left:0;
+            }
+            &:after {
+                content:"";
+                display:inline-block;
+                width: 0;
+                height: 0;
+                border-top: 16px solid transparent;
+                border-bottom: 16px solid transparent;
+                border-left: 16px solid $link-color;
+                position: absolute;
+                top:0;
+                right:-16px;
+            }
+            &.active {
+                position: relative;
+                &:after {
+                    border-left: 16px solid $primary;
+                }
+            }
+            &:first-child {
+                text-indent:10px;
+                &:before {
+                    display:none;
+                }
+            }
+            &:last-child {
+                &:after {
+                    display:none;
+                }
+            }
+        }
+        a {
+            text-align: left;
+        }
+    }
+    .container-checkout-invoice {
+        h3 {
+            margin-bottom: $grid-gutter-width/2;
+        }
+    }
+    .container-checkout-shipto {
+        h3 {
+            margin-bottom: $grid-gutter-width/2;
+        }
+    }
+}

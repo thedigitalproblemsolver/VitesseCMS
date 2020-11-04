@@ -1,0 +1,14 @@
+.fa-check {
+    color:darkgreen !important;
+    &:hover {
+        color:green !important;
+    }
+}
+
+.fa-trash,
+.fa-times.red {
+    color:darkred !important;
+    &:hover {
+        color:red !important;
+    }
+}

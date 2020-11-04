@@ -1,0 +1,54 @@
+<div
+    class="{{_id}} col-12 col-lg-6 col-xl-4 card product-card"
+    itemprop="itemListElement" itemscope itemtype="http://schema.org/Product"
+>
+    <a
+        class="card-img-top text-center openmodal"
+        href="{{BASE_URI}}{{slug[]}}"
+        itemprop="url"
+    >
+        <img
+            src="{{UPLOAD_URI}}{{firstImage}}?h=250"
+            alt="{{name[]}} | {{WEBSITE_DEFAULT_NAME}}"
+            itemprop="image"
+        />
+    </a>
+    <div class="card-block">
+        <h5 class="card-title text-center">
+            <a
+                href="{{BASE_URI}}{{slug[]}}"
+                itemprop="name"
+                class="openmodal"
+            >
+                {{name[]}}
+            </a>
+        </h5>
+        <div class="d-flex justify-content-end">
+            {{> shop/free_shipping}}
+            &nbsp;
+        </div>
+        <div class="float-left d-flex justify-content-start container-colors">
+            {{#variationsTemplate.colors}}
+            <div
+                style="background-color:{{color}};"
+                data-image="{{UPLOAD_URI}}/{{image}}?h=250"
+            ></div>
+            {{/variationsTemplate.colors}}
+        </div>
+        {{> shop/clothing_small_price}}
+        <div class="float-left mt-3 w-100"></div>
+        {{#outOfStock}}
+            <div class="float-right view-product w-100 text-center text-primary">
+                %SHOP_SOLD_OUT%
+            </div>
+        {{/outOfStock}}
+        {{^outOfStock}}
+            <a
+                class="float-right view-product w-100 text-center"
+                href="{{BASE_URI}}{{slug[]}}"
+            >
+                %SHOP_VIEW_PRODUCT% <i class="fa fa-chevron-right"></i>
+            </a>
+        {{/outOfStock}}
+    </div>
+</div>

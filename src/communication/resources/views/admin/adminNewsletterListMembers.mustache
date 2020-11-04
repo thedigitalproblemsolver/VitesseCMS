@@ -1,0 +1,48 @@
+<p><b>Members</b></p>
+<table class="table table-bordered admin-list">
+{{#rows}}
+    <tr class="{{rowState}}" id="row{{key}}">
+        <td>
+            {{rowNumber}}
+        </td>
+        <td>
+            {{email}}
+        </td>
+        <td>
+            {{subscribeDate}}
+        </td>
+        <td>
+            {{unSubscribeDate}}
+        </td>
+        <td align="right">
+            {{#userId}}
+                <a
+                    href="{{baseLink}}/../../user/adminuser/edit/{{userId}}"
+                    class="fa fa-user openmodal"
+                    title="Edit user"
+                ></a>
+            {{/userId}}
+            {{#unSubscribeDate}}
+                <a
+                    href="{{baseLink}}/subscribeMember/{{baseId}}/{{key}}"
+                    class="fa fa-chain"
+                    title="{{text}}"
+                ></a>
+            {{/unSubscribeDate}}
+            {{^unSubscribeDate}}
+                <a
+                    href="{{baseLink}}/unsubscribeMember/{{baseId}}/{{key}}"
+                    class="fa fa-chain-broken"
+                    title="{{text}}"
+                ></a>
+            {{/unSubscribeDate}}
+            <a
+                id="delete_row{{key}}"
+                href="{{baseLink}}/deleteMember/{{baseId}}/{{key}}"
+                class="fa fa-trash"
+                title="{{text}}"
+            ></a>
+        </td>
+    </tr>
+{{/rows}}
+</table>

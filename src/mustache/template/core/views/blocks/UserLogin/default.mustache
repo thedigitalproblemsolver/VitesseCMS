@@ -1,0 +1,18 @@
+<a
+    href="{{{block.loginUrl}}}"
+    {{^block.loggendIn}}class="openmodal"{{/block.loggendIn}}
+    rel="nofollow"
+>
+    {{#block.loggendIn}}
+        %USER_LOGOUT%
+    {{/block.loggendIn}}
+    {{^block.loggendIn}}
+        %USER_LOGIN%
+    {{/block.loggendIn}}
+</a>
+
+{{#block.loggendIn}}
+<a href="{{BASE_URI}}user/index" rel="nofollow" >
+    %USER_MY_ACCOUNT%
+</a>
+{{/block.loggendIn}}

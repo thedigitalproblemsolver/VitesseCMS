@@ -1,0 +1,64 @@
+<section>
+    <article class="row" >
+        <div class="col-12 col-sm-12 col-md-6 col-lg-7 text-center">
+            <img
+                    class="img-fluid image-add-zoom"
+                    src="/uploads/{{ACCOUNT}}/{{currentItem.image}}?h=500"
+                    alt="{{currentItem.name[]}}"
+            />
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-5">
+            <header>
+                <h1>
+                    {{currentItem.name[]}}
+                </h1>
+            </header>
+            {{{currentItem.bodytext[]}}}
+            <div class="mt-2">
+                <a href="page:{{breweryCountry}}">
+                    {{currentItem.breweryCountryDisplay}}
+                </a>,
+                <a href="page:{{brewery}}">
+                    {{currentItem.breweryDisplay}}
+                </a>,
+                <a href="page:{{beerStyle}}">
+                    {{currentItem.beerStyleDisplay}}
+                </a>,
+                {{currentItem.alcohol}}%, {{currentItem.volumeDisplay}}, {{#currentItem.ibu}}{{currentItem.ibu}} ibu{{/currentItem.ibu}}{{^currentItem.ibu}}bitterheid onbekend{{/currentItem.ibu}}
+            </div>
+            {{#currentItem.outOfStock}}
+            {{> shop/outOfStock}}
+            <div class="row align-items-center">
+                <div class="col-5 col-lg-12 col-xl-5 container-product-price">
+                    {{{SHOP_CURRENCY_BASE}}} {{currentItem.price_sale}}
+                </div>
+            </div>
+            <div
+                    itemprop="offers"
+                    itemscope
+                    itemtype="http://schema.org/Offer"
+            >
+                <span itemprop="priceCurrency" content="{{{SHOP_CURRENCY_ISO}}}"></span>
+                <span itemprop="price" content="{{currentItem.price_sale}}"></span>
+                <link itemprop="availability" href="http://schema.org/OutOfStock">
+                <meta itemprop="itemCondition" itemtype="http://schema.org/OfferItemCondition" content="http://schema.org/NewCondition" />
+            </div>
+            {{/currentItem.outOfStock}}
+            {{^currentItem.outOfStock}}
+            <div class="container-product-price text-center text-lg-left">
+                {{{SHOP_CURRENCY_BASE}}} {{currentItem.price_sale}}
+            </div>
+            <div class="col-7 col-lg-12 col-xl-6 container-addtocart">
+                {{#currentItem.addtocart}}
+                {{> shop/addToCart}}
+                {{/currentItem.addtocart}}
+            </div>
+            {{/currentItem.outOfStock}}
+            {{#SHOP_TEXT_USP}}
+            <div class="container-usp">
+                {{{SHOP_TEXT_USP}}}
+            </div>
+            {{/SHOP_TEXT_USP}}
+        </div>
+    </article>
+</section>

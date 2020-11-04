@@ -1,0 +1,17 @@
+{{#isDev}}
+{{/isDev}}
+{{^isDev}}
+    {{#FACEBOOK_PIXEL_ID}}
+        <script>
+            fbq('track', 'ViewContent', {
+                {{#block.items}}
+                    content_ids: [{{#block.items}}'{{_id}}',{{/block.items}}],
+                {{/block.items}}
+                {{^block.items}}
+                    content_ids: ['{{currentItem._id}}'],
+                {{/block.items}}
+                content_type: 'product'
+            });
+        </script>
+    {{/FACEBOOK_PIXEL_ID}}
+{{/isDev}}

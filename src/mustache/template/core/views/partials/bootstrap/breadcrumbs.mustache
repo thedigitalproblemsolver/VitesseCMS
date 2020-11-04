@@ -1,0 +1,34 @@
+<nav id="scrollspy-nav" class="navbar navbar-default" data-toggle="sticky-onscroll" >
+    <ul class="nav nav-pills">
+        {{#block.items}}
+            <li class="nav-item text-center w-100">
+                <a class="nav-link" href="#scrollspy-{{_id}}{{id}}">
+                    {{#name[]}}
+                        {{name[]}}
+                    {{/name[]}}
+                    {{^name[]}}
+                        {{{name}}}
+                    {{/name[]}}
+                </a>
+            </li>
+        {{/block.items}}
+    </ul>
+</nav>
+<div class="container-scrollspy-elements">
+{{#block.items}}
+        <h2 id="scrollspy-{{_id}}{{id}}" >
+            {{#name[]}}
+                {{name[]}}
+            {{/name[]}}
+            {{^name[]}}
+                {{{name}}}
+            {{/name[]}}
+        </h2>
+        {{#bodytext[]}}
+            {{{bodytext[]}}}
+        {{/bodytext[]}}
+        {{^bodytext[]}}
+            {{{content}}}
+        {{/bodytext[]}}
+{{/block.items}}
+</div>
