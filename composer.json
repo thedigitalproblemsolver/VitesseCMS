@@ -1,5 +1,5 @@
 {
-  "name": "thedigitalproblemsolver/vitessecms",
+  "name": "vitessecms/vitessecms",
   "type": "project",
   "description": "CMS based on Phalcon 3 framework",
   "keywords": ["php","phalcon"],
@@ -42,5 +42,10 @@
     "ext-zlib": "*",
     "scssphp/scssphp": "^1.1",
     "phalcon/incubator": "3.2.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "VitesseCms": "src"
+    }
   }
 }
