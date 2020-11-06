@@ -36,7 +36,7 @@ class ConfigService
     }
 
     public function getTranslationDir(): string {
-        return $this->getSystemDir() . 'language/translations/' .$this->getLanguageLocale() .'/';
+        return $this->getModuleDir() . 'language/translations/' .$this->getLanguageLocale() .'/';
     }
 
     public function getAccountTranslationDir(): string {
@@ -101,6 +101,11 @@ class ConfigService
     public function getSystemDir(): string
     {
         return $this->config->getSystemDir();
+    }
+
+    public function getModuleDir(): string
+    {
+        return $this->config->getModuleDir();
     }
 
     public function getLanguageShort(): string

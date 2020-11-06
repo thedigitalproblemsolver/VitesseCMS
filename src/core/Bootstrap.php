@@ -6,14 +6,25 @@ use VitesseCms\Admin\Utils\AdminUtil;
 use VitesseCms\Core\Services\BootstrapService;
 use Phalcon\Exception;
 
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
-
-require_once __DIR__.'/../../vendor/autoload.php';
 require_once __DIR__.'/services/BootstrapService.php';
+require_once __DIR__ . '/../core/AbstractInjectable.php';
+require_once __DIR__ . '/../core/services/AbstractInjectableService.php';
+require_once __DIR__ . '/../core/services/CacheService.php';
+require_once __DIR__ . '/../core/services/UrlService.php';
+require_once __DIR__ . '/../core/services/ConfigService.php';
+require_once __DIR__ . '/../core/utils/DirectoryUtil.php';
+require_once __DIR__ . '/../core/utils/SystemUtil.php';
+require_once __DIR__ . '/../configuration/utils/AbstractConfigUtil.php';
+require_once __DIR__ . '/../configuration/utils/AccountConfigUtil.php';
+require_once __DIR__ . '/../configuration/utils/DomainConfigUtil.php';
+require_once __DIR__ . '/../core/utils/DebugUtil.php';
 
-$bootstrap = new BootstrapService();
 $cacheKey = null;
+$bootstrap = (new BootstrapService())
+    ->setSession()
+    ->setCache()
+    ->setUrl()
+    ->loadConfig();
 
 if (
     empty($_POST)
@@ -22,6 +33,8 @@ if (
     && !substr_count('admin', $_SERVER['REQUEST_URI'])
     && !$bootstrap->getConfiguration()->hasMovedTo()
 ) :
+    echo 'in cache';
+    die();
     $cacheKey = str_replace('/', '_', $_SERVER['REQUEST_URI']);
     $cacheResult = $bootstrap->getCache()->get($cacheKey);
     if ($cacheResult !== null) :
@@ -30,7 +43,11 @@ if (
     endif;
 endif;
 
-$bootstrap->setCookies()
+$bootstrap
+    ->loaderSystem()
+    ->database()
+    ->setLanguage()
+    ->setCookies()
     ->security()
     ->database()
     ->flash()

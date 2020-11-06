@@ -4,7 +4,7 @@ namespace VitesseCms\Cli;
 
 use VitesseCms\Core\Services\ConfigService;
 use VitesseCms\Core\Services\UrlService;
-use VitesseCms\Core\Utils\AccountConfigUtil;
+use VitesseCms\Configuration\Utils\AccountConfigUtil;
 use VitesseCms\Core\Utils\DirectoryUtil;
 use VitesseCms\Configuration\Utils\DomainConfigUtil;
 use VitesseCms\Core\Utils\SystemUtil;
@@ -39,7 +39,7 @@ class BoostrapCli extends Cli
 
         $registerDirs = [$this->systemDir];
         $registerNamespaces = [];
-        $moduleDirs = SystemUtil::getModules($this);
+        $moduleDirs = SystemUtil::getModules($this->getConfiguration());
 
         foreach ($moduleDirs as $moduleDir) :
             $moduleDirParts = explode('/', $moduleDir);
