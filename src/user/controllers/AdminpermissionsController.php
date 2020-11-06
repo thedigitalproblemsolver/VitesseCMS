@@ -22,7 +22,7 @@ class AdminpermissionsController extends AbstractAdminController
         PermissionRole::setFindValue('parentId', null);
         PermissionRole::setFindValue('calling_name', ['$ne' => 'superadmin']);
         $roles = PermissionRole::findAll();
-        $modules = SystemUtil::getModules(Di::getDefault());
+        $modules = SystemUtil::getModules(Di::getDefault()->get('configuration'));
         $checks = [];
         if (is_file(PermissionUtils::getAccessFileName())) :
             $checks = PermissionUtils::getAccessFile();

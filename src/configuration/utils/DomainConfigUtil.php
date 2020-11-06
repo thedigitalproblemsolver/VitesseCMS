@@ -5,7 +5,7 @@ namespace VitesseCms\Configuration\Utils;
 use Phalcon\Config\Adapter\Ini;
 use VitesseCms\Core\Utils\DebugUtil;
 
-class DomainConfigUtil extends Ini
+class DomainConfigUtil extends AbstractConfigUtil
 {
 
     /**
@@ -61,11 +61,6 @@ class DomainConfigUtil extends Ini
     /**
      * @var string
      */
-    protected $systemDir;
-
-    /**
-     * @var string
-     */
     protected $host;
 
     /**
@@ -78,9 +73,9 @@ class DomainConfigUtil extends Ini
      */
     protected $languageShortDefault;
 
-    public function __construct(string $filePath = '', ?mixed $mode = null)
+    public function __construct(string $filePath = '', $mode = null)
     {
-        $this->systemDir = __DIR__ . '/../../';
+        $this->setBaseDirs();
         $this->host = $_SERVER['HTTP_HOST'];
         $this->movedTo = '';
 
@@ -108,8 +103,8 @@ class DomainConfigUtil extends Ini
 
     public function setTemplate(): DomainConfigUtil
     {
-        $this->templateDir = $this->systemDir.'mustache/template/';
-        $this->coreTemplateDir = $this->systemDir.'mustache/template/core/';
+        $this->templateDir = $this->moduleDir.'mustache/template/';
+        $this->coreTemplateDir = $this->moduleDir.'mustache/template/core/';
 
         $settingFile = $this->systemDir.'../config/template/'.$this->get('template').'/settings.ini';
         if( is_file($settingFile)):
@@ -117,7 +112,7 @@ class DomainConfigUtil extends Ini
             $this->template = new Ini( $settingFile);
         endif;
 
-        $settingFile = $this->systemDir.'mustache/template/core/settings.ini';;
+        $settingFile = $this->moduleDir.'mustache/template/core/settings.ini';;
         if( is_string($this->template) && is_file($settingFile)):
             $this->template = new Ini( $settingFile);
             $this->templateDir =  $this->coreTemplateDir;
@@ -128,7 +123,7 @@ class DomainConfigUtil extends Ini
 
     public function setDirectories(): DomainConfigUtil
     {
-        $this->rootDir = $this->systemDir.'../';
+        $this->rootDir = $this->moduleDir.'../';
         $this->webDir = $this->systemDir.'../public_html/';
         $this->uploadDir = $this->systemDir.'../public_html/uploads/'.$this->get('account').'/';
         $this->domainDir = $this->systemDir.'../config/domain/';
@@ -198,11 +193,6 @@ class DomainConfigUtil extends Ini
     public function getCacheDir(): string
     {
         return $this->cacheDir;
-    }
-
-    public function getSystemDir(): string
-    {
-        return $this->systemDir;
     }
 
     public function getAccount(): string
