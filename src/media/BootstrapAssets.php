@@ -7,11 +7,29 @@ use VitesseCms\Media\Helpers\BootstrapAssetsService;
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
-require_once __DIR__.'/../../vendor/autoload.php';
 require_once __DIR__.'/../core/services/BootstrapService.php';
 require_once __DIR__.'/services/BootstrapAssetsService.php';
+require_once __DIR__ . '/../core/AbstractInjectable.php';
+require_once __DIR__ . '/../core/services/AbstractInjectableService.php';
+require_once __DIR__ . '/../core/services/UrlService.php';
+require_once __DIR__ . '/../core/utils/DirectoryUtil.php';
+require_once __DIR__ . '/../core/utils/SystemUtil.php';
+require_once __DIR__ . '/../core/services/CacheService.php';
+require_once __DIR__ . '/../configuration/utils/AbstractConfigUtil.php';
+require_once __DIR__ . '/../configuration/utils/AccountConfigUtil.php';
+require_once __DIR__ . '/../configuration/utils/DomainConfigUtil.php';
+require_once __DIR__ . '/../core/utils/DebugUtil.php';
+require_once __DIR__ . '/../core/services/ConfigService.php';
 
 $bootstrap = new BootstrapAssetsService();
-$bootstrap->router()->view();
+$bootstrap
+    ->setSession()
+    ->setCache()
+    ->setUrl()
+    ->loadConfig()
+    ->loaderSystem()
+    ->router()
+    ->view()
+;
 
 echo $bootstrap->application()->handle()->getContent();

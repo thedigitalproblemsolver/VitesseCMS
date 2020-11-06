@@ -10,15 +10,15 @@ use VitesseCms\Content\Services\ContentService;
 use VitesseCms\Core\CoreApplicaton;
 use VitesseCms\Core\Helpers\ItemHelper;
 use VitesseCms\Core\Interfaces\InjectableInterface;
-use VitesseCms\Core\Utils\AccountConfigUtil;
+use VitesseCms\Configuration\Utils\AccountConfigUtil;
 use VitesseCms\Core\Utils\DebugUtil;
 use VitesseCms\Core\Utils\DirectoryUtil;
 use VitesseCms\Configuration\Utils\DomainConfigUtil;
 use VitesseCms\Core\Utils\SystemUtil;
 use VitesseCms\Content\Repositories\ItemRepository;
 use VitesseCms\Language\Models\Language;
-use VitesseCms\Media\Services\AssetsService;
 use VitesseCms\Language\Services\LanguageService;
+use VitesseCms\Media\Services\AssetsService;
 use VitesseCms\Mustache\Engine;
 use VitesseCms\Mustache\Loader_FilesystemLoader;
 use VitesseCms\Mustache\MustacheEngine;
@@ -60,25 +60,6 @@ class BootstrapService extends FactoryDefault implements InjectableInterface
 
         $this->systemDir = str_replace('core/services', '', __DIR__);
         $this->mtime = (int)filemtime(__FILE__);
-
-        require_once $this->systemDir . '/core/AbstractInjectable.php';
-        require_once $this->systemDir . '/core/services/AbstractInjectableService.php';
-        require_once $this->systemDir . '/core/services/CacheService.php';
-        require_once $this->systemDir . '/core/services/UrlService.php';
-        require_once $this->systemDir . '/core/services/ConfigService.php';
-        require_once $this->systemDir . '/core/utils/DirectoryUtil.php';
-        require_once $this->systemDir . '/core/utils/SystemUtil.php';
-        require_once $this->systemDir . '/core/utils/AccountConfigUtil.php';
-        require_once $this->systemDir . '/configuration/utils/DomainConfigUtil.php';
-        require_once $this->systemDir . '/core/utils/DebugUtil.php';
-
-        $this->setSession()
-            ->setCache()
-            ->setUrl()
-            ->loadConfig()
-            ->loaderSystem()
-            ->database()
-            ->setLanguage();
     }
 
     public function loadConfig(): BootstrapService
@@ -87,7 +68,7 @@ class BootstrapService extends FactoryDefault implements InjectableInterface
         $domainConfig = $this->getCache()->get($cacheKey);
         if (!$domainConfig) :
             $domainConfig = new DomainConfigUtil();
-            $domainConfig->merge(new AccountConfigUtil($domainConfig->get('account')));
+            $domainConfig->merge(new AccountConfigUtil($domainConfig->getAccount()));
             $domainConfig->setDirectories();
             $domainConfig->setTemplate();
 
@@ -175,7 +156,7 @@ class BootstrapService extends FactoryDefault implements InjectableInterface
             ->registerNamespaces(['VitesseCms\\Core\\Utils' => $this->systemDir . 'core/utils/'], true);
 
         //TODO also handle models subdirs
-        foreach (SystemUtil::getModules($this) as $moduleDir) :
+        foreach (SystemUtil::getModules($this->getConfiguration()) as $moduleDir) :
             $moduleDirParts = explode('/', $moduleDir);
             $moduleDirParts = array_reverse($moduleDirParts);
             $moduleNamespace = ucfirst($moduleDirParts[0]);
@@ -193,6 +174,7 @@ class BootstrapService extends FactoryDefault implements InjectableInterface
                 $loader->registerNamespaces(['VitesseCms\\' . $moduleNamespace . '\\' . ucfirst($subDirParts[0]) => $subDir], true);
             endforeach;
         endforeach;
+
         $this->getCache()->save($loaderCacheKey, $loader);
 
         $loader->register();
@@ -206,7 +188,7 @@ class BootstrapService extends FactoryDefault implements InjectableInterface
             'cache',
             new CacheService(
                 $this->systemDir .
-                '../cache/' .
+                '../../../../cache/' .
                 strtolower($this->getRequest()->getHttpHost()) .
                 '/',
                 604800
@@ -350,7 +332,7 @@ class BootstrapService extends FactoryDefault implements InjectableInterface
         $this->getEventsManager()->attach('discount', new DiscountListener());
         $this->getEventsManager()->attach('user', new DiscountListener());
 
-        foreach (SystemUtil::getModules($this) as $path) :
+        foreach (SystemUtil::getModules($this->getConfiguration()) as $path) :
             $listenerPath = $path . '/listeners/InitiateListeners.php';
             if (AdminUtil::isAdminPage()):
                 $listenerPath = $path . '/listeners/InitiateAdminListeners.php';

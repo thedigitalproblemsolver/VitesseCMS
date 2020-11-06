@@ -4,21 +4,16 @@ namespace VitesseCms\Core\Utils;
 
 use Phalcon\Di;
 use Phalcon\DiInterface;
+use VitesseCms\Core\Services\ConfigService;
 
-/**
- * Class SystemUtil
- */
 class SystemUtil
 {
-    /**
-     * @return array
-     */
-    public static function getModules(DiInterface $di): array
+    public static function getModules(ConfigService $configService): array
     {
         $return = [];
         $directories = [
-            $di->get('config')->getRootDir() . 'src',
-            $di->get('config')->getAccountDir() . 'src',
+            $configService->getRootDir() . 'src',
+            $configService->getAccountDir() . 'src',
         ];
 
         foreach ($directories as $directory) :
@@ -29,16 +24,11 @@ class SystemUtil
         return $return;
     }
 
-    /**
-     * @param bool $namespaceAsKey
-     *
-     * @return array
-     */
     public static function getModels(bool $namespaceAsKey = false): array
     {
         $return = [];
 
-        foreach (SystemUtil::getModules(Di::getDefault()) as $moduleName => $modulePath) :
+        foreach (SystemUtil::getModules(Di::getDefault()->get('configuration')) as $moduleName => $modulePath) :
             DirectoryUtil::getFilelist($modulePath . '/models');
             $return = array_merge($return, DirectoryUtil::getFilelist($modulePath . '/models'));
         endforeach;
@@ -73,11 +63,6 @@ class SystemUtil
         return $ns.'\\'.str_replace('.php','',(new \SplFileInfo($path))->getFilename());
     }
 
-    /**
-     * @param string $class
-     *
-     * @return string
-     */
     public static function getFormclassFromClass(string $class): string
     {
         $classElements = [];
@@ -91,11 +76,6 @@ class SystemUtil
         return implode('\\', $classElements);
     }
 
-    /**
-     * @param string $type
-     *
-     * @return array
-     */
     public static function getTemplateFiles(string $type): array
     {
         $config = Di::getDefault()->get('config');
@@ -124,11 +104,6 @@ class SystemUtil
         return $return;
     }
 
-    /**
-     * @param $namespace
-     *
-     * @return bool
-     */
     public static function loadClassFromNamespace($namespace): bool
     {
         $tmp = explode('\\',$namespace);

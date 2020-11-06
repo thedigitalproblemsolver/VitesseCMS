@@ -1,17 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace VitesseCms\Core\Utils;
+namespace VitesseCms\Configuration\Utils;
 
-use Phalcon\Config\Adapter\Ini;
+use VitesseCms\Core\Utils\DebugUtil;
 
-class AccountConfigUtil extends Ini
+class AccountConfigUtil extends AbstractConfigUtil
 {
-
-    protected $systemDir;
-
     public function __construct($filePath, $mode = null)
     {
-        $this->systemDir = __DIR__.'/../../';
+        $this->setBaseDirs();
 
         $file = 'config.ini';
         if (DebugUtil::isDocker($_SERVER['SERVER_ADDR'] ?? '')) :
