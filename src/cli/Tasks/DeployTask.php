@@ -39,10 +39,22 @@ class DeployTask extends Task
      */
     protected $vendorDir;
 
+    /**
+     * @var string
+     */
+    protected $accountDir;
+
+    /**
+     * @var string
+     */
+    protected $assetsDir;
+
     public function initialize()
     {
         $this->publicHtmlDir = __DIR__.'/../../../../../../public_html/';
         $this->vendorDir = __DIR__.'/../../../../../';
+        $this->accountDir = $this->getDI()->getConfiguration()->getAccountDir();
+        $this->assetsDir = $this->getDI()->getConfiguration()->getAssetsDir();
     }
 
     public function assetsAction(): void
@@ -50,10 +62,8 @@ class DeployTask extends Task
         $this->coreAssetsDir = $this->publicHtmlDir.'assets/default/';
         
         $this->accountMapping = [];
-        if (is_file($this->getDI()->getConfiguration()->getAccountDir().'Deploy/FileMapping.json')) :
-            $this->accountMapping = (new Json(
-                $this->getDI()->getConfiguration()->getAccountDir().'Deploy/FileMapping.json')
-            )->toArray();
+        if (is_file($this->accountDir.'Deploy/FileMapping.json')) :
+            $this->accountMapping = (new Json($this->accountDir.'Deploy/FileMapping.json'))->toArray();
         endif;
         $this->parseMapping($this->getJSMapping());
         $this->parseMapping($this->getImageMapping());
@@ -177,13 +187,13 @@ class DeployTask extends Task
     protected function buildCss(): void
     {
         $scssCompiler = new Compiler();
-        $scssCompiler->addImportPath($this->getDI()->getConfiguration()->getAccountDir().'scss/');
+        $scssCompiler->addImportPath($this->accountDir.'scss/');
         $scssCompiler->setFormatter(Crunched::class);
         $scssCompiled = $scssCompiler->compile(
-            file_get_contents($this->getDI()->getConfiguration()->getAccountDir().'scss/site.scss')
+            file_get_contents($this->accountDir.'scss/site.scss')
         );
 
-        file_put_contents($this->getDI()->getConfiguration()->getAssetsDir().'css/site.css', $scssCompiled);
+        file_put_contents($this->assetsDir.'css/site.css', $scssCompiled);
     }
 
     protected function buildAdminCss(): void
