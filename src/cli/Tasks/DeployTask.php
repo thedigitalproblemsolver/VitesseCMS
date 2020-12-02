@@ -24,17 +24,46 @@ class DeployTask extends Task
      */
     protected $di;
 
+    /**
+     * @var string
+     */
     protected $coreAssetsDir;
+
+    /**
+     * @var string
+     */
+    protected $publicHtmlDir;
+
+    /**t
+     * @var string
+     */
+    protected $vendorDir;
+
+    /**
+     * @var string
+     */
+    protected $accountDir;
+
+    /**
+     * @var string
+     */
+    protected $assetsDir;
+
+    public function initialize()
+    {
+        $this->publicHtmlDir = __DIR__.'/../../../../../../public_html/';
+        $this->vendorDir = __DIR__.'/../../../../../';
+        $this->accountDir = $this->getDI()->getConfiguration()->getAccountDir();
+        $this->assetsDir = $this->getDI()->getConfiguration()->getAssetsDir();
+    }
 
     public function assetsAction(): void
     {
-        $this->coreAssetsDir = __DIR__.'/../../../public_html/assets/default/';
+        $this->coreAssetsDir = $this->publicHtmlDir.'assets/default/';
         
         $this->accountMapping = [];
-        if (is_file($this->getDI()->getConfiguration()->getAccountDir().'Deploy/FileMapping.json')) :
-            $this->accountMapping = (new Json(
-                $this->getDI()->getConfiguration()->getAccountDir().'Deploy/FileMapping.json')
-            )->toArray();
+        if (is_file($this->accountDir.'Deploy/FileMapping.json')) :
+            $this->accountMapping = (new Json($this->accountDir.'Deploy/FileMapping.json'))->toArray();
         endif;
         $this->parseMapping($this->getJSMapping());
         $this->parseMapping($this->getImageMapping());
@@ -52,14 +81,14 @@ class DeployTask extends Task
     protected function parseMapping(MappingIterator $mappingIterator): void
     {
         while ($mappingIterator->valid()) :
-            $mappig = $mappingIterator->current();
-            if (substr_count($mappig->getSource(), '/*') === 1) :
-                $dir = str_replace('/*', '/', $mappig->getSource());
+            $mapping = $mappingIterator->current();
+            if (substr_count($mapping->getSource(), '/*') === 1) :
+                $dir = str_replace('/*', '/', $mapping->getSource());
                 foreach (DirectoryUtil::getFilelist($dir) as $file) :
-                    $this->copy($dir.$file, $mappig->getTarget().$file);
+                    $this->copy($dir.$file, $mapping->getTarget().$file);
                 endforeach;
             else :
-                $this->copy($mappig->getSource(), $mappig->getTarget());
+                $this->copy($mapping->getSource(), $mapping->getTarget());
             endif;
             $mappingIterator->next();
         endwhile;
@@ -80,19 +109,19 @@ class DeployTask extends Task
         $jsMapping = new MappingIterator([
             new Mapping(
                 __DIR__.'/../../filemanager/resources/js/*',
-                __DIR__.'/../../../public_html/assets/default/js/'
+                $this->publicHtmlDir.'assets/default/js/'
             ),
             new Mapping(
                 __DIR__.'/../../core/resources/js/*',
-                __DIR__.'/../../../public_html/assets/default/js/'
+                $this->publicHtmlDir.'assets/default/js/'
             ),
             new Mapping(
-                __DIR__.'/../../../vendor/seiyria/bootstrap-slider/dist/bootstrap-slider.min.js',
-                __DIR__.'/../../../public_html/assets/default/js/bootstrap-slider.min.js'
+                $this->vendorDir.'seiyria/bootstrap-slider/dist/bootstrap-slider.min.js',
+                $this->publicHtmlDir.'assets/default/js/bootstrap-slider.min.js'
             ),
             new Mapping(
-                __DIR__.'/../../../vendor/itsjavi/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js',
-                __DIR__.'/../../../public_html/assets/default/js/bootstrap-colorpicker.min.js'
+                $this->vendorDir.'itsjavi/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js',
+                $this->publicHtmlDir.'assets/default/js/bootstrap-colorpicker.min.js'
             ),
         ]);
 
@@ -111,7 +140,7 @@ class DeployTask extends Task
     {
         $cssMapping = new MappingIterator([
             new Mapping(
-                __DIR__.'/../../../vendor/seiyria/bootstrap-slider/dist/css/bootstrap-slider.min.css',
+                $this->vendorDir.'seiyria/bootstrap-slider/dist/css/bootstrap-slider.min.css',
                 $this->coreAssetsDir.'css/bootstrap-slider.min.css'
             ),
         ]);
@@ -131,16 +160,16 @@ class DeployTask extends Task
     {
         $imageMapping = new MappingIterator([
             new Mapping(
-                __DIR__.'/../../../vendor/itsjavi/bootstrap-colorpicker/dist/img/bootstrap-colorpicker/*',
-                __DIR__.'/../../../public_html/assets/default/images/'
+                $this->vendorDir.'itsjavi/bootstrap-colorpicker/dist/img/bootstrap-colorpicker/*',
+                $this->publicHtmlDir.'assets/default/images/'
             ),
             new Mapping(
-                __DIR__.'/../../../vendor/components/flag-icon-css/flags/1x1/*',
-                __DIR__.'/../../../public_html/assets/default/images/flags/1x1/'
+                $this->vendorDir.'components/flag-icon-css/flags/1x1/*',
+                $this->publicHtmlDir.'assets/default/images/flags/1x1/'
             ),
             new Mapping(
-                __DIR__.'/../../../vendor/components/flag-icon-css/flags/4x3/*',
-                __DIR__.'/../../../public_html/assets/default/images/flags/4x3/'
+                $this->vendorDir.'components/flag-icon-css/flags/4x3/*',
+                $this->publicHtmlDir.'assets/default/images/flags/4x3/'
             ),
         ]);
 
@@ -158,13 +187,13 @@ class DeployTask extends Task
     protected function buildCss(): void
     {
         $scssCompiler = new Compiler();
-        $scssCompiler->addImportPath($this->getDI()->getConfiguration()->getAccountDir().'scss/');
+        $scssCompiler->addImportPath($this->accountDir.'scss/');
         $scssCompiler->setFormatter(Crunched::class);
         $scssCompiled = $scssCompiler->compile(
-            file_get_contents($this->getDI()->getConfiguration()->getAccountDir().'scss/site.scss')
+            file_get_contents($this->accountDir.'scss/site.scss')
         );
 
-        file_put_contents($this->getDI()->getConfiguration()->getAssetsDir().'css/site.css', $scssCompiled);
+        file_put_contents($this->assetsDir.'css/site.css', $scssCompiled);
     }
 
     protected function buildAdminCss(): void

@@ -6,10 +6,11 @@ use Exception;
 use VitesseCms\Cli\Utils\CliUtil;
 use Phalcon\Cli\Console as ConsoleApp;
 
-require __DIR__.'/../../vendor/autoload.php';
+require __DIR__.'/../../../../../vendor/autoload.php';
+require __DIR__ . '/../configuration/utils/AbstractConfigUtil.php';
 require __DIR__ . '/../configuration/utils/DomainConfigUtil.php';
 require __DIR__.'/../core/utils/DebugUtil.php';
-require __DIR__ . '/../core/utils/AccountConfigUtil.php';
+require __DIR__ . '/../configuration/utils/AccountConfigUtil.php';
 require __DIR__.'/../core/services/ConfigService.php';
 require __DIR__.'/../core/services/UrlService.php';
 require 'BoostrapCli.php';
