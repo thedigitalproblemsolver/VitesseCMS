@@ -33,8 +33,6 @@ if (
     && !substr_count('admin', $_SERVER['REQUEST_URI'])
     && !$bootstrap->getConfiguration()->hasMovedTo()
 ) :
-    echo 'in cache';
-    die();
     $cacheKey = str_replace('/', '_', $_SERVER['REQUEST_URI']);
     $cacheResult = $bootstrap->getCache()->get($cacheKey);
     if ($cacheResult !== null) :
