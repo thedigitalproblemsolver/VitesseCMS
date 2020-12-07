@@ -41,7 +41,8 @@
     "ext-json": "*",
     "ext-zlib": "*",
     "scssphp/scssphp": "^1.1",
-    "phalcon/incubator": "3.2.6"
+    "phalcon/incubator": "3.2.6",
+    "vitessecms/import": "^0.0.1"
   },
   "autoload": {
     "psr-4": {
