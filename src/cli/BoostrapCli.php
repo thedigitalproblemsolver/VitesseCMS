@@ -5,6 +5,7 @@ namespace VitesseCms\Cli;
 use VitesseCms\Core\Services\ConfigService;
 use VitesseCms\Core\Services\UrlService;
 use VitesseCms\Configuration\Utils\AccountConfigUtil;
+use VitesseCms\Core\Utils\BootstrapUtil;
 use VitesseCms\Core\Utils\DirectoryUtil;
 use VitesseCms\Configuration\Utils\DomainConfigUtil;
 use VitesseCms\Core\Utils\SystemUtil;
@@ -36,32 +37,11 @@ class BoostrapCli extends Cli
                 'VitesseCms\\Core\\Utils'   => $this->systemDir.'core/utils/',
             ]
         );
-
-        $registerDirs = [$this->systemDir];
-        $registerNamespaces = [];
-        $moduleDirs = SystemUtil::getModules($this->getConfiguration());
-
-        foreach ($moduleDirs as $moduleDir) :
-            $moduleDirParts = explode('/', $moduleDir);
-            $moduleDirParts = array_reverse($moduleDirParts);
-            $moduleNamespace = ucfirst($moduleDirParts[0]);
-            if ($moduleDirParts[2] === $this->get('config')->account) :
-                $moduleNamespace = ucfirst($moduleDirParts[2]).'\\'.$moduleNamespace;
-            endif;
-
-            $registerDirs[$moduleDir] = null;
-            $registerNamespaces['VitesseCms\\'.$moduleNamespace] = $moduleDir;
-            $subDirs = DirectoryUtil::getChildren($moduleDir);
-            foreach ($subDirs as $subDir) :
-                $subDirParts = explode('/', $subDir);
-                $subDirParts = array_reverse($subDirParts);
-                $registerDirs[$subDir] = null;
-                $registerNamespaces['VitesseCms\\'.$moduleNamespace.'\\'.ucfirst($subDirParts[0])] = $subDir;
-            endforeach;
-        endforeach;
-
-        $loader->registerDirs($registerDirs)->register();
-        $loader->registerNamespaces($registerNamespaces);
+        $loader = BootstrapUtil::addModulesToLoader(
+            $loader,
+            SystemUtil::getModules($this->getConfiguration()),
+            $this->getConfiguration()->getAccount()
+        );
 
         return $loader;
     }

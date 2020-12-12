@@ -14,6 +14,7 @@ require_once __DIR__ . '/../core/services/AbstractInjectableService.php';
 require_once __DIR__ . '/../core/services/UrlService.php';
 require_once __DIR__ . '/../core/utils/DirectoryUtil.php';
 require_once __DIR__ . '/../core/utils/SystemUtil.php';
+require_once __DIR__ . '/../core/utils/BootstrapUtil.php';
 require_once __DIR__ . '/../core/services/CacheService.php';
 require_once __DIR__ . '/../configuration/utils/AbstractConfigUtil.php';
 require_once __DIR__ . '/../configuration/utils/AccountConfigUtil.php';

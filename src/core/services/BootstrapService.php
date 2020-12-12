@@ -11,6 +11,7 @@ use VitesseCms\Core\CoreApplicaton;
 use VitesseCms\Core\Helpers\ItemHelper;
 use VitesseCms\Core\Interfaces\InjectableInterface;
 use VitesseCms\Configuration\Utils\AccountConfigUtil;
+use VitesseCms\Core\Utils\BootstrapUtil;
 use VitesseCms\Core\Utils\DebugUtil;
 use VitesseCms\Core\Utils\DirectoryUtil;
 use VitesseCms\Configuration\Utils\DomainConfigUtil;
@@ -155,29 +156,11 @@ class BootstrapService extends FactoryDefault implements InjectableInterface
             ->registerNamespaces(['VitesseCms\\Core\\Helpers' => $this->systemDir . 'core/helpers/'], true)
             ->registerNamespaces(['VitesseCms\\Core\\Utils' => $this->systemDir . 'core/utils/'], true);
 
-        //TODO also handle models subdirs
-        foreach (SystemUtil::getModules($this->getConfiguration()) as $moduleDir) :
-            $moduleDirParts = explode('/', $moduleDir);
-            $moduleDirParts = array_reverse($moduleDirParts);
-            $moduleNamespace = ucfirst($moduleDirParts[0]);
-            if($moduleNamespace === 'Src') :
-                $moduleNamespace = ucfirst($moduleDirParts[1]);
-            endif;
-            if ($moduleDirParts[2] === $this->get('config')->account) :
-                $moduleNamespace = ucfirst($moduleDirParts[2]) . '\\' . $moduleNamespace;
-            endif;
-
-            $loader->registerDirs([$moduleDir], true);
-            $loader->registerNamespaces(['VitesseCms\\' . $moduleNamespace => $moduleDir], true);
-
-            $subDirs = DirectoryUtil::getChildren($moduleDir);
-            foreach ($subDirs as $subDir) :
-                $subDirParts = explode('/', $subDir);
-                $subDirParts = array_reverse($subDirParts);
-                $loader->registerDirs([$subDir], true);
-                $loader->registerNamespaces(['VitesseCms\\' . $moduleNamespace . '\\' . ucfirst($subDirParts[0]) => $subDir], true);
-            endforeach;
-        endforeach;
+        $loader = BootstrapUtil::addModulesToLoader(
+            $loader,
+            SystemUtil::getModules($this->getConfiguration()),
+            $this->getConfiguration()->getAccount()
+        );
 
         $this->getCache()->save($loaderCacheKey, $loader);
         $loader->register();
