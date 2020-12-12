@@ -22,10 +22,16 @@ class ConfigService
      */
     protected $language;
 
+    /**
+     * @var string
+     */
+    protected $vendorNameDir;
+
     public function __construct(DomainConfigUtil $config, UrlService $url)
     {
         $this->config = $config;
         $this->url = $url;
+        $this->vendorNameDir = $config->getRootDir().'../';
     }
 
     public function getUploadUri(): string
@@ -61,6 +67,11 @@ class ConfigService
     public function getRootDir(): string
     {
         return $this->config->getRootDir();
+    }
+
+    public function getVendorNameDir(): string
+    {
+        return $this->vendorNameDir;
     }
 
     public function getWebDir(): string
