@@ -438,15 +438,14 @@ class BootstrapService extends FactoryDefault implements InjectableInterface
         $cacheKey = $this->getCache()->getCacheKey('bootstrap-application-' . $this->mtime);
         $registerModules = $this->getCache()->get($cacheKey);
         if (!$registerModules) :
-            $modules = DirectoryUtil::getChildren($this->systemDir);
-
             $registerModules = [];
-            foreach ($modules as $moduleName => $dir) :
+            foreach (SystemUtil::getModules($this->getConfiguration()) as $moduleName => $dir) :
                 $registerModules[$moduleName] = [
                     'className' => 'VitesseCms\\' . ucfirst($moduleName) . '\\Module',
                     'path' => $dir . '/Module.php',
                 ];
             endforeach;
+
             $this->getCache()->save($cacheKey, $registerModules);
         endif;
         $application->registerModules($registerModules);
