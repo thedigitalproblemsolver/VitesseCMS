@@ -2,6 +2,7 @@
 
 namespace VitesseCms\Language\Services;
 
+use VitesseCms\Admin\Utils\AdminUtil;
 use VitesseCms\Core\Services\AbstractInjectableService;
 use Phalcon\Config\Adapter\Ini;
 
@@ -21,20 +22,25 @@ class LanguageService extends AbstractInjectableService
     {
         $parts = explode('_', $key);
         $module = $parts[0];
-        $iniFile = $this->configuration->getTranslationDir().strtolower($module).'.ini';
-        $accountIniFile = $this->configuration->getAccountTranslationDir().strtolower($module).'.ini';
 
-        if (
-            empty($this->translations[$module])
-            && is_file($iniFile)
-        ) :
-            $this->translations[$module] = new Ini($iniFile);
-            if(is_file($accountIniFile)) :
-                $this->translations[$module]->merge(new Ini($accountIniFile));
+        if (!isset($this->translations[$module])) :
+            $iniFile = $this->configuration->getTranslationDir() . strtolower($module) . '.ini';
+            $accountIniFile = $this->configuration->getAccountTranslationDir() . strtolower($module) . '.ini';
+            $vendorNameAdminIniFile = $this->configuration->getVendorNameDir() . strtolower($module) . '/src/translations/' . $this->configuration->getLanguageLocale() . '/admin.ini';
+            $this->translations[$module] = null;
+
+            $this->addFileToTranslation($module, $iniFile);
+            $this->addFileToTranslation($module, $accountIniFile);
+            if (AdminUtil::isAdminPage()) :
+                $this->addFileToTranslation($module, $vendorNameAdminIniFile);
             endif;
         endif;
 
-        $return = $this->translations[$module]->get(str_replace($module.'_', '', $key), $key);
+        if ($this->translations[$module] === null) :
+            return $key;
+        endif;
+
+        $return = $this->translations[$module]->get(str_replace($module . '_', '', $key), $key);
 
         if (count($replace) > 0) :
             $search = [];
@@ -48,6 +54,17 @@ class LanguageService extends AbstractInjectableService
         return $return;
     }
 
+    private function addFileToTranslation(string $module, string $file): void
+    {
+        if (is_file($file)) :
+            if ($this->translations[$module] === null) :
+                $this->translations[$module] = new Ini($file);
+            else :
+                $this->translations[$module]->merge(new Ini($file));
+            endif;
+        endif;
+    }
+
     public function parsePlaceholders(string $string): string
     {
         $parsed = [];
@@ -55,7 +72,7 @@ class LanguageService extends AbstractInjectableService
         preg_match_all("/%([A-Z_]*)%/", $string, $aMatches);
         foreach ($aMatches[1] as $key => $value) :
             if (!in_array($value, $parsed, true)) :
-                $string = str_replace('%'.$value.'%', $this->get($value), $string);
+                $string = str_replace('%' . $value . '%', $this->get($value), $string);
                 $parsed[] = $value;
             endif;
         endforeach;

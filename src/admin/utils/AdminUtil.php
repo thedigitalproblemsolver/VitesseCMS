@@ -42,7 +42,8 @@ class AdminUtil
         User $user,
         Manager $eventsManager,
         ViewService $view
-    ) {
+    )
+    {
         $this->setting = $setting;
         $this->user = $user;
         $this->eventsManager = $eventsManager;
@@ -63,8 +64,8 @@ class AdminUtil
 
         $navbar = [
             'navClass' => 'admin-toolbar fixed-top navbar-dark',
-            'items'    => $this->toolbarAclCheck($adminMenu->getNavbarItems()),
-            'form'     => $adminForm->renderForm(
+            'items' => $this->toolbarAclCheck($adminMenu->getNavbarItems()),
+            'form' => $adminForm->renderForm(
                 'admin/core/adminindex/toggleParameters',
                 'adminToolbarForm'
             ),
@@ -79,35 +80,27 @@ class AdminUtil
 
     protected function toolbarAclCheck(array $navbarItems): array
     {
-        if ('superadmin' !== $this->user->getPermissionRole()) :
-            foreach ($navbarItems as $parentIndex => $parent) :
-                foreach ($parent['children'] as $childIndex => $child) :
-                    if ($child['slug'] !== '#') :
-                        $path = explode('/', $child['slug']);
-                        if (!PermissionUtils::check(
-                            $this->user,
-                            $path[1],
-                            $path[2],
-                            $path[3]
-                        )) :
-                            unset($parent['children'][$childIndex]);
-                        endif;
+        foreach ($navbarItems as $parentIndex => $parent) :
+            foreach ($parent['children'] as $childIndex => $child) :
+                if ($child['slug'] !== '#') :
+                    $path = explode('/', $child['slug']);
+                    if (
+                        'superadmin' !== $this->user->getPermissionRole() &&
+                        !PermissionUtils::check($this->user, $path[1], $path[2], $path[3])
+                    ) :
+                        unset($parent['children'][$childIndex]);
                     endif;
-                endforeach;
-                if (count($parent['children']) === 0) :
-                    unset($navbarItems[$parentIndex]);
-                else :
-                    //reset array-keys for mustache use
-                    $newChildren = [];
-                    foreach ($parent['children'] as $child):
-                        $newChildren[] = $child;
-                    endforeach;
-                    $navbarItems[$parentIndex]['children'] = $newChildren;
                 endif;
             endforeach;
-        endif;
 
-        return $navbarItems;
+            if (count($parent['children']) === 0) :
+                unset($navbarItems[$parentIndex]);
+            else :
+                $navbarItems[$parentIndex]['children'] = array_values($parent['children']);
+            endif;
+        endforeach;
+
+        return array_values($navbarItems);
     }
 
     public static function getComponentDatagroup(string $component): array

@@ -11,7 +11,7 @@ class AdminMenuNavBarChildren
 
     public function addChild(string $name, string $slug, string $target = ''): AdminMenuNavBarChildren
     {
-        $this->items[] = (new AdminMenuNavBarChild($name, $slug, $target))->toArray();
+        $this->items[$name] = (new AdminMenuNavBarChild($name, $slug, $target))->toArray();
 
         return $this;
     }

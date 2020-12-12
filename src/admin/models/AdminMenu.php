@@ -32,7 +32,8 @@ class AdminMenu
         AdminMenuGroupIterator $groups,
         SettingService $setting,
         User $user
-    ) {
+    )
+    {
         $this->navbarItems = $navbarItems;
         $this->setting = $setting;
         $this->groups = $groups;
@@ -51,13 +52,19 @@ class AdminMenu
 
     public function addDropbown(string $name, AdminMenuNavBarChildren $children): AdminMenu
     {
-        $this->navbarItems[] = (new AdminMenuNavBarItem(
-            $name,
-            '#',
-            'dropdown-toggle',
-            'data-toggle="dropdown"',
-            $children->getItems()
-        ))->toArray();
+        if (!isset($this->navbarItems[$name])) :
+            $this->navbarItems[$name] = (new AdminMenuNavBarItem(
+                $name,
+                '#',
+                'dropdown-toggle',
+                'data-toggle="dropdown"',
+                $children->getItems()
+            ))->toArray();
+        else :
+            $this->navbarItems[$name]['children'] += $children->getItems();
+            ksort($this->navbarItems[$name]['children']);
+            $this->navbarItems[$name]['children'];
+        endif;
 
         return $this;
     }

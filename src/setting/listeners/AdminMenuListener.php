@@ -21,7 +21,6 @@ class AdminMenuListener
                 ->addChild('Job-queue', 'admin/core/adminjobqueue/adminList')
                 ->addChild('Execute job', 'core/JobQueue/execute','_blank')
                 ->addChild('Export', 'admin/export/adminindex/index')
-                ->addChild('Import', 'admin/import/adminindex/index')
                 ->addChild('SEF-redirects', 'admin/sef/adminredirect/adminList')
             ;
 
