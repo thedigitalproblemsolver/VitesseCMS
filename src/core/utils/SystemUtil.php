@@ -12,12 +12,21 @@ class SystemUtil
     {
         $return = [];
         $directories = [
-            $configService->getRootDir() . 'src',
-            $configService->getAccountDir() . 'src',
+            'rootdir' => $configService->getRootDir() . 'src',
+            'accountdir' => $configService->getAccountDir() . 'src',
+            'verdornamedir' => $configService->getVendorNameDir()
         ];
 
-        foreach ($directories as $directory) :
-            $return = array_merge($return, DirectoryUtil::getChildren($directory));
+        foreach ($directories as $type => $directory) :
+            if($type === 'verdornamedir') :
+                $children = DirectoryUtil::getChildren($directory);
+                unset($children['vitessecms']);
+                foreach ($children as $key => $dir) :
+                    $return[$key] = $dir.'/src';
+                endforeach;
+            else :
+                $return = array_merge($return, DirectoryUtil::getChildren($directory));
+            endif;
         endforeach;
         ksort($return);
 

@@ -160,12 +160,16 @@ class BootstrapService extends FactoryDefault implements InjectableInterface
             $moduleDirParts = explode('/', $moduleDir);
             $moduleDirParts = array_reverse($moduleDirParts);
             $moduleNamespace = ucfirst($moduleDirParts[0]);
+            if($moduleNamespace === 'Src') :
+                $moduleNamespace = ucfirst($moduleDirParts[1]);
+            endif;
             if ($moduleDirParts[2] === $this->get('config')->account) :
                 $moduleNamespace = ucfirst($moduleDirParts[2]) . '\\' . $moduleNamespace;
             endif;
 
             $loader->registerDirs([$moduleDir], true);
             $loader->registerNamespaces(['VitesseCms\\' . $moduleNamespace => $moduleDir], true);
+
             $subDirs = DirectoryUtil::getChildren($moduleDir);
             foreach ($subDirs as $subDir) :
                 $subDirParts = explode('/', $subDir);
@@ -176,7 +180,6 @@ class BootstrapService extends FactoryDefault implements InjectableInterface
         endforeach;
 
         $this->getCache()->save($loaderCacheKey, $loader);
-
         $loader->register();
 
         return $this;
