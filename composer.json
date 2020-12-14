@@ -11,11 +11,6 @@
       "email": "info@thedigitalproblemsolver.com"
     }
   ],
-  "config": {
-    "platform": {
-      "php": ">=7.3.0"
-    }
-  },
   "require": {
     "twbs/bootstrap": "^4.3",
     "mustache/mustache": "^2.11",
