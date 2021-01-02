@@ -16,6 +16,11 @@ class Language extends AbstractCollection
      */
     public $locale;
 
+    /**
+     * @var string
+     */
+    public $domain;
+
     public function getShortCode(): ?string
     {
         return $this->short;
@@ -24,5 +29,10 @@ class Language extends AbstractCollection
     public function getLocale(): ?string
     {
         return $this->locale;
+    }
+
+    public function getDomain(): ?string
+    {
+        return $this->domain;
     }
 }

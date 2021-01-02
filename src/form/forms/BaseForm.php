@@ -1,12 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace VitesseCms\Form\Forms;
 
 use VitesseCms\Form\AbstractForm;
 
-/**
- * Class BaseForm
- */
 class BaseForm extends AbstractForm
 {
 
