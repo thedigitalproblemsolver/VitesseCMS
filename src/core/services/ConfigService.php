@@ -160,6 +160,11 @@ class ConfigService
         return $this;
     }
 
+    public function getLanguage(): Language
+    {
+        return $this->language;
+    }
+
     public function hasMovedTo(): bool
     {
         return $this->config->hasMovedTo();

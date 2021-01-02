@@ -355,6 +355,14 @@ abstract class AbstractAdminController extends AbstractController
 
         if ($form !== null) :
             $form->setEntity($item);
+            if($this->repositories !== null && method_exists($form,'setRepositories')) :
+                $form->setRepositories($this->repositories);
+            endif;
+            if(method_exists($form,'buildForm')) :
+
+                $form->buildForm();
+            endif;
+
             $adminEditForm = $form->renderForm(
                 'admin/'.$this->router->getModuleName().'/'.$this->router->getControllerName().'/save/'.$itemId
             );

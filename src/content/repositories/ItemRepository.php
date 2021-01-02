@@ -4,6 +4,7 @@ namespace VitesseCms\Content\Repositories;
 
 use VitesseCms\Content\Models\Item;
 use VitesseCms\Content\Models\ItemIterator;
+use VitesseCms\Database\Models\FindOrderIterator;
 use VitesseCms\Database\Models\FindValueIterator;
 
 class ItemRepository
@@ -11,14 +12,16 @@ class ItemRepository
     public function findAll(
         ?FindValueIterator $findValues = null,
         bool $hideUnpublished = true,
-        ?int $limit = null
+        ?int $limit = null,
+        ?FindOrderIterator $findOrders = null
     ): ItemIterator {
         Item::setFindPublished($hideUnpublished);
         Item::addFindOrder('name');
         if($limit !== null) :
             Item::setFindLimit($limit);
         endif;
-        $this->parsefindValues($findValues);
+        $this->parseFindValues($findValues);
+        $this->parseFindOrders($findOrders);
 
         return new ItemIterator(Item::findAll());
     }
@@ -66,7 +69,7 @@ class ItemRepository
         return null;
     }
 
-    protected function parsefindValues(?FindValueIterator $findValues = null): void
+    protected function parseFindValues(?FindValueIterator $findValues = null): void
     {
         if ($findValues !== null) :
             while ($findValues->valid()) :
@@ -77,6 +80,20 @@ class ItemRepository
                     $findValue->getType()
                 );
                 $findValues->next();
+            endwhile;
+        endif;
+    }
+
+    protected function parseFindOrders(?FindOrderIterator $findOrders = null): void
+    {
+        if ($findOrders !== null) :
+            while ($findOrders->valid()) :
+                $findOrder = $findOrders->current();
+                Item::addFindOrder(
+                    $findOrder->getKey(),
+                    $findOrder->getOrder()
+                );
+                $findOrders->next();
             endwhile;
         endif;
     }
