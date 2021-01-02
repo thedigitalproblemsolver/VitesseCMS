@@ -2,6 +2,7 @@
 
 namespace VitesseCms\Core;
 
+use VitesseCms\Admin\Repositories\DatagroupRepository;
 use VitesseCms\Admin\Utils\AdminUtil;
 use VitesseCms\Block\Models\BlockPosition;
 use VitesseCms\Block\Repositories\BlockPositionRepository;
@@ -149,6 +150,7 @@ abstract class AbstractController extends Controller implements InjectableInterf
         endif;
     }
 
+    //TODO to admin controller?
     protected function adminToolbar(): string
     {
         if (!$this->user->hasAdminAccess()) :
@@ -161,7 +163,8 @@ abstract class AbstractController extends Controller implements InjectableInterf
             $this->setting,
             $this->user,
             $this->eventsManager,
-            $this->view
+            $this->view,
+            new DatagroupRepository()
         ))->toolbar();
     }
 
