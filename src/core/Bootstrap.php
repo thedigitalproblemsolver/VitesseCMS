@@ -5,6 +5,8 @@ namespace VitesseCms\Core;
 use VitesseCms\Admin\Utils\AdminUtil;
 use VitesseCms\Core\Services\BootstrapService;
 use Phalcon\Exception;
+use VitesseCms\Core\Utils\DebugUtil;
+use VitesseCms\Core\Utils\SystemUtil;
 
 require_once __DIR__.'/services/BootstrapService.php';
 require_once __DIR__ . '/../core/AbstractInjectable.php';
@@ -20,10 +22,16 @@ require_once __DIR__ . '/../configuration/utils/AccountConfigUtil.php';
 require_once __DIR__ . '/../configuration/utils/DomainConfigUtil.php';
 require_once __DIR__ . '/../core/utils/DebugUtil.php';
 
+$cacheLifeTime = 604800;
+if (DebugUtil::isDocker($_SERVER['SERVER_ADDR'])) :
+    $cacheLifeTime = 1;
+endif;
+
+
 $cacheKey = null;
 $bootstrap = (new BootstrapService())
     ->setSession()
-    ->setCache()
+    ->setCache($cacheLifeTime)
     ->setUrl()
     ->loadConfig();
 

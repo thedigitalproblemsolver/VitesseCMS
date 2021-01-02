@@ -95,6 +95,7 @@ class BootstrapService extends FactoryDefault implements InjectableInterface
         return $this;
     }
 
+    //TODO use repository
     public function setLanguage(): BootstrapService
     {
         $domainConfig = $this->getConfiguration();
@@ -118,21 +119,26 @@ class BootstrapService extends FactoryDefault implements InjectableInterface
                         'domain',
                         'https://' . $domainConfig->getHost() . '/' . $uri[1] . '/'
                     );
+                var_dump('http://' . $domainConfig->getHost());
                     $language = Language::findFirst();
                     if (!$language) :
                         Language::setFindValue(
                             'domain',
-                            'https://' . $domainConfig->getHost()
+                            'http://' . $domainConfig->getHost()
                         );
                         $language = Language::findFirst();
                     endif;
                 endif;
             endif;
 
-            if ($language) :
+            if ($language !== null) :
                 $this->getUrl()->setBaseUri($this->getUrl()->getBaseUri() . $uri[1] . '/');
                 $this->getConfiguration()->setLanguage($language);
             endif;
+        else :
+            Language::setFindValue('short', $domainConfig->getLanguageShort());
+            $language = Language::findFirst();
+            $this->getConfiguration()->setLanguage($language);
         endif;
         $this->setShared('language', new LanguageService());
 
@@ -168,7 +174,7 @@ class BootstrapService extends FactoryDefault implements InjectableInterface
         return $this;
     }
 
-    public function setCache(): BootstrapService
+    public function setCache(int $lifetime = 604800): BootstrapService
     {
         $this->setShared(
             'cache',
@@ -177,7 +183,7 @@ class BootstrapService extends FactoryDefault implements InjectableInterface
                 '../../../../cache/' .
                 strtolower($this->getRequest()->getHttpHost()) .
                 '/',
-                604800
+                $lifetime
             )
         );
 
