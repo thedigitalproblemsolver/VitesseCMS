@@ -3,6 +3,7 @@
 namespace VitesseCms\Core\Controllers;
 
 use VitesseCms\Core\AbstractController;
+use VitesseCms\Core\AbstractModule;
 use VitesseCms\Core\Interfaces\RepositoriesInterface;
 use VitesseCms\Core\Services\BeanstalkService;
 use VitesseCms\Database\Utils\MongoUtil;
@@ -12,12 +13,6 @@ use \DateTime;
 
 class JobqueueController extends AbstractController implements RepositoriesInterface
 {
-    /**
-     * https://craftbeermerchandise.com/nl/core/JobQueue/execute
-     * http://craftbeershirts.nl/core/JobQueue/execute
-     *
-     * @throws \Exception
-     */
     public function executeAction(): void
     {
         $this->parseJobs($this->jobQueue);
@@ -27,7 +22,6 @@ class JobqueueController extends AbstractController implements RepositoriesInter
 
     public function parseJobs(BeanstalkService $beanstalkService): void
     {
-        //while (($job = $beanstalkService->peekReady()) !== null) :
         $job = $beanstalkService->peekReady();
         if($job !== null):
             try {
@@ -53,14 +47,24 @@ class JobqueueController extends AbstractController implements RepositoriesInter
                 if (isset($task['userId']) && MongoUtil::isObjectId((string)$task['userId'])) :
                     $controller->user = User::findById($task['userId']);
                 endif;
+
+                $moduleNamespace = 'VitesseCms\\' .
+                    str_replace(
+                        'Communicationcommunication',
+                        'Communication',
+                        ucfirst($task['module'])
+                    ) .'\\Module';
+                if(class_exists($moduleNamespace)) :
+                    /** @var AbstractModule $module */
+                    $module = new $moduleNamespace();
+                    $controller->repositories = $module->getRepositories();
+                endif;
+
                 ob_start();
                 $controller->$action($task['params'][0]);
                 $message = ob_get_contents();
                 ob_end_clean();
 
-                /*JobQueue::setFindValue('jobId', (int)$job->getId());
-                JobQueue::setFindPublished(false);
-                $jobQueue = JobQueue::findFirst();*/
                 $jobQueue = $this->repositories->jobQueue->getFirstByJobId((int)$job->getId());
                 if ($jobQueue) :
                     $jobQueue->set('published', true)
@@ -72,9 +76,6 @@ class JobqueueController extends AbstractController implements RepositoriesInter
                 endif;
                 $job->delete();
             } catch (Exception $exception) {
-                /*JobQueue::setFindValue('jobId', (int)$job->getId());
-                JobQueue::setFindPublished(false);
-                $jobQueue = JobQueue::findFirst();*/
                 $jobQueue = $this->repositories->jobQueue->getFirstByJobId((int)$job->getId());
                 if ($jobQueue) :
                     $jobQueue->set('message', 'task burried')->save();
@@ -88,9 +89,8 @@ class JobqueueController extends AbstractController implements RepositoriesInter
                 $job->bury();
             }
         endif;
-        //endwhile;
 
-        echo 'JobQueues completed';
+        echo '<br />JobQueues completed';
 
         $this->view->disable();
     }

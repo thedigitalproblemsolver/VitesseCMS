@@ -74,7 +74,7 @@ class AdminpermissionsController extends AbstractAdminController
                 $table .= '<tr>
                     <td colspan="'.(\count($roles) + 1).'">'.FileUtil::getName($controllerName).'</td>
                 </tr>';
-                $functions = FileUtil::getFunctions($controllerPath);
+                $functions = FileUtil::getFunctions($controllerPath, $this->configuration);
                 foreach ($functions as $function) :
                     $controllerName = str_replace('controller', '', strtolower(FileUtil::getName($controllerName)));
                     $orgName = $function;

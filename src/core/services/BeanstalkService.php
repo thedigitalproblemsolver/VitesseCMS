@@ -32,7 +32,7 @@ class BeanstalkService extends Beanstalk
             $userId = $user->getId();
         endif;
         $data = [
-            'module'      => $router->getModuleName().$router->getModuleName(),
+            'module'      => $router->getModuleName(),
             'controller'  => $router->getControllerName(),
             'action'      => $router->getActionName(),
             'params'      => $router->getParams(),
@@ -45,7 +45,7 @@ class BeanstalkService extends Beanstalk
         $jobId = $this->put($data, $jobOptions);
 
         JobQueueFactory::create(
-            $router->getModuleName().$router->getModuleName().
+            $router->getModuleName().
             '/'.$router->getControllerName().
             '/'.$router->getActionName(),
             serialize($router->getParams()),

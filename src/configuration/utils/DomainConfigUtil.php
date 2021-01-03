@@ -252,11 +252,11 @@ class DomainConfigUtil extends AbstractConfigUtil
 
     public function getBeanstalkHost(): string
     {
-        return $this->beanstalk->host??'';
+        return $this->beanstalk->host??'127.0.0.1';
     }
 
-    public function getBeanstalkPort(): string
+    public function getBeanstalkPort(): int
     {
-        return $this->beanstalk->database??'';
+        return $this->beanstalk->port??11300;
     }
 }
