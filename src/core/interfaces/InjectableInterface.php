@@ -2,6 +2,7 @@
 
 namespace VitesseCms\Core\Interfaces;
 
+use VitesseCms\Block\Services\BlockService;
 use VitesseCms\Communication\Services\MailchimpService;
 use VitesseCms\Communication\Services\MailerService;
 use VitesseCms\Content\Models\Item;
@@ -56,6 +57,7 @@ use Phalcon\Session\Adapter\Files;
  * @property MailchimpService $mailchimp
  * @property RouterService $router
  * @property LanguageService $language
+ * @property BlockService $block
  */
 interface InjectableInterface
 {

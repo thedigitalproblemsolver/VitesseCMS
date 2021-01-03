@@ -39,7 +39,8 @@
     "ext-zlib": "*",
     "scssphp/scssphp": "^1.1",
     "phalcon/incubator": "3.2.6",
-    "vitessecms/admin": "^0.0.2"
+    "vitessecms/admin": "^0.0.3",
+    "vitessecms/block": "^0.0.1"
   },
   "autoload": {
     "psr-4": {

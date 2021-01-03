@@ -2,6 +2,7 @@
 
 namespace VitesseCms\Core\Forms;
 
+use VitesseCms\Block\Utils\BlockUtil;
 use VitesseCms\Core\Models\Datagroup;
 use VitesseCms\Core\Enum\SystemEnum;
 use VitesseCms\Core\Utils\SystemUtil;
@@ -23,7 +24,7 @@ class DataGroupForm extends AbstractForm
             ]
         );
 
-        $files = SystemUtil::getTemplateFiles('MainContent');
+        $files = BlockUtil::getTemplateFiles('MainContent', $this->configuration);
         $options = [];
         foreach ($files as $key => $label) :
             $selected = false;

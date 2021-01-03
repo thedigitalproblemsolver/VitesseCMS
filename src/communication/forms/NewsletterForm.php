@@ -2,6 +2,7 @@
 
 namespace VitesseCms\Communication\Forms;
 
+use VitesseCms\Block\Utils\BlockUtil;
 use VitesseCms\Communication\Models\Newsletter;
 use VitesseCms\Communication\Models\NewsletterList;
 use VitesseCms\Communication\Models\NewsletterTemplate;
@@ -189,7 +190,7 @@ class NewsletterForm extends AbstractForm
                 'options' => ElementHelper::arrayToSelectOptions(NewsletterTemplate::findAll()),
             ]
         );
-        $files = SystemUtil::getTemplateFiles('../emails');
+        $files = BlockUtil::getTemplateFiles('../emails', $this->configuration);
         $options = [];
         foreach ($files as $key => $label) :
             $selected = false;
