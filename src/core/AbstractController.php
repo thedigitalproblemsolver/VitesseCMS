@@ -181,84 +181,15 @@ abstract class AbstractController extends Controller implements InjectableInterf
                     && $this->view->hasCurrentItem()
                 )
             ) :
-                $this->parsePosition($position);
+                $this->view->setVar(
+                    $position,
+                    $this->block->parseTemplatePosition(
+                        $position,
+                        $this->setting->get('layout_blockposition-class'.$position)
+                    )
+                );
             endif;
         endforeach;
-    }
-
-    /**
-     * @param string $position
-     *
-     * parse template position
-     *
-     * @throws \Phalcon\Mvc\Collection\Exception
-     */
-    protected function parsePosition($position): void
-    {
-        $content = '';
-
-        $dataGroups = ['all'];
-        if ($this->view->hasCurrentItem()) :
-            $dataGroups[] = 'page:'.$this->view->getCurrentItem()->getId();
-            $dataGroups[] = $this->view->getCurrentItem()->getDatagroup();
-        endif;
-
-        $blockPositions = (new BlockPositionRepository())->getByPositionNameAndDatagroup($position, $dataGroups);;
-        while ($blockPositions->valid() ) :
-            $blockPosition = $blockPositions->current();
-
-            $content .= $blockPosition->render(
-                $this->view,
-                $this->user,
-                new BlockRepository(),
-                $this->cache
-            );
-
-            $blockPositions->next();
-        endwhile;
-
-        $classes = ['container-'.$position];
-        $layoutClass = $this->setting->get('layout_blockposition-class'.$position);
-        if (!empty($layoutClass)):
-            if (is_string($layoutClass)):
-                $classes[] = $layoutClass;
-            elseif (is_array($layoutClass)) :
-                $layoutClass = reset($layoutClass);
-                if (!empty($layoutClass)) :
-                    $classes[] = $layoutClass;
-                endif;
-            endif;
-        endif;
-
-        if (empty($content)) :
-            $this->view->setVar($position, false);
-        else :
-            $contentExtra = '';
-            if (PermissionUtils::check(
-                $this->user,
-                'block',
-                'adminblockposition',
-                'edit')
-            ) :
-                BlockPosition::setFindPublished(false);
-                $contentExtra = '<div class="position-toolbar row">
-                <div class="col-12">
-                    <a
-                        class="fa fa-plus btn btn-info openmodal"
-                        href="admin/block/adminblockposition/edit"
-                    ></a>
-                    Position : '.$position.'
-                </div>
-            </div>';
-            endif;
-
-            $this->view->setVar(
-                $position,
-                '<div '.HtmlHelper::makeAttribute($classes, 'class').' >'
-                .$contentExtra.$content.
-                '</div>'
-            );
-        endif;
     }
 
     /**
@@ -419,8 +350,12 @@ abstract class AbstractController extends Controller implements InjectableInterf
         $this->view->setVar('bodyClass', $this->view->getVar('bodyClass').' embedded container-fluid');
 
         if ($this->view->getVar('content') === null) :
-            $this->parsePosition('maincontent');
-            $this->view->setVar('content', $this->view->getVar('maincontent'));
+            $this->view->setVar('content',
+                $this->block->parseTemplatePosition(
+                    'maincontent',
+                    $this->setting->get('layout_blockposition-class'.$position)
+                )
+            );
         endif;
 
         $this->loadAssets();

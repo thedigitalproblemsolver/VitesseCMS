@@ -5,6 +5,9 @@ namespace VitesseCms\Core\Services;
 use Phalcon\Http\Request;
 use Phalcon\Loader;
 use VitesseCms\Admin\Utils\AdminUtil;
+use VitesseCms\Block\Repositories\BlockPositionRepository;
+use VitesseCms\Block\Repositories\BlockRepository;
+use VitesseCms\Block\Services\BlockService;
 use VitesseCms\Communication\Services\MailerService;
 use VitesseCms\Content\Services\ContentService;
 use VitesseCms\Core\CoreApplicaton;
@@ -119,7 +122,7 @@ class BootstrapService extends FactoryDefault implements InjectableInterface
                         'domain',
                         'https://' . $domainConfig->getHost() . '/' . $uri[1] . '/'
                     );
-                var_dump('http://' . $domainConfig->getHost());
+
                     $language = Language::findFirst();
                     if (!$language) :
                         Language::setFindValue(
@@ -458,6 +461,25 @@ class BootstrapService extends FactoryDefault implements InjectableInterface
         $this->set('app', $application);
 
         return $application;
+    }
+
+    public function block(): BootstrapService
+    {
+        $this->setShared('block', new BlockService(
+            $this->getView(),
+            $this->getUser(),
+            new BlockPositionRepository(),
+            new BlockRepository(),
+            $this->getCache(),
+            $this->getConfiguration()
+        ));
+
+        return $this;
+    }
+
+    public function getBlock(): BlockService
+    {
+        return $this->get('block');
     }
 
     public function getConfiguration(): ConfigService

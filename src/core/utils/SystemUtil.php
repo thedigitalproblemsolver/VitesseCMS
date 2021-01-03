@@ -85,34 +85,6 @@ class SystemUtil
         return implode('\\', $classElements);
     }
 
-    public static function getTemplateFiles(string $type): array
-    {
-        $config = Di::getDefault()->get('config');
-        $files = [];
-
-        $directories = [
-            $config->get('defaultTemplateDir') . 'views/blocks/' . $type . '/',
-            $config->get('templateDir') . 'views/blocks/' . $type . '/',
-            $config->get('accountDir') . 'views/blocks/' . $type . '/',
-        ];
-
-        foreach ($directories as $directory) :
-            $files = array_merge($files, DirectoryUtil::getFilelist($directory));
-        endforeach;
-        ksort($files);
-
-        $return = [];
-        foreach ($files as $directory => $file) :
-            $return[str_replace(
-                ['.mustache', $config->get('rootDir')],
-                '',
-                $directory)] = ucfirst(str_replace('_', ' ', FileUtil::getName($file))
-            );
-        endforeach;
-
-        return $return;
-    }
-
     public static function loadClassFromNamespace($namespace): bool
     {
         $tmp = explode('\\',$namespace);

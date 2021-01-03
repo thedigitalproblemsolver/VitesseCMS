@@ -145,6 +145,7 @@ class ElementHelper
             'selected' => false,
         ]];
 
+        $iterator->rewind();
         while ($iterator->valid()) :
             /** @var AbstractCollection $item */
             $item = $iterator->current();
