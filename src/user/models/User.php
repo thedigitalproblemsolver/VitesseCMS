@@ -41,7 +41,8 @@ class User extends AbstractCollection
         parent::afterFetch();
     }
 
-    public function getEmail(): string{
+    public function getEmail(): ?string
+    {
         return $this->email;
     }
 

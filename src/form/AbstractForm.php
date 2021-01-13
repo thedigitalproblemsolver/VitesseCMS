@@ -163,6 +163,13 @@ abstract class AbstractForm extends Form implements AbstractFormInterface
         return $this;
     }
 
+    public function addButton(string $label, string $name): AbstractFormInterface
+    {
+        $this->add(ElementFactory::button('button', $label, $name));
+
+        return $this;
+    }
+
     public function addToggle(string $label, string $name): AbstractFormInterface
     {
         $this->assets->load(AssetsEnum::BOOTSTRAP_TOGGLE);
@@ -186,11 +193,7 @@ abstract class AbstractForm extends Form implements AbstractFormInterface
         return $this;
     }
 
-    public function addText(
-        string $label,
-        string $name,
-        ?Attributes $attributes = null
-    ): AbstractFormInterface {
+    public function addText(string $label, string $name, ?Attributes $attributes = null): AbstractFormInterface {
         $this->add(ElementFactory::text($label, $name, (array)$attributes));
 
         return $this;
@@ -282,25 +285,42 @@ abstract class AbstractForm extends Form implements AbstractFormInterface
         return $this;
     }
 
-    public function addUpload(string $label, string $name, ?Attributes $attributes = null): AbstractFormInterface
+    public function addFilemanager(string $label, string $name, ?Attributes $attributes = null): AbstractFormInterface
     {
         if ($attributes === null) :
             $attributes = new Attributes();
         endif;
-        $attributes->setTemplate('filemanager')
-            ->setFilemanager(true);
+        $attributes->setTemplate('filemanager')->setFilemanager(true);
 
         $this->add(ElementFactory::file($label, $name, (array)$attributes));
 
         return $this;
     }
 
-    public function addDate(
-        string $label,
-        string $name,
-        ?Attributes $attributes = null
-    ): AbstractFormInterface {
+    public function addUpload(string $label, string $name, ?Attributes $attributes = null): AbstractFormInterface
+    {
+        if ($attributes === null) :
+            $attributes = new Attributes();
+        endif;
+
+        $this->add(ElementFactory::file($label, $name, (array)$attributes));
+
+        return $this;
+    }
+
+    public function addDate(string $label, string $name, ?Attributes $attributes = null): AbstractFormInterface {
         $this->add(ElementFactory::date($label, $name, $attributes));
+
+        return $this;
+    }
+
+    public function addTime(string $label, string $name, ?Attributes $attributes = null): AbstractFormInterface
+    {
+        if ($attributes === null) :
+            $attributes = new Attributes();
+        endif;
+        $attributes->setInputType('time');
+        $this->add(ElementFactory::text($label, $name, (array)$attributes));
 
         return $this;
     }
