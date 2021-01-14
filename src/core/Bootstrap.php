@@ -90,5 +90,9 @@ try {
         );
     endif;
 } catch (Exception $e) {
+    if(DebugUtil::isDocker($_SERVER['SERVER_ADDR'])) :
+        var_dump($e->getMessage());
+        die();
+    endif;
     $application->router->doRedirect($application->url->getBaseUri());
 }

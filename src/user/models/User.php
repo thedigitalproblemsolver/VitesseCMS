@@ -29,11 +29,21 @@ class User extends AbstractCollection
      */
     protected $password;
 
+    /**
+     * @var string
+     */
+    public $email;
+
     public function afterFetch()
     {
         $this->set('name', $this->_('email'));
 
         parent::afterFetch();
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
     }
 
     /**

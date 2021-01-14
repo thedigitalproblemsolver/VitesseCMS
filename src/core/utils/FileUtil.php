@@ -2,6 +2,7 @@
 
 namespace VitesseCms\Core\Utils;
 
+use VitesseCms\Core\Services\ConfigService;
 use VitesseCms\Media\Utils\MediaUtil;
 use Phalcon\Di;
 use Phalcon\Tag;
@@ -88,7 +89,7 @@ class FileUtil
         return file_get_contents($file);
     }
 
-    public static function getFunctions(string $file = null): array
+    public static function getFunctions(string $file, ConfigService $configuration): array
     {
         self::setFile($file);
         $exclude = ['initialize', 'onConstruct'];
@@ -102,7 +103,7 @@ class FileUtil
         if (substr_count($fileContents, 'AbstractAdminController') > 0) :
             if (!isset(self::$abstractAdminControllerFunctions)) :
                 $fileContents = file_get_contents(
-                    Di::getDefault()->get('config')->get('rootDir').'src/admin/AbstractAdminController.php'
+                    $configuration->getVendorNameDir().'admin/src/AbstractAdminController.php'
                 );
                 preg_match_all($functionFinder, $fileContents, self::$abstractAdminControllerFunctions);
             endif;

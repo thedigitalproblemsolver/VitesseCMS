@@ -5,6 +5,7 @@ namespace VitesseCms\Core;
 use Phalcon\DiInterface;
 use Phalcon\Mvc\Dispatcher;
 use Phalcon\Mvc\ModuleDefinitionInterface;
+use VitesseCms\Core\Interfaces\RepositoryCollectionInterface;
 
 abstract class AbstractModule implements ModuleDefinitionInterface
 {
@@ -21,5 +22,10 @@ abstract class AbstractModule implements ModuleDefinitionInterface
                 return $dispatcher;
             }
         );
+    }
+
+    public function getRepositories(): ?RepositoryCollectionInterface
+    {
+        return null;
     }
 }

@@ -66,12 +66,12 @@ class ViewService extends View
         string $templatePath,
         array $params = []
     ): string {
-        $templatePath = $this->configuration->getSystemDir().
-            $module.
-            '/resources/views/'.
-            $templatePath;
+        $newTemplatePath = $this->configuration->getSystemDir(). $module. '/resources/views/'. $templatePath;
+        if(!is_dir($newTemplatePath)) :
+            $newTemplatePath = $this->configuration->getVendorNameDir().$module.'/src/resources/views/'.$templatePath;
+        endif;
 
-        return $this->renderTemplate($template, $templatePath, $params);
+        return $this->renderTemplate($template, $newTemplatePath, $params);
     }
 
     public function set(string $key, $value): self
