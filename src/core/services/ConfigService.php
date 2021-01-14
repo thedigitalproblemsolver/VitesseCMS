@@ -195,7 +195,7 @@ class ConfigService
         return $this->config->getBeanstalkHost();
     }
 
-    public function getBeanstalkPort(): string
+    public function getBeanstalkPort(): int
     {
         return $this->config->getBeanstalkPort();
     }

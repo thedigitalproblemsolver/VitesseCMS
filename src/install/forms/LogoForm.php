@@ -10,7 +10,7 @@ class LogoForm extends AbstractForm
     public function build(): LogoForm
     {
         $this->addHtml(Tag::tagHtml('h1').'Add a logo'.Tag::tagHtmlClose('h1'))
-            ->addUpload('Choose a image', 'image')
+            ->addFilemanager('Choose a image', 'image')
             ->addSubmitButton('create');
 
         return $this;

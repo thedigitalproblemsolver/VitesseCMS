@@ -24,63 +24,49 @@ use Phalcon\Validation\Validator\File as FileValidator;
 
 class ElementFactory
 {
-    public static function button(
-        string $type,
-        string $label,
-        string $name = '',
-        array $attributes = []
-    ): ElementInterface {
+    public static function button(string $type, string $label, string $name = '', array $attributes = []): ElementInterface
+    {
         switch ($type) :
             case 'submit':
                 $disabled = isset($attributes['disabled']) ? 'disabled' : '';
                 $useRecaptcha = $attributes['useRecaptcha'] ?? false;
 
-                return (new Submit($label,
-                    [
-                        'inputClass' => 'btn btn-success btn-block',
-                    ]
-                ))
-                    ->setAttribute('template', 'button')
-                    ->setAttribute('buttonType', 'submit')
-                    ->setAttribute('disabled', $disabled)
-                    ->setAttribute('useRecaptcha', $useRecaptcha);
+                return new Submit($label, [
+                    'inputClass' => 'btn btn-success btn-block',
+                    'template' => 'button',
+                    'buttonType' => 'submit',
+                    'disabled' => $disabled,
+                    'useRecaptcha' => $useRecaptcha
+                ]);
                 break;
             case 'reset':
-                return (new Submit($label,
-                    [
-                        'inputClass' => 'btn btn-outline-danger btn-block',
-                    ]
-                ))
-                    ->setAttribute('template', 'button')
-                    ->setAttribute('buttonType', $type);
+                return new Submit($label, [
+                    'inputClass' => 'btn btn-outline-danger btn-block',
+                    'template' => 'button',
+                    'buttonType' => 'reset'
+                ]);
                 break;
             case 'empty':
-                return (new Submit($label,
-                    [
-                        'inputClass' => 'btn btn-outline-danger btn-block btn-form-emtpy',
-                    ]
-                ))
-                    ->setAttribute('template', 'button')
-                    ->setAttribute('buttonType', 'reset');
+                return new Submit($label, [
+                    'inputClass' => 'btn btn-outline-danger btn-block btn-form-emtpy',
+                    'template' => 'button',
+                    'buttonType' => 'reset',
+                ]);
                 break;
+            case 'button':
             default:
-                return (new Submit($label,
-                    [
-                        'inputClass' => 'btn btn-core btn-block',
-                    ]
-                ))
-                    ->setAttribute('template', 'button')
-                    ->setAttribute('buttonType', 'button')
-                    ->setAttribute('elementId', $name);
+                return (new Submit($label, [
+                    'inputClass' => 'btn btn-outline-info btn-block',
+                    'template' => 'button',
+                    'buttonType' => 'button',
+                    'elementId' => $name,
+                ]));
                 break;
         endswitch;
     }
 
-    public static function checkbox(
-        string $label,
-        string $name,
-        array $attributes = []
-    ): Check {
+    public static function checkbox(string $label, string $name, array $attributes = []): Check
+    {
         $element = new Check($name, $attributes);
         self::parseDefaults($element, $label, 'checkbox');
 
@@ -95,7 +81,8 @@ class ElementFactory
         string $label,
         string $name,
         array $attributes = []
-    ): Email {
+    ): Email
+    {
         $element = new Email($name, $attributes);
         self::parseDefaults($element, $label, 'email');
 
@@ -106,7 +93,8 @@ class ElementFactory
         string $label,
         string $name,
         array $attributes = []
-    ): File {
+    ): File
+    {
         if (isset($attributes['filemanager']) && $attributes['filemanager'] === true) :
             $attributes['readonly'] = 'readonly';
         endif;
@@ -129,7 +117,7 @@ class ElementFactory
             $element->addValidator(
                 new FileValidator([
                     'allowedTypes' => $attributes['allowedTypes'],
-                    'messageType'  => 'Allowed file types are :types',
+                    'messageType' => 'Allowed file types are :types',
                 ])
             );
         endif;
@@ -150,7 +138,7 @@ class ElementFactory
 
     public static function html(array $attributes, string $prefix = 'html'): Hidden
     {
-        $name = $prefix.'_'.uniqid('', true);
+        $name = $prefix . '_' . uniqid('', true);
 
         $element = new Hidden($name);
         if (isset($attributes['html'])) :
@@ -165,7 +153,8 @@ class ElementFactory
         string $label,
         string $name,
         array $attributes = []
-    ): Numeric {
+    ): Numeric
+    {
         $element = new Numeric($name, $attributes);
         self::parseDefaults($element, $label, 'number');
 
@@ -176,7 +165,8 @@ class ElementFactory
         string $label,
         string $name,
         array $attributes = []
-    ): Password {
+    ): Password
+    {
         $element = new Password($name, $attributes);
         self::parseDefaults($element, $label, 'password');
 
@@ -188,15 +178,16 @@ class ElementFactory
      * @param string $name
      * @param array $attributes
      *
+     * @return Select
      * @deprecated should us addDropdown from Form
      *
-     * @return Select
      */
     public static function select(
         string $label,
         string $name,
         array $attributes = []
-    ): Select {
+    ): Select
+    {
         $options = [];
         if (isset($attributes['options'])) :
             $options = $attributes['options'];
@@ -206,8 +197,8 @@ class ElementFactory
         $newOptions = [];
         if (!isset($attributes['noEmptyText'])) :
             $newOptions[] = [
-                'value'    => '',
-                'label'    => '%ADMIN_NO_SELECTION%',
+                'value' => '',
+                'label' => '%ADMIN_NO_SELECTION%',
                 'selected' => false,
             ];
         endif;
@@ -218,8 +209,8 @@ class ElementFactory
             /** @var AbstractCollection $item */
             foreach ($items as $item) :
                 $newOptions[] = [
-                    'value'    => (string)$item->getId(),
-                    'label'    => ucfirst($item->_('name')),
+                    'value' => (string)$item->getId(),
+                    'label' => ucfirst($item->_('name')),
                     'selected' => false,
                 ];
             endforeach;
@@ -232,8 +223,8 @@ class ElementFactory
             /** @var AbstractCollection $option */
             foreach ($options as $option) :
                 $newOptions[] = [
-                    'value'    => (string)$option->getId(),
-                    'label'    => $option->_('name'),
+                    'value' => (string)$option->getId(),
+                    'label' => $option->_('name'),
                     'selected' => false,
                 ];
             endforeach;
@@ -261,7 +252,8 @@ class ElementFactory
         string $label,
         string $name,
         Attributes $attributes
-    ): Select {
+    ): Select
+    {
         $element = new Select($name, $attributes->getOptions(), (array)$attributes);
         $element->setAttribute('options', $attributes->getOptions());
         self::parseDefaults($element, $label, 'select');
@@ -273,7 +265,8 @@ class ElementFactory
         string $label,
         string $name,
         array $attributes = []
-    ): Text {
+    ): Text
+    {
         $element = new Text($name, $attributes);
         self::parseDefaults($element, $label, 'tel');
 
@@ -284,8 +277,9 @@ class ElementFactory
         string $label,
         string $name,
         ?Attributes $attributes = null
-    ): Date {
-        if($attributes === null) :
+    ): Date
+    {
+        if ($attributes === null) :
             $attributes = new Attributes();
         endif;
         $attributes->setInputType('date');
@@ -300,7 +294,8 @@ class ElementFactory
         string $label,
         string $name,
         array $attributes = []
-    ): Text {
+    ): Text
+    {
         $element = new Text($name, $attributes);
         self::parseDefaults($element, $label, 'text');
 
@@ -311,7 +306,8 @@ class ElementFactory
         string $label,
         string $name,
         array $attributes = []
-    ): TextArea {
+    ): TextArea
+    {
         $element = new TextArea($name, $attributes);
         self::parseDefaults($element, $label, 'textarea');
 
@@ -322,7 +318,8 @@ class ElementFactory
         string $label,
         string $name,
         array $attributes = []
-    ): Text {
+    ): Text
+    {
         $element = new Text($name, $attributes);
         self::parseDefaults($element, $label, 'url');
 
@@ -333,7 +330,8 @@ class ElementFactory
         Element $element,
         string $label,
         string $template = ''
-    ): void {
+    ): void
+    {
         ElementHelper::setDefaults($element, $label);
         ElementHelper::setRequired($element);
         ElementHelper::setValue($element);

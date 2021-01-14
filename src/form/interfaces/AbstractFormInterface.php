@@ -38,6 +38,8 @@ interface AbstractFormInterface extends InjectableInterface
 
     public function addEmptyButton(string $label): AbstractFormInterface;
 
+    public function addButton(string $label, string $name): AbstractFormInterface;
+
     public function addToggle(string $label, string $name): AbstractFormInterface;
 
     public function addNumber(
@@ -84,13 +86,13 @@ interface AbstractFormInterface extends InjectableInterface
 
     public function addHidden(string $name, ?string $value = null): AbstractFormInterface;
 
+    public function addFilemanager(string $label, string $name, ?Attributes $attributes = null): AbstractFormInterface;
+
     public function addUpload(string $label, string $name, ?Attributes $attributes = null): AbstractFormInterface;
 
-    public function addDate(
-        string $label,
-        string $name,
-        ?Attributes $attributes = null
-    ): AbstractFormInterface;
+    public function addDate(string $label, string $name, ?Attributes $attributes = null): AbstractFormInterface;
+
+    public function addTime(string $label, string $name, ?Attributes $attributes = null): AbstractFormInterface;
 
     public function renderForm(
         string $action,
