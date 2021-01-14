@@ -20,6 +20,11 @@ class Attributes
     public $readonly;
 
     /**
+     * @var bool
+     */
+    public $disabled;
+
+    /**
      * @var string
      */
     public $inputClass;
@@ -114,6 +119,7 @@ class Attributes
     public function setReadonly(bool $readonly): Attributes
     {
         $this->readonly = $readonly;
+        $this->disabled = $readonly;
 
         return $this;
     }
