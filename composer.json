@@ -37,7 +37,7 @@
     "scssphp/scssphp": "^1.1",
     "phalcon/incubator": "3.2.6",
     "vitessecms/admin": "^0.0.4",
-    "vitessecms/block": "^0.0.2"
+    "vitessecms/block": "^0.0.3"
   },
   "autoload": {
     "psr-4": {
