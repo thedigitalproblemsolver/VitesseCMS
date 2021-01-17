@@ -4,10 +4,10 @@ namespace VitesseCms\Install\Controllers;
 
 use VitesseCms\Block\Models\BlockAffiliateInitialize;
 use VitesseCms\Block\Models\BlockAffiliateOrderOverview;
-use VitesseCms\Core\Models\Datafield;
+use VitesseCms\Datafield\Models\Datafield;
 use VitesseCms\Core\Models\Datagroup;
 use VitesseCms\Setting\Models\Setting;
-use VitesseCms\Field\Models\FieldModel;
+use VitesseCms\Datafield\Models\FieldModel;
 use VitesseCms\Install\AbstractCreatorController;
 use VitesseCms\Install\Forms\AffiliateForm;
 use VitesseCms\User\Models\User;

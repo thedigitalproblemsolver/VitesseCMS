@@ -12,7 +12,7 @@ use VitesseCms\Communication\Models\NewsletterList;
 use VitesseCms\Communication\Models\NewsletterTemplate;
 use VitesseCms\Core\Models\Datagroup;
 use VitesseCms\Setting\Models\Setting;
-use VitesseCms\Field\Models\FieldText;
+use VitesseCms\Datafield\Models\FieldText;
 use VitesseCms\Install\AbstractCreatorController;
 use VitesseCms\Install\Forms\ContactForm;
 use VitesseCms\Language\Models\Language;

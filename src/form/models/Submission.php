@@ -3,7 +3,7 @@
 namespace VitesseCms\Form\Models;
 
 use VitesseCms\Database\AbstractCollection;
-use VitesseCms\Core\Models\Datafield;
+use VitesseCms\Datafield\Models\Datafield;
 
 class Submission extends AbstractCollection
 {

@@ -7,7 +7,7 @@ use VitesseCms\Core\AbstractFactory;
 use VitesseCms\Core\Interfaces\BaseObjectInterface;
 use VitesseCms\Core\Interfaces\FactoryInterface;
 use VitesseCms\Core\Models\Datagroup;
-use VitesseCms\Core\Repositories\DatafieldRepository;
+use VitesseCms\Datafield\Repositories\DatafieldRepository;
 use VitesseCms\Setting\Services\SettingService;
 use VitesseCms\Shop\Models\ShiptoAddress;
 use VitesseCms\User\Models\User;

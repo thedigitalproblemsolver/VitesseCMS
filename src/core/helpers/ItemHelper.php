@@ -3,9 +3,9 @@
 namespace VitesseCms\Core\Helpers;
 
 use VitesseCms\Content\Models\Item;
-use VitesseCms\Core\Models\Datafield;
+use VitesseCms\Datafield\Models\Datafield;
 use VitesseCms\Core\Models\Datagroup;
-use VitesseCms\Field\AbstractField;
+use VitesseCms\Datafield\AbstractField;
 use VitesseCms\Language\Helpers\LanguageHelper;
 use VitesseCms\User\Models\User;
 use VitesseCms\User\Utils\PermissionUtils;

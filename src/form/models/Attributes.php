@@ -59,6 +59,8 @@ class Attributes
      */
     public $dataUrl;
 
+    public $defaultValue;
+
     public function __construct()
     {
         $this->inputClass = '';
@@ -148,6 +150,18 @@ class Attributes
     public function setDataUrl(string $dataUrl): Attributes
     {
         $this->dataUrl = $dataUrl;
+
+        return $this;
+    }
+
+    public function getDefaultValue()
+    {
+        return $this->defaultValue;
+    }
+
+    public function setDefaultValue($defaultValue): Attributes
+    {
+        $this->defaultValue = $defaultValue;
 
         return $this;
     }
