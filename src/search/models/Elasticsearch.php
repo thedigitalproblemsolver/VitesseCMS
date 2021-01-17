@@ -6,7 +6,7 @@ use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
 use VitesseCms\Content\Models\Item;
 use VitesseCms\Core\AbstractInjectable;
-use VitesseCms\Core\Models\Datafield;
+use VitesseCms\Datafield\Models\Datafield;
 use VitesseCms\Core\Models\Datagroup;
 use VitesseCms\Core\Utils\DebugUtil;
 use VitesseCms\Language\Models\Language;

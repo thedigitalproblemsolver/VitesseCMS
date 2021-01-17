@@ -31,12 +31,14 @@ class FormUtil
             $params['elementValue'] = $element->getValue();
         endif;
 
-        if ($element->getAttribute('defaultValue')) :
+        if (is_array($element->getAttribute('defaultValue'))) :
             if ($short !== null) :
                 $params['elementValue'] = $element->getAttribute('defaultValue')[$short];
             else :
                 $params['elementValue'] = $element->getAttribute('defaultValue')[$form->configuration->getLanguageShort()];
             endif;
+        elseif (is_string($element->getAttribute('defaultValue'))):
+            $params['elementValue'] = $element->getAttribute('defaultValue');
         endif;
 
         if (empty($element->getAttribute('id'))) :

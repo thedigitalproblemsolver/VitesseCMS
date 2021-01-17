@@ -8,7 +8,7 @@ use VitesseCms\Block\Models\BlockItemlist;
 use VitesseCms\Content\Repositories\ItemRepository;
 use VitesseCms\Database\Models\FindValue;
 use VitesseCms\Database\Models\FindValueIterator;
-use VitesseCms\Field\Enums\FieldEnum;
+use VitesseCms\Datafield\Enums\FieldEnum;
 use VitesseCms\Install\AbstractCreatorController;
 
 class TaggingController extends AbstractCreatorController

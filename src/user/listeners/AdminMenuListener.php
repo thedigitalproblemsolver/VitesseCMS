@@ -16,7 +16,7 @@ class AdminMenuListener
             $children->addChild('Permissions','admin/user/adminpermissions/adminList')
                 ->addChild('Permissions Roles','admin/user/adminpermissionrole/adminList')
             ;
-            $adminMenu->addDropbown('Permissions',$children);
+            $adminMenu->addDropdown('Permissions',$children);
         endif;
 
         $group = $adminMenu->getGroups()->getByKey('user');
@@ -29,7 +29,7 @@ class AdminMenuListener
                 $children->addChild($contentGroup->_('name'), 'admin/content/adminitem/adminList/?filter[datagroup]='.$contentGroup->getId());
             endforeach;
 
-            $adminMenu->addDropbown('Users', $children);
+            $adminMenu->addDropdown('Users', $children);
         endif;
     }
 }

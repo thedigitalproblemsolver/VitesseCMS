@@ -2,7 +2,7 @@
 
 namespace VitesseCms\Core\Helpers;
 
-use VitesseCms\Core\Models\Datafield;
+use VitesseCms\Datafield\Models\Datafield;
 use VitesseCms\Core\Models\Datagroup;
 
 /**

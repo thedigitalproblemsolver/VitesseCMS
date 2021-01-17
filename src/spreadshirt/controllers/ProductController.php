@@ -8,7 +8,7 @@ use VitesseCms\Database\AbstractCollection;
 use VitesseCms\Core\AbstractController;
 use VitesseCms\Setting\Models\Setting;
 use VitesseCms\Core\Utils\FileUtil;
-use VitesseCms\Field\Enums\FieldSizeAndColorEnum;
+use VitesseCms\Datafield\Enums\FieldSizeAndColorEnum;
 use VitesseCms\Shop\Models\TaxRate;
 use VitesseCms\Spreadshirt\Interfaces\ModuleInterface;
 use VitesseCms\Spreadshirt\Models\Design;

@@ -3,7 +3,7 @@
 namespace VitesseCms\Shop\Repositories;
 
 use VitesseCms\Content\Repositories\ItemRepository;
-use VitesseCms\Core\Repositories\DatafieldRepository;
+use VitesseCms\Datafield\Repositories\DatafieldRepository;
 use VitesseCms\Core\Repositories\DatagroupRepository;
 use VitesseCms\Shop\Interfaces\RepositoryInterface;
 
