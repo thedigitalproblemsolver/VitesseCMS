@@ -2,6 +2,7 @@
 
 namespace VitesseCms\Core\Services;
 
+use VitesseCms\Configuration\Services\ConfigService;
 use VitesseCms\Content\Models\Item;
 use VitesseCms\Core\Helpers\ItemHelper;
 use VitesseCms\Admin\Utils\AdminUtil;

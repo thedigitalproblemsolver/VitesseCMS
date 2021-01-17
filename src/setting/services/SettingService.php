@@ -4,7 +4,7 @@ namespace VitesseCms\Setting\Services;
 
 use VitesseCms\Setting\Models\Setting;
 use VitesseCms\Core\Services\CacheService;
-use VitesseCms\Core\Services\ConfigService;
+use VitesseCms\Configuration\Services\ConfigService;
 use VitesseCms\Language\Models\Language;
 use VitesseCms\Setting\Factory\SettingFactory;
 

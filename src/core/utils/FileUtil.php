@@ -2,7 +2,7 @@
 
 namespace VitesseCms\Core\Utils;
 
-use VitesseCms\Core\Services\ConfigService;
+use VitesseCms\Configuration\Services\ConfigService;
 use VitesseCms\Media\Utils\MediaUtil;
 use Phalcon\Di;
 use Phalcon\Tag;
