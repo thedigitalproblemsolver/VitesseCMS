@@ -158,7 +158,7 @@ trait BaseObjectTrait
         return $this->parentId;
     }
 
-    public function setParent(string $id): self
+    public function setParent(?string $id): self
     {
         $this->set('parentId', $id);
 
