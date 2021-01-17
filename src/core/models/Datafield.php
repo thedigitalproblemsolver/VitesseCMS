@@ -113,7 +113,7 @@ class Datafield extends AbstractCollection
             return $this->type;
         endif;
 
-        return 'VitesseCms\\Field\\Models\\'.$this->type;
+        return 'VitesseCms\\Datafield\\Models\\'.$this->type;
     }
 
     public function getModel(): string
@@ -122,6 +122,6 @@ class Datafield extends AbstractCollection
             return str_replace('Modules','VitesseCms',$this->model);
         endif;
 
-        return 'VitesseCms\\Field\\Models\\'.$this->model;
+        return 'VitesseCms\\Datafield\\Models\\'.$this->model;
     }
 }
