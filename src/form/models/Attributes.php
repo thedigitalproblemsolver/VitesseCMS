@@ -78,7 +78,7 @@ class Attributes
         return $this;
     }
 
-    public function setRequired(bool $required): Attributes
+    public function setRequired(bool $required = true): Attributes
     {
         $this->required = $required;
 
@@ -124,7 +124,7 @@ class Attributes
         return $this;
     }
 
-    public function setMultilang(bool $multilang): Attributes
+    public function setMultilang(bool $multilang = true): Attributes
     {
         $this->multilang = $multilang;
 
