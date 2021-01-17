@@ -3,120 +3,86 @@
 namespace VitesseCms\Core\Forms;
 
 use VitesseCms\Block\Utils\BlockUtil;
+use VitesseCms\Core\Interfaces\RepositoriesInterface;
+use VitesseCms\Core\Interfaces\RepositoryInterface;
 use VitesseCms\Core\Models\Datagroup;
 use VitesseCms\Core\Enum\SystemEnum;
 use VitesseCms\Core\Utils\SystemUtil;
 use VitesseCms\Form\AbstractForm;
 use VitesseCms\Core\Models\Datafield;
+use VitesseCms\Form\AbstractFormWithRepository;
 use VitesseCms\Form\Helpers\ElementHelper;
+use VitesseCms\Form\Interfaces\FormWithRepositoryInterface;
+use VitesseCms\Form\Models\Attributes;
 
-class DataGroupForm extends AbstractForm
+class DataGroupForm extends AbstractFormWithRepository
 {
-    public function initialize(Datagroup $item)
+    /**
+     * @var RepositoryInterface
+     */
+    protected $repositories;
+
+    /**
+     * @var Datagroup
+     */
+    protected $_entity;
+
+    public function buildForm(): FormWithRepositoryInterface
     {
-        $this->_(
-            'text',
-            '%CORE_NAME%',
-            'name',
-            [
-                'required'  => 'required',
-                'multilang' => true,
-            ]
-        );
+        $this->addText('%CORE_NAME%', 'name', (new Attributes())->setRequired()->setMultilang());
 
         $files = BlockUtil::getTemplateFiles('MainContent', $this->configuration);
         $options = [];
         foreach ($files as $key => $label) :
             $selected = false;
-            if ($item->_('template') === $key) :
+            if ($this->_entity->_('template') === $key) :
                 $selected = true;
             endif;
             $options[] = [
-                'value'    => $key,
-                'label'    => $label,
+                'value' => $key,
+                'label' => $label,
                 'selected' => $selected,
             ];
         endforeach;
-        $this->_(
-            'select',
+        $this->addDropdown(
             '%ADMIN_CHOOSE_A_TEMPLATE%',
             'template',
-            [
-                'required' => 'required',
-                'options'  => $options,
-            ]
-        )->_(
-            'select',
+            (new Attributes())->setRequired()->setOptions($options)
+        )->addDropdown(
             '%ADMIN_CMS_COMPONENT%',
             'component',
-            [
-                'required' => 'required',
-                'options'  => ElementHelper::arrayToSelectOptions(SystemEnum::COMPONENTS),
-            ]
-        )->_(
-            'number',
-            '%ADMIN_ORDERING%',
-            'ordering'
-        )->_(
-            'select',
-            '%ADMIN_DATAGROUP_ITEM_ORDER%',
-            'itemOrdering',
-            [
-                'options' => ElementHelper::arrayToSelectOptions(
-                    [
-                        ''          => '%ADMIN_ITEM_ORDER_NAME%',
-                        'ordering'  => '%ADMIN_ITEM_ORDER_ORDERING%',
-                        'createdAt' => 'Created date',
-                    ]
-                ),
-            ]
-        )->_(
-            'select',
-            '%ADMIN_DATAFIELD%',
-            'datafield',
-            [
-                'options'    => ElementHelper::arrayToSelectOptions(Datafield::findAll()),
-                'inputClass' => 'select2',
-            ]
-        )->_(
-            'html',
-            'dataHtml',
-            null,
-            [
-                'html' => $item->_('dataHtml'),
-            ]
-        )->_(
-            'text',
-            'Category slug delimiter',
-            'slugCategoryDelimiter',
-            [
-                'required'   => 'required',
-                'value'      => '/',
-                'inputClass' => 'noLengthCheck',
-            ]
-        )->_(
-            'text',
-            '%ADMIN_SLUG_DELIMITER%',
-            'slugDelimiter',
-            [
-                'required'   => 'required',
-                'value'      => '-',
-                'inputClass' => 'noLengthCheck',
-            ]
-        )->_(
-            'checkbox',
-            '%ADMIN_SITEMAP_INCLUDE%',
-            'sitemap'
-        );
+            (new Attributes())->setRequired()->setOptions(ElementHelper::arrayToSelectOptions(SystemEnum::COMPONENTS))
+        )->addNumber('%ADMIN_ORDERING%', 'ordering')
+            ->addDropdown(
+                '%ADMIN_DATAGROUP_ITEM_ORDER%',
+                'itemOrdering',
+                (new Attributes())->setOptions(ElementHelper::arrayToSelectOptions([
+                    '' => '%ADMIN_ITEM_ORDER_NAME%',
+                    'ordering' => '%ADMIN_ITEM_ORDER_ORDERING%',
+                    'createdAt' => 'Created date',
+                ]))
+            )->addDropdown(
+                '%ADMIN_DATAFIELD%',
+                'datafield',
+                (new Attributes())->setInputClass('select2')
+                    ->setOptions(ElementHelper::modelIteratorToOptions($this->repositories->datafield->findAll()))
+            )->addHtml($this->_entity->_('dataHtml'))
+            ->addText(
+                'Category slug delimiter',
+                'slugCategoryDelimiter',
+                (new Attributes())->setRequired()->setInputClass('noLengthCheck')->setDefaultValue('/')
+            )->addText(
+                '%ADMIN_SLUG_DELIMITER%',
+                'slugDelimiter',
+                (new Attributes())->setRequired()->setInputClass('noLengthCheck')->setDefaultValue('-')
+            )->addToggle('%ADMIN_SITEMAP_INCLUDE%', 'sitemap');
 
-        if (empty($item->_('parentId'))) :
-            $this->_(
-                'checkbox',
-                '%ADMIN_SORTABLE_LIST%',
-                'sortable'
-            );
+        if (empty($this->_entity->getParentId())) :
+            $this->addToggle('%ADMIN_SORTABLE_LIST%', 'sortable');
         endif;
 
         $this->addSubmitButton('%CORE_SAVE%');
+
+        return $this;
     }
 }

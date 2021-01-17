@@ -3,6 +3,7 @@
 namespace VitesseCms\Core\Repositories;
 
 use VitesseCms\Core\Models\Datafield;
+use VitesseCms\Core\Models\DatafieldIterator;
 use VitesseCms\Database\Models\FindValueIterator;
 
 class DatafieldRepository
@@ -34,6 +35,15 @@ class DatafieldRepository
         endif;
 
         return null;
+    }
+
+    public function findAll(?FindValueIterator $findValues = null, bool $hideUnpublished = true): DatafieldIterator
+    {
+        Datafield::setFindPublished($hideUnpublished);
+        Datafield::addFindOrder('name');
+        $this->parsefindValues($findValues);
+
+        return new DatafieldIterator(Datafield::findAll());
     }
 
     protected function parsefindValues(?FindValueIterator $findValues = null): void

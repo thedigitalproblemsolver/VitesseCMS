@@ -5,6 +5,7 @@ namespace VitesseCms\Core\Interfaces;
 use VitesseCms\Core\Repositories\DatafieldRepository;
 use VitesseCms\Core\Repositories\DatagroupRepository;
 use VitesseCms\Core\Repositories\JobQueueRepository;
+use VitesseCms\Database\Interfaces\BaseRepositoriesInterface;
 use VitesseCms\User\Repositories\UserRepository;
 
 /**
@@ -14,6 +15,6 @@ use VitesseCms\User\Repositories\UserRepository;
  * @property DatagroupRepository $datagroup
  * @property DatafieldRepository $datafield
  */
-interface RepositoryInterface
+interface RepositoryInterface extends BaseRepositoriesInterface
 {
 }
