@@ -50,7 +50,7 @@ class AdminMenuListener
             $children->addChild('EAN management', 'admin/shop/adminean/adminList');
             $children->addChild('Stock check', 'admin/shop/adminstock/check');
 
-            $adminMenu->addDropbown('Shop', $children);
+            $adminMenu->addDropdown('Shop', $children);
         endif;
     }
 }

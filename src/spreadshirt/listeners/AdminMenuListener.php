@@ -28,7 +28,7 @@ class AdminMenuListener
                 ->addChild('Render ShopProduct','spreadshirt/product/rendershopproduct ')
             ;
 
-            $adminMenu->addDropbown('Spreadshirt', $children);
+            $adminMenu->addDropdown('Spreadshirt', $children);
         endif;
     }
 }

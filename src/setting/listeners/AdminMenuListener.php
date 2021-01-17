@@ -24,7 +24,7 @@ class AdminMenuListener
                 ->addChild('SEF-redirects', 'admin/sef/adminredirect/adminList')
             ;
 
-            $adminMenu->addDropbown('System',$children);
+            $adminMenu->addDropdown('System',$children);
         endif;
     }
 }
