@@ -9,6 +9,7 @@ use VitesseCms\Block\Repositories\BlockPositionRepository;
 use VitesseCms\Block\Repositories\BlockRepository;
 use VitesseCms\Block\Services\BlockService;
 use VitesseCms\Communication\Services\MailerService;
+use VitesseCms\Configuration\Services\ConfigService;
 use VitesseCms\Content\Services\ContentService;
 use VitesseCms\Core\CoreApplicaton;
 use VitesseCms\Core\Helpers\ItemHelper;

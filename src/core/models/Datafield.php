@@ -111,10 +111,10 @@ class Datafield extends AbstractCollection
 
     public function getFieldType(): ?string
     {
-        if($this->type !== null) {
+        if(!empty($this->type)) {
             return array_reverse(explode('\\',$this->type))[0];
         }
-        return $this->type;
+        return null;
     }
 
     public function getClass(): string

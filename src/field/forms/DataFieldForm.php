@@ -14,11 +14,11 @@ class DataFieldForm extends AbstractForm
         $this->addText(
             '%CORE_NAME%',
             'name',
-            (new Attributes())->setRequired(true)->setMultilang(true)
+            (new Attributes())->setRequired()->setMultilang()
         )->addText(
             '%ADMIN_CALLING_NAME%',
             'calling_name',
-            (new Attributes())->setRequired(true)
+            (new Attributes())->setRequired()
         )->addToggle('%ADMIN_MULTILINGUAL%', 'multilang');
 
         if( $item !== null && $item->getFieldType() !== null ) :
@@ -29,7 +29,9 @@ class DataFieldForm extends AbstractForm
         $this->addDropdown(
             '%ADMIN_DATAFIELD_TYPE%',
             'type',
-            (new Attributes())->setOptions(ElementHelper::arrayToSelectOptions((new Datafield)->getTypes()))
+            (new Attributes())
+                ->setOptions(ElementHelper::arrayToSelectOptions((new Datafield)->getTypes()))
+                ->setRequired()
         )->addSubmitButton('%CORE_SAVE%');
     }
 }

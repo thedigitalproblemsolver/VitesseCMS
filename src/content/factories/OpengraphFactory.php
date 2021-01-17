@@ -4,7 +4,7 @@ namespace VitesseCms\Content\Factories;
 
 use ChrisKonnertz\OpenGraph\OpenGraph;
 use VitesseCms\Content\Models\Item;
-use VitesseCms\Core\Services\ConfigService;
+use VitesseCms\Configuration\Services\ConfigService;
 use VitesseCms\Setting\Services\SettingService;
 
 class OpengraphFactory

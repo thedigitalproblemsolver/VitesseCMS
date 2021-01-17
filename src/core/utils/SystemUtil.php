@@ -4,7 +4,8 @@ namespace VitesseCms\Core\Utils;
 
 use Phalcon\Di;
 use Phalcon\DiInterface;
-use VitesseCms\Core\Services\ConfigService;
+use VitesseCms\Configuration\Services\ConfigService;
+
 
 class SystemUtil
 {

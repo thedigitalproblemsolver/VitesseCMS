@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace VitesseCms\Field\Forms;
 
@@ -6,25 +6,20 @@ use VitesseCms\Database\AbstractCollection;
 use VitesseCms\Core\Factories\ObjectFactory;
 use VitesseCms\Field\Interfaces\AdminformInterface;
 use VitesseCms\Form\AbstractForm;
+use VitesseCms\Form\Models\Attributes;
 
-/**
- * Class AdminFieldText
- */
 class AdminFieldText implements AdminformInterface
 {
-    /**
-     * (@inheritdoc)
-     */
     public static function buildForm(AbstractForm $form, AbstractCollection $item): void
     {
         $selected = ObjectFactory::create();
         $selected->set($item->_('inputType'), true);
-        $form->_(
-            'select',
+        $form->addDropdown(
             'Input Type',
             'inputType',
-            [
-                'options' => [
+            (new Attributes())
+                ->setRequired()
+                ->setOptions([
                     [
                         'value' =>'text',
                         'label' => 'Text',
@@ -66,21 +61,17 @@ class AdminFieldText implements AdminformInterface
                         'value' => 'password',
                         'label' => 'Password',
                         'selected' => $selected->_('password')
-                    ],
+                    ]
                     //'week' => 'Week',
                 ]
-            ]
-        );
+            ))
+        ;
 
         if($selected->_('hidden')) :
             self::addHidden($form, $item);
         endif;
     }
 
-    /**
-     * @param AbstractForm $form
-     * @param AbstractCollection $item
-     */
     protected static function addHidden(AbstractForm $form, AbstractCollection $item) : void
     {
         $form->_(
