@@ -9,7 +9,7 @@ use VitesseCms\Content\Models\Item;
 use VitesseCms\Content\Services\ContentService;
 use VitesseCms\Core\Services\BeanstalkService;
 use VitesseCms\Core\Services\CacheService;
-use VitesseCms\Core\Services\ConfigService;
+use VitesseCms\Configuration\Services\ConfigService;
 use VitesseCms\Core\Services\FlashService;
 use VitesseCms\Core\Services\LogService;
 use VitesseCms\Core\Services\RouterService;
