@@ -2,7 +2,7 @@
 
 namespace VitesseCms\Core\Factories;
 
-use VitesseCms\Core\Models\Datafield;
+use VitesseCms\Datafield\Models\Datafield;
 use VitesseCms\Core\Models\Datagroup;
 use VitesseCms\Database\Utils\MongoUtil;
 use stdClass;

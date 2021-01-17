@@ -9,7 +9,7 @@ use VitesseCms\Core\Models\Datagroup;
 use VitesseCms\Core\Enum\SystemEnum;
 use VitesseCms\Core\Utils\SystemUtil;
 use VitesseCms\Form\AbstractForm;
-use VitesseCms\Core\Models\Datafield;
+use VitesseCms\Datafield\Models\Datafield;
 use VitesseCms\Form\AbstractFormWithRepository;
 use VitesseCms\Form\Helpers\ElementHelper;
 use VitesseCms\Form\Interfaces\FormWithRepositoryInterface;

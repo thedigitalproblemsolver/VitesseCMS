@@ -2,7 +2,7 @@
 
 namespace VitesseCms\Core\Models;
 
-use VitesseCms\Core\Repositories\DatafieldRepository;
+use VitesseCms\Datafield\Repositories\DatafieldRepository;
 use VitesseCms\Database\AbstractCollection;
 use VitesseCms\Core\Factories\DatagroupFactory;
 use VitesseCms\Admin\Utils\AdminUtil;

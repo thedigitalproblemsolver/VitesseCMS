@@ -7,7 +7,7 @@ use VitesseCms\Admin\AbstractAdminlistFilterForm;
 use VitesseCms\Database\AbstractCollection;
 use VitesseCms\Core\Helpers\DatagroupHelper;
 use VitesseCms\Core\Interfaces\BaseObjectInterface;
-use VitesseCms\Core\Models\Datafield;
+use VitesseCms\Datafield\Models\Datafield;
 use VitesseCms\Core\Models\Datagroup;
 use VitesseCms\Form\Helpers\ElementHelper;
 use VitesseCms\Form\Interfaces\AbstractFormInterface;

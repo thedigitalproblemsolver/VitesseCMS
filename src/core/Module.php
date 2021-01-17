@@ -3,7 +3,7 @@
 namespace VitesseCms\Core;
 
 use VitesseCms\Block\Repositories\BlockRepository;
-use VitesseCms\Core\Repositories\DatafieldRepository;
+use VitesseCms\Datafield\Repositories\DatafieldRepository;
 use VitesseCms\Core\Repositories\DatagroupRepository;
 use VitesseCms\Core\Repositories\JobQueueRepository;
 use VitesseCms\Core\Repositories\RepositoryCollection;
