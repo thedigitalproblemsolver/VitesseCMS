@@ -39,29 +39,6 @@ class Datafield extends AbstractCollection
         endif;
     }
 
-    public function getTypes() : array
-    {
-        $files = $types = [];
-
-        $directories = [
-            $this->di->config->get('rootDir') . 'src/field/models/',
-            $this->di->config->get('accountDir') . 'src/field/models/',
-        ];
-
-        foreach ($directories as $directory) :
-            $files = array_merge($files, DirectoryUtil::getFilelist($directory));
-        endforeach;
-        ksort($files);
-
-        foreach ($files as $path => $file) :
-            $name = FileUtil::getName($file);
-            $className = SystemUtil::createNamespaceFromPath($path);
-            $types[$className] = substr($name, 5, strlen($name));
-        endforeach;
-
-        return $types;
-    }
-
     public function getTemplates(): array
     {
         $templates = [];
