@@ -56,7 +56,6 @@ $bootstrap
     ->setLanguage()
     ->setCookies()
     ->security()
-    ->database()
     ->flash()
     ->user()
     ->view()
