@@ -30,6 +30,15 @@ class Datafield extends AbstractCollection
      */
     public $model;
 
+    public function afterFetch()
+    {
+        parent::afterFetch();
+
+        if($this->type !== null):
+            $this->type = str_replace('\\Field\\','\\Datafield\\',$this->type);
+        endif;
+    }
+
     public function getTypes() : array
     {
         $files = $types = [];

@@ -17,7 +17,7 @@ use VitesseCms\Database\Models\FindValue;
 use VitesseCms\Database\Models\FindValueIterator;
 use VitesseCms\Install\Interfaces\AdminRepositoriesInterface;
 use VitesseCms\Setting\Models\Setting;
-use VitesseCms\Field\Factories\DatafieldFactory;
+use VitesseCms\Datafield\Factories\DatafieldFactory;
 use VitesseCms\Setting\Factory\SettingFactory;
 use VitesseCms\User\Factories\PermissionRoleFactory;
 use VitesseCms\User\Models\PermissionRole;

@@ -4,7 +4,7 @@ namespace VitesseCms\User\Models;
 
 use VitesseCms\Database\AbstractCollection;
 use VitesseCms\Core\Models\Datafield;
-use VitesseCms\Field\AbstractField;
+use VitesseCms\Datafield\AbstractField;
 use VitesseCms\Core\Models\Datagroup;
 
 class User extends AbstractCollection
