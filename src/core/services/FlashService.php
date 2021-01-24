@@ -2,39 +2,60 @@
 
 namespace VitesseCms\Core\Services;
 
+use Phalcon\FlashInterface;
 use VitesseCms\Language\Helpers\LanguageHelper;
 use Phalcon\Flash\Session;
+use VitesseCms\Language\Services\LanguageService;
 
-class FlashService extends Session
+class FlashService
 {
+    /**
+     * @var LanguageService
+     */
+    protected $language;
+
+    /**
+     * @var Session
+     */
+    protected $session;
+
+    public function __construct(LanguageService $languageService, Session $session)
+    {
+        $this->language = $languageService;
+        $this->session = $session;
+    }
+
     /**
      * @deprecated use seperate type function
      */
-    public function _(
-        string $translation,
-        string $type = 'success',
-        array $replace = []
-    ): void {
-        $this->$type(LanguageHelper::_($translation, $replace));
+    public function _(string $translation, string $type = 'success', array $replace = []): void
+    {
+        $this->$type($this->language->get($translation, $replace));
     }
 
-    public function setWarning(string $translation,array $replace = []): void
+    public function setWarning(string $translation, array $replace = []): void
     {
-        $this->warning(LanguageHelper::_($translation, $replace));
+        $this->session->warning($this->language->get($translation, $replace));
     }
 
-    public function setSucces(string $translation,array $replace = []): void
+    public function setSucces(string $translation, array $replace = []): void
     {
-        $this->success(LanguageHelper::_($translation, $replace));
+        $this->session->success($this->language->get($translation, $replace));
     }
 
-    public function setNotice(string $translation,array $replace = []): void
+    public function setNotice(string $translation, array $replace = []): void
     {
-        $this->notice(LanguageHelper::_($translation, $replace));
+        $this->session->notice($this->language->get($translation, $replace));
     }
 
-    public function setError(string $translation,array $replace = []): void
+    public function setError(string $translation, array $replace = []): void
     {
-        $this->error(LanguageHelper::_($translation, $replace));
+        $this->session->error($this->language->get($translation, $replace));
     }
+
+    public function has($type = null)
+    {
+        $this->session->has($type);
+    }
+
 }

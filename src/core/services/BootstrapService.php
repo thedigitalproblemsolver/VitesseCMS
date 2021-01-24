@@ -251,12 +251,15 @@ class BootstrapService extends FactoryDefault implements InjectableInterface
 
     public function flash(): BootstrapService
     {
-        $this->setShared('flash', new FlashService ([
-                'error' => 'alert alert-danger',
-                'success' => 'alert alert-success',
-                'notice' => 'alert alert-info',
-                'warning' => 'alert alert-warning',
-            ])
+        $this->setShared('flash', new FlashService (
+                $this->getLanguage(),
+                new \Phalcon\Flash\Session([
+                    'error' => 'alert alert-danger',
+                    'success' => 'alert alert-success',
+                    'notice' => 'alert alert-info',
+                    'warning' => 'alert alert-warning',
+                ])
+            )
         );
 
         return $this;
@@ -531,5 +534,10 @@ class BootstrapService extends FactoryDefault implements InjectableInterface
     public function getView(): ViewService
     {
         return $this->get('view');
+    }
+
+    public function getLanguage(): LanguageService
+    {
+        return $this->get('language');
     }
 }
