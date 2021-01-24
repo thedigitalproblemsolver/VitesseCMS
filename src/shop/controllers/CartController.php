@@ -60,7 +60,7 @@ class CartController extends AbstractController
                 $logMessage
             );
 
-            $this->flash->_('SHOP_CART_PRODUCT_ADDED');
+            $this->flash->setSucces('SHOP_CART_PRODUCT_ADDED');
 
             $successFunction = "ui.fill('.shopcart-content','".$cart->getTotalText()."')";
             if ($this->setting->has('FACEBOOK_PIXEL_ID')) :
@@ -90,7 +90,7 @@ class CartController extends AbstractController
             $logMessage = CartHelper::getLogNameFromItem($item).' x '.$item->_('quantity').' removed from cart';
             $this->log->write($item->getId(), Item::class, $logMessage);
 
-            $this->flash->_('SHOP_CART_PRODUCT_REMOVED');
+            $this->flash->setSucces('SHOP_CART_PRODUCT_REMOVED');
             $this->redirect(null,
                 ['successFunction' => "ui.remove('product-row-".$this->request->getPost('cartItemId')."');ui.fill('.shopcart-content','".$this->language->parsePlaceholders($cart->getTotalText())."')"]);
         else :
@@ -120,7 +120,7 @@ class CartController extends AbstractController
                 $this->request->getPost('quantity', 'int');
             $this->log->write($item->getId(), Item::class, $logMessage);
 
-            $this->flash->_('SHOP_CART_QUANTITY_ADJUSTED');
+            $this->flash->setSucces('SHOP_CART_QUANTITY_ADJUSTED');
             $this->redirect(null,
                 ['successFunction' => "ui.fill('.shopcart-content','".$this->language->parsePlaceholders($cart->getTotalText())."');refresh(false)"]);
         else :
@@ -159,7 +159,7 @@ class CartController extends AbstractController
                 CartHelper::getLogNameFromItem($item).' cart-packing changed'
             );
 
-            $this->flash->_('SHOP_PACKING_TYPE_ADJUSTED');
+            $this->flash->setSucces('SHOP_PACKING_TYPE_ADJUSTED');
         endif;
         $this->redirect();
     }

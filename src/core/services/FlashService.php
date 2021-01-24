@@ -25,14 +25,6 @@ class FlashService
         $this->session = $session;
     }
 
-    /**
-     * @deprecated use seperate type function
-     */
-    public function _(string $translation, string $type = 'success', array $replace = []): void
-    {
-        $this->$type($this->language->get($translation, $replace));
-    }
-
     public function setWarning(string $translation, array $replace = []): void
     {
         $this->session->warning($this->language->get($translation, $replace));

@@ -188,7 +188,7 @@ class AdminpermissionsController extends AbstractAdminController
         );
         file_put_contents(PermissionUtils::getAccessFileName(), $hash);
 
-        $this->flash->_('ADMIN_PERMISSIONS_SAVED_SUCCESS');
+        $this->flash->setSucces('ADMIN_PERMISSIONS_SAVED_SUCCESS');
 
         $this->redirect();
     }

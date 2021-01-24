@@ -49,7 +49,7 @@ class AdminuserController extends AbstractAdminController
         if ($this->user->getId() !== $this->dispatcher->getParam(0)) :
             parent::deleteAction();
         else :
-            $this->flash->_('USER_NOT_DELETE_YOURSELF', 'error');
+            $this->flash->setError('USER_NOT_DELETE_YOURSELF');
             $this->redirect($this->link . '/adminList');
         endif;
     }

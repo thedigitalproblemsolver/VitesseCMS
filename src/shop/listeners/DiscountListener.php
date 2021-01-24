@@ -77,11 +77,11 @@ class DiscountListener extends AbstractInjectable
         if ($discount) :
             if ($this->shop->discount->getAmountOfUsedOrders($discount)) :
                 $this->session->remove('discountId');
-                $this->flash->_('SHOP_DISCOUNT_CODE_ALREADY_USED', 'error');
+                $this->flash->setError('SHOP_DISCOUNT_CODE_ALREADY_USED');
             endif;
             if ($this->shop->discount->isValid($discount)) :
                 $this->session->remove('discountId');
-                $this->flash->_('SHOP_DISCOUNT_CODE_UNKNOWN_OR_USED', 'error');
+                $this->flash->setError('SHOP_DISCOUNT_CODE_UNKNOWN_OR_USED');
             endif;
         endif;
     }

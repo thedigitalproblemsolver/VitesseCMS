@@ -67,7 +67,7 @@ abstract class AbstractController extends Controller implements InjectableInterf
                 'access denied for : ' . $this->view->getVar('aclModulePrefix') . $this->router->getModuleName() . '/' . $this->router->getControllerName() . '/' . $this->router->getActionName()
             );
 
-            $this->flash->_('USER_NO_ACCESS', 'error');
+            $this->flash->setError('USER_NO_ACCESS');
             $this->response->setStatusCode(401, 'Unauthorized')->redirect('');
             die();
         endif;

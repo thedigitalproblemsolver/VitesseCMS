@@ -28,7 +28,7 @@ class PaymentController extends AbstractController
                 $paymentType = $this->processPayment($order);
                 $doRedirect = $paymentType->isProcessRedirect();
             else :
-                $this->flash->_('SHOP_ORDER_NOT_FOUND', 'error');
+                $this->flash->setError('SHOP_ORDER_NOT_FOUND');
             endif;
         endif;
 
@@ -52,7 +52,7 @@ class PaymentController extends AbstractController
                 $this->processPayment($order);
                 $this->redirect($this->shop->checkout->getStep(5)->_('slug').'?v='.time());
             else :
-                $this->flash->_('SHOP_ORDER_NOT_FOUND', 'error');
+                $this->flash->setError('SHOP_ORDER_NOT_FOUND');
                 $this->redirect('/');
             endif;
         endif;
@@ -76,12 +76,12 @@ class PaymentController extends AbstractController
                 $order->save();
                 $hasErrors = false;
 
-                $this->flash->_('SHOP_ORDER_CANCELLED');
+                $this->flash->setSucces('SHOP_ORDER_CANCELLED');
             endif;
         endif;
 
         if($hasErrors) :
-            $this->flash->_('SHOP_ORDER_NOT_FOUND','error');
+            $this->flash->setError('SHOP_ORDER_NOT_FOUND');
         endif;
 
         $this->redirect($this->shop->checkout->getStep()->_('slug'));

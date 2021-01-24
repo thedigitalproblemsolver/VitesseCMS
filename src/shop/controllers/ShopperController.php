@@ -76,7 +76,7 @@ class ShopperController extends AbstractController
             $shopper->addShopperInformation($post);
             $shopper->save();
 
-            $this->flash->_('USER_INFORMATION_CHANGED_SUCCESS');
+            $this->flash->setSucces('USER_INFORMATION_CHANGED_SUCCESS');
         endif;
 
         $this->redirect();
@@ -145,7 +145,7 @@ class ShopperController extends AbstractController
             $shiptoAddress->set('published', true);
             $shiptoAddress->save();
 
-            $this->flash->_('SHOP_SHIPTO_SAVED_SUCCESS');
+            $this->flash->setSucces('SHOP_SHIPTO_SAVED_SUCCESS');
         endif;
 
         $this->redirect();

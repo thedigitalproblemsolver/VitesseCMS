@@ -161,7 +161,7 @@ class AdmindesignController
             endif;
         endforeach;
 
-        $this->flash->_('The designs are imported');
+        $this->flash->setSucces('The designs are imported');
         $this->redirect();
     }
 }
