@@ -487,7 +487,7 @@ class BootstrapService extends FactoryDefault implements InjectableInterface
     public function form(): BootstrapService
     {
         $this->setShared('form', new FormService(
-            new ElementFactory()
+            new ElementFactory($this->getLanguage())
         ));
 
         return $this;
