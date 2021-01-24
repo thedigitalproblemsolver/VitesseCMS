@@ -41,7 +41,7 @@
     "vitessecms/content": "~0.0.6",
     "vitessecms/database": "~0.0.2",
     "vitessecms/datafield": "~0.0.2",
-    "vitessecms/filemanager": "~0.0.1"
+    "vitessecms/form": "~0.0.1"
   },
   "autoload": {
     "psr-4": {
