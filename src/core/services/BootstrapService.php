@@ -2,6 +2,7 @@
 
 namespace VitesseCms\Core\Services;
 
+use Phalcon\Forms\Form;
 use Phalcon\Http\Request;
 use Phalcon\Loader;
 use VitesseCms\Admin\Utils\AdminUtil;
@@ -21,6 +22,8 @@ use VitesseCms\Core\Utils\DirectoryUtil;
 use VitesseCms\Configuration\Utils\DomainConfigUtil;
 use VitesseCms\Core\Utils\SystemUtil;
 use VitesseCms\Content\Repositories\ItemRepository;
+use VitesseCms\Form\Factories\ElementFactory;
+use VitesseCms\Form\Services\FormService;
 use VitesseCms\Language\Models\Language;
 use VitesseCms\Language\Services\LanguageService;
 use VitesseCms\Media\Services\AssetsService;
@@ -476,6 +479,15 @@ class BootstrapService extends FactoryDefault implements InjectableInterface
             new BlockRepository(),
             $this->getCache(),
             $this->getConfiguration()
+        ));
+
+        return $this;
+    }
+
+    public function form(): BootstrapService
+    {
+        $this->setShared('form', new FormService(
+            new ElementFactory()
         ));
 
         return $this;

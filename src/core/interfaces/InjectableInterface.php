@@ -17,6 +17,7 @@ use VitesseCms\Core\Services\UrlService;
 use VitesseCms\Core\Services\ViewService;
 use VitesseCms\Etsy\Services\EtsyService;
 use VitesseCms\Export\Services\ChannelEngineService;
+use VitesseCms\Form\Services\FormService;
 use VitesseCms\Language\Services\LanguageService;
 use VitesseCms\Media\Services\AssetsService;
 use VitesseCms\Setting\Services\SettingService;
@@ -58,6 +59,7 @@ use Phalcon\Session\Adapter\Files;
  * @property RouterService $router
  * @property LanguageService $language
  * @property BlockService $block
+ * @property FormService $form
  */
 interface InjectableInterface
 {
