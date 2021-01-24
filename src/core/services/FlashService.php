@@ -53,9 +53,22 @@ class FlashService
         $this->session->error($this->language->get($translation, $replace));
     }
 
-    public function has($type = null)
+    public function has($type = null): bool
     {
-        $this->session->has($type);
+        return $this->session->has($type);
     }
 
+    public function output(): string
+    {
+        if(!$this->session->has()):
+            return '';
+        endif;
+
+        ob_start();
+        $this->session->output();
+        $flash = ob_get_contents();
+        ob_end_clean();
+
+        return $this->language->parsePlaceholders($flash);
+    }
 }
