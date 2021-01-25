@@ -51,7 +51,7 @@ class AdminorderController extends AbstractAdminController implements Repositori
                 );
                 $order->save();
 
-                $this->flash->_('ADMIN_STATE_CHANGE_SUCCESS', 'success', ['Order']);
+                $this->flash->setSucces('ADMIN_STATE_CHANGE_SUCCESS', ['Order']);
             endif;
         endif;
 

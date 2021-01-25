@@ -37,15 +37,11 @@ abstract class AbstractController extends Controller implements InjectableInterf
      */
     protected $isJobProcess = false;
 
-    /**
-     * constructor
-     * @throws \Phalcon\Mvc\Collection\Exception
-     */
     public function onConstruct()
     {
         if (PermissionUtils::check(
             $this->user,
-            $this->view->getVar('aclModulePrefix').$this->router->getModuleName(),
+            $this->view->getVar('aclModulePrefix') . $this->router->getModuleName(),
             $this->router->getControllerName(),
             $this->router->getActionName()
         )) :
@@ -68,10 +64,10 @@ abstract class AbstractController extends Controller implements InjectableInterf
             $this->log->write(
                 new ObjectID($this->view->getVar('currentId')),
                 Item::class,
-                'access denied for : '.$this->view->getVar('aclModulePrefix').$this->router->getModuleName().'/'.$this->router->getControllerName().'/'.$this->router->getActionName()
+                'access denied for : ' . $this->view->getVar('aclModulePrefix') . $this->router->getModuleName() . '/' . $this->router->getControllerName() . '/' . $this->router->getActionName()
             );
 
-            $this->flash->_('USER_NO_ACCESS', 'error');
+            $this->flash->setError('USER_NO_ACCESS');
             $this->response->setStatusCode(401, 'Unauthorized')->redirect('');
             die();
         endif;
@@ -82,7 +78,8 @@ abstract class AbstractController extends Controller implements InjectableInterf
         array $ajaxParams = [],
         bool $showAlert = true,
         bool $forcePageReload = false
-    ): void {
+    ): void
+    {
         $result = true;
         if ($this->flash->has('error')) :
             $result = false;
@@ -101,11 +98,11 @@ abstract class AbstractController extends Controller implements InjectableInterf
         if (!$forcePageReload && $this->request->isAjax()) :
             $ajaxParams['result'] = $result;
             if ($showAlert) :
-                $ajaxParams['alert'] = $this->getFlash();
+                $ajaxParams['alert'] = $this->flash->output();
             endif;
 
             if ($url !== null && !isset($ajaxParams['successFunction'])) :
-                $ajaxParams['successFunction'] = "redirect('".$url."')";
+                $ajaxParams['successFunction'] = "redirect('" . $url . "')";
             endif;
 
             $this->cache->setNoCacheHeaders();
@@ -122,10 +119,6 @@ abstract class AbstractController extends Controller implements InjectableInterf
         $this->disableView();
     }
 
-    /**
-     * @param array $data
-     * @param bool $result
-     */
     protected function prepareJson(array $data, bool $result = true): void
     {
         $this->response->setContentType('application/json', 'UTF-8');
@@ -134,10 +127,6 @@ abstract class AbstractController extends Controller implements InjectableInterf
         die();
     }
 
-    /**
-     * prepare all HTML stuff for view
-     * @throws \Phalcon\Mvc\Collection\Exception
-     */
     protected function prepareView(): void
     {
         $this->view->setVar('siteUrl', $this->url->getBaseUri());
@@ -168,9 +157,6 @@ abstract class AbstractController extends Controller implements InjectableInterf
         ))->toolbar();
     }
 
-    /**
-     * @throws \Phalcon\Mvc\Collection\Exception
-     */
     protected function parsePositions(): void
     {
         foreach ($this->configuration->getTemplatePositions() as $position => $tmp) :
@@ -185,17 +171,13 @@ abstract class AbstractController extends Controller implements InjectableInterf
                     $position,
                     $this->block->parseTemplatePosition(
                         $position,
-                        $this->setting->get('layout_blockposition-class'.$position)
+                        $this->setting->get('layout_blockposition-class' . $position)
                     )
                 );
             endif;
         endforeach;
     }
 
-    /**
-     * loadAssets
-     * @throws \Phalcon\Mvc\Collection\Exception
-     */
     protected function loadAssets(): void
     {
         $this->assets->load(AssetsEnum::JQUERY);
@@ -243,28 +225,25 @@ abstract class AbstractController extends Controller implements InjectableInterf
         $this->buildAssets('css');
     }
 
-    /**
-     * @param string $type
-     */
     protected function buildAssets(string $type): void
     {
         $collection = $this->assets->collection($type);
-        $collectionExternal = $this->assets->collection('external'.$type);
-        $fileBase = 'assets/'.$this->configuration->getAccount().'/'.$type.'/site.'.$type;
+        $collectionExternal = $this->assets->collection('external' . $type);
+        $fileBase = 'assets/' . $this->configuration->getAccount() . '/' . $type . '/site.' . $type;
         $cacheHash = '';
-        $addFunction = 'add'.ucfirst($type);
+        $addFunction = 'add' . ucfirst($type);
 
-        if (is_file($this->configuration->getWebDir().$fileBase)) :
-            $cacheHash .= filemtime($this->configuration->getWebDir().$fileBase);
+        if (is_file($this->configuration->getWebDir() . $fileBase)) :
+            $cacheHash .= filemtime($this->configuration->getWebDir() . $fileBase);
             $collection->$addFunction($fileBase);
         endif;
 
         foreach ($this->assets->getByType($type) as $file) :
-            $link = 'assets/default/'.$type.'/'.$file;
+            $link = 'assets/default/' . $type . '/' . $file;
             if (is_file($link)) :
                 $cacheHash .= filemtime($link);
-                if (substr_count($file, '.'.$type) === 0) :
-                    $link = $this->url->getBaseUri().$file.'?v='.filemtime($link);
+                if (substr_count($file, '.' . $type) === 0) :
+                    $link = $this->url->getBaseUri() . $file . '?v=' . filemtime($link);
                 endif;
                 $collection->$addFunction($link);
             else :
@@ -273,21 +252,21 @@ abstract class AbstractController extends Controller implements InjectableInterf
         endforeach;
 
         $filename = md5($cacheHash);
-        $combinedFile = 'assets/'.$this->configuration->getAccount().'/'.$type.'/cache/'.$filename.'.'.$type;
+        $combinedFile = 'assets/' . $this->configuration->getAccount() . '/' . $type . '/cache/' . $filename . '.' . $type;
 
         $collection->join(true);
-        $collection->setTargetPath($this->configuration->getWebDir().$combinedFile);
+        $collection->setTargetPath($this->configuration->getWebDir() . $combinedFile);
         $collection->setTargetUri($combinedFile);
         switch ($type) :
             case 'js':
-                if (!is_file($this->configuration->getWebDir().$combinedFile)) :
+                if (!is_file($this->configuration->getWebDir() . $combinedFile)) :
                     $collection->addFilter(new Jsmin());
                     $this->assets->outputJs($type);
                 endif;
 
                 $tags = '';
                 ob_start();
-                $this->assets->outputJs('external'.$type);
+                $this->assets->outputJs('external' . $type);
                 $tags .= ob_get_contents();
                 ob_end_clean();
                 $tags .= Tag::javascriptInclude($combinedFile);
@@ -295,14 +274,14 @@ abstract class AbstractController extends Controller implements InjectableInterf
                 $this->view->setVar('javascript', $tags);
                 break;
             case 'css':
-                if (!is_file($this->configuration->getWebDir().$combinedFile)) :
+                if (!is_file($this->configuration->getWebDir() . $combinedFile)) :
                     $collection->addFilter(new Cssmin());
                     $this->assets->outputCss($type);
                 endif;
 
                 $tags = '';
                 ob_start();
-                $this->assets->outputCss('external'.$type);
+                $this->assets->outputCss('external' . $type);
                 $tags .= ob_get_contents();
                 ob_end_clean();
                 $tags .= Tag::stylesheetLink($combinedFile);
@@ -312,24 +291,18 @@ abstract class AbstractController extends Controller implements InjectableInterf
         endswitch;
     }
 
-    /**
-     * prepare for AJAX view
-     */
     public function prepareAjaxView(): void
     {
-        echo $this->getFlash();
+        echo $this->flash->output();
         echo $this->view->getVar('content');
         $this->view->disable();
     }
 
-    /**
-     * @throws \Phalcon\Mvc\Collection\Exception
-     */
     public function prepareHtmlView(): void
     {
         $this->view->setVar('adminToolbar', $this->adminToolbar());
         if ($this->view->hasCurrentItem() && $this->view->getCurrentItem()->isHomepage()) :
-            $this->view->setVar('bodyClass', $this->view->getVar('bodyClass').' home');
+            $this->view->setVar('bodyClass', $this->view->getVar('bodyClass') . ' home');
         endif;
 
         $this->parsePositions();
@@ -340,20 +313,17 @@ abstract class AbstractController extends Controller implements InjectableInterf
         $this->view->setVar('rssFeeds', ExportType::findAll());
     }
 
-    /**
-     * @throws \Phalcon\Mvc\Collection\Exception
-     */
     public function prepareEmbeddedView(): void
     {
         $this->prepareViewValues();
         $this->view->setVar('embedded', 1);
-        $this->view->setVar('bodyClass', $this->view->getVar('bodyClass').' embedded container-fluid');
+        $this->view->setVar('bodyClass', $this->view->getVar('bodyClass') . ' embedded container-fluid');
 
         if ($this->view->getVar('content') === null) :
             $this->view->setVar('content',
                 $this->block->parseTemplatePosition(
                     'maincontent',
-                    $this->setting->get('layout_blockposition-class'.$position)
+                    $this->setting->get('layout_blockposition-class' . $position)
                 )
             );
         endif;
@@ -361,30 +331,9 @@ abstract class AbstractController extends Controller implements InjectableInterf
         $this->loadAssets();
     }
 
-    /**
-     * @return string
-     */
-    public function getFlash(): string
-    {
-        /** @noinspection PhpUndefinedMethodInspection */
-        if ($this->flash->has()) :
-            ob_start();
-            $this->flash->output();
-            $flash = ob_get_contents();
-            ob_end_clean();
-
-            return $flash;
-        endif;
-
-        return '';
-    }
-
-    /**
-     * @throws \Phalcon\Mvc\Collection\Exception
-     */
     protected function prepareViewValues(): void
     {
-        $this->view->setVar('flash', $this->getFlash());
+        $this->view->setVar('flash', $this->flash->output());
         $this->view->setVar('currentItem', $this->view->getVar('currentItem'));
         $this->view->setVar('BASE_URI', $this->view->getVar('BASE_URI'));
         $this->view->setVar('UPLOAD_URI', $this->configuration->getUploadUri());

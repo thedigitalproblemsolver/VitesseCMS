@@ -108,7 +108,7 @@ class AdminproducttypeController
             }
         endforeach;
 
-        $this->flash->_('ProductTypes reloaded');
+        $this->flash->setSucces('ProductTypes reloaded');
         $this->redirect();
     }
 

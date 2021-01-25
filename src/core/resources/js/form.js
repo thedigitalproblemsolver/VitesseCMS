@@ -31,7 +31,7 @@ var form = {
                     form.validateField(this.id, formElement.attr('id'));
                 });
                 $('#' + formElement.attr('id') + ' .btn-success').prop('disabled', true);
-                if ($('#' + formElement.attr('id')).children('.is-invalid').length === 0) {
+                if ($('#' + formElement.attr('id')).find('.is-invalid').length === 0) {
                     $('#' + formElement.attr('id') + ' .btn-success').prop('disabled', false);
                 }
             }

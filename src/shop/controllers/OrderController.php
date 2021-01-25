@@ -147,7 +147,7 @@ class OrderController extends AbstractController implements RepositoriesInterfac
         endif;
 
         if($displayError) :
-            $this->flash->_('SHOP_ORDER_NOT_DISPLAYED', 'error');
+            $this->flash->setError('SHOP_ORDER_NOT_DISPLAYED');
             $this->redirect($this->url->getBaseUri());
         endif;
     }

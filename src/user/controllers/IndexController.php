@@ -82,7 +82,7 @@ class IndexController extends AbstractController implements RepositoriesInterfac
                                 'auth', ['id' => (string)$user->getId()]
                             );
                             $this->eventsManager->fire('user:onLoginSuccess', $user);
-                            $this->flash->_('USER_LOGIN_SUCCESS');
+                            $this->flash->setSucces('USER_LOGIN_SUCCESS');
                             $ajax = ['successFunction' => 'refresh()'];
                             $hasErrors = false;
                         endif;
@@ -93,7 +93,7 @@ class IndexController extends AbstractController implements RepositoriesInterfac
             endif;
 
             if ($hasErrors) :
-                $this->flash->_('USER_LOGIN_FAILED', 'error');
+                $this->flash->setError('USER_LOGIN_FAILED', 'error');
             endif;
 
             $this->redirect($return, $ajax,true,true);
@@ -103,7 +103,7 @@ class IndexController extends AbstractController implements RepositoriesInterfac
     public function logoutAction(): void
     {
         $this->session->destroy();
-        $this->flash->_('USER_LOGOUT_SUCCESS');
+        $this->flash->setSucces('USER_LOGOUT_SUCCESS');
 
         $this->redirect();
     }

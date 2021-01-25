@@ -69,7 +69,8 @@ $bootstrap
     ->router()
     ->acl()
     ->assets()
-    ->block();
+    ->block()
+    ->form();
 
 $application = $bootstrap->application();
 
