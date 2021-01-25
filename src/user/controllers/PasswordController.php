@@ -55,7 +55,7 @@ class PasswordController extends AbstractController implements RepositoriesInter
         endif;
 
         if($hasErrors) :
-            $this->flash->_('CORE_SOMETHING_IS_WRONG','error');
+            $this->flash->setError('CORE_SOMETHING_IS_WRONG');
         endif;
 
         $this->prepareView();
@@ -82,7 +82,7 @@ class PasswordController extends AbstractController implements RepositoriesInter
                 );
 
                 $hasErrors = false;
-                $this->flash->_('USER_PASSWORD_FORGOT_REQUEST_SAVED_SUCCESS');
+                $this->flash->setSucces('USER_PASSWORD_FORGOT_REQUEST_SAVED_SUCCESS');
 
                 $item = $this->repositories->item->getById($this->setting->get('USER_PAGE_PASSWORDFORGOTEMAIL'));
                 if($item !== null):
@@ -92,7 +92,7 @@ class PasswordController extends AbstractController implements RepositoriesInter
         endif;
 
         if($hasErrors) :
-            $this->flash->_('CORE_SOMETHING_IS_WRONG','error');
+            $this->flash->setError('CORE_SOMETHING_IS_WRONG');
         endif;
 
         $this->redirect($return);
@@ -114,14 +114,14 @@ class PasswordController extends AbstractController implements RepositoriesInter
                 $this->user->save();
 
                 $hasErrors = false;
-                $this->flash->_('USER_PASSWORD_CHANGE_SUCCESS');
+                $this->flash->setSucces('USER_PASSWORD_CHANGE_SUCCESS');
             endif;
 
             $redirect = null;
         endif;
 
         if($hasErrors) :
-            $this->flash->_('CORE_SOMETHING_IS_WRONG','error');
+            $this->flash->setError('CORE_SOMETHING_IS_WRONG');
         endif;
 
         $this->redirect($redirect);
@@ -147,12 +147,12 @@ class PasswordController extends AbstractController implements RepositoriesInter
                 ;
 
                 $hasErrors = false;
-                $this->flash->_('USER_PASSWORD_CHANGE_SUCCESS');
+                $this->flash->setSucces('USER_PASSWORD_CHANGE_SUCCESS');
             endif;
         endif;
 
         if($hasErrors) :
-            $this->flash->_('CORE_SOMETHING_IS_WRONG','error');
+            $this->flash->setError('CORE_SOMETHING_IS_WRONG');
         endif;
 
         $this->redirect('user/loginform');

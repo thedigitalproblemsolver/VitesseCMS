@@ -6,7 +6,6 @@ use VitesseCms\Content\Models\Item;
 use VitesseCms\Datafield\Models\Datafield;
 use VitesseCms\Core\Models\Datagroup;
 use VitesseCms\Datafield\AbstractField;
-use VitesseCms\Language\Helpers\LanguageHelper;
 use VitesseCms\User\Models\User;
 use VitesseCms\User\Utils\PermissionUtils;
 
@@ -75,19 +74,19 @@ class ItemHelper
     public static function getPublishText(bool $published): string
     {
         if (!$published) :
-            return LanguageHelper::_('ADMIN_SET_TO_PUBLISH');
+            return '%ADMIN_SET_TO_PUBLISH%';
         endif;
 
-        return LanguageHelper::_('ADMIN_SET_TO_UNPUBLISH');
+        return '%ADMIN_SET_TO_UNPUBLISH%';
     }
 
     public static function getRequiredText(bool $required): string
     {
         if (!$required) :
-            return LanguageHelper::_('ADMIN_SET_TO_REQUIRED');
+            return '%ADMIN_SET_TO_REQUIRED%';
         endif;
 
-        return LanguageHelper::_('ADMIN_SET_TO_NOT_REQUIRED');
+        return '%ADMIN_SET_TO_NOT_REQUIRED%';
     }
 
     public static function getPathFromRoot(Item $item): array

@@ -39,7 +39,7 @@ class CheckoutController extends AbstractController
             User::setFindPublished(false);
             $user = User::findFirst();
             if( \is_object($user) ) :
-                $this->flash->_('USER_EXISTS','error');
+                $this->flash->setError('USER_EXISTS');
             else :
                 $shopper = Shopper::createNew($post);
                 $this->session->set('auth', ['id' => $shopper->_('userId')]);

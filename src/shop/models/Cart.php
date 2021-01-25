@@ -118,7 +118,7 @@ class Cart extends AbstractCollection
         $item = Item::findById($this->products->$cartItemId['itemId']);
 
         if ($item->_('outOfStock')) :
-            $this->di->flash->_('SHOP_CART_OUT_OF_STOCK', 'error');
+            $this->di->flash->setError('SHOP_CART_OUT_OF_STOCK');
 
             return 0;
         endif;
@@ -131,7 +131,7 @@ class Cart extends AbstractCollection
             if (isset($this->products->$cartItemId['quantity'])) :
                 $this->products->$cartItemId['quantity'] = 0;
             endif;
-            $this->di->flash->_('SHOP_CART_NOT_ENOUGH_IN_STOCK', 'warning');
+            $this->di->flash->setWarning('SHOP_CART_NOT_ENOUGH_IN_STOCK');
         endif;
 
         $variation = $this->products->$cartItemId['variation'];
@@ -146,7 +146,7 @@ class Cart extends AbstractCollection
                         if (isset($this->products->$cartItemId['quantity'])) :
                             $this->products->$cartItemId['quantity'] = 0;
                         endif;
-                        $this->di->flash->_('SHOP_CART_NOT_ENOUGH_IN_STOCK', 'warning');
+                        $this->di->flash->setWarning('SHOP_CART_NOT_ENOUGH_IN_STOCK');
                     endif;
                 endif;
             endforeach;

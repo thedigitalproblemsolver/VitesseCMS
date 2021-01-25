@@ -155,9 +155,9 @@ class AdmindatagroupController extends AbstractAdminController implements Reposi
         if (isset($dataFields[$this->request->get('key')])) :
             unset($dataFields[$this->request->get('key')]);
             $item->set('datafields', $dataFields)->save();
-            $this->flash->_('ADMIN_ITEM_DELETED', 'success', [$item->_('name')]);
+            $this->flash->setSucces('ADMIN_ITEM_DELETED', [$item->_('name')]);
         else :
-            $this->flash->_('ADMIN_ITEM_DELETED_FAILED', 'error');
+            $this->flash->setError('ADMIN_ITEM_DELETED_FAILED');
         endif;
 
         $this->redirect();
@@ -312,7 +312,7 @@ class AdmindatagroupController extends AbstractAdminController implements Reposi
         endif;
         $item->set($fieldName, $dataFields)->save();
 
-        $this->flash->_('ADMIN_SEQUENCE_SAVED');
+        $this->flash->setSucces('ADMIN_SEQUENCE_SAVED');
 
         $this->redirect();
     }
@@ -334,17 +334,9 @@ class AdmindatagroupController extends AbstractAdminController implements Reposi
 
             $datagroup->set($collection, $dataFields)->save();
 
-            $this->flash->_(
-                'ADMIN_STATE_CHANGE_SUCCESS',
-                'success',
-                [ucfirst($fieldName)]
-            );
+            $this->flash->setSucces('ADMIN_STATE_CHANGE_SUCCESS', [ucfirst($fieldName)]);
         else :
-            $this->flash->_(
-                'ADMIN_STATE_CHANGE_FAILED',
-                'error',
-                [ucfirst($fieldName)]
-            );
+            $this->flash->setError('ADMIN_STATE_CHANGE_FAILED', [ucfirst($fieldName)]);
         endif;
 
         return $datagroup;

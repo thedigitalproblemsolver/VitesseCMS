@@ -42,7 +42,7 @@ class AdminindexController extends AbstractController
             $elasticSearch->add($item);
         endforeach;
 
-        $this->flash->_('ADMIN_SEARCH_INDEX_REFRESHED');
+        $this->flash->setSucces('ADMIN_SEARCH_INDEX_REFRESHED');
 
         parent::redirect();
     }

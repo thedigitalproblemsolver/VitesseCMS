@@ -2,6 +2,7 @@
 
 namespace VitesseCms\Core\Services;
 
+use Phalcon\Forms\Form;
 use Phalcon\Http\Request;
 use Phalcon\Loader;
 use VitesseCms\Admin\Utils\AdminUtil;
@@ -21,6 +22,8 @@ use VitesseCms\Core\Utils\DirectoryUtil;
 use VitesseCms\Configuration\Utils\DomainConfigUtil;
 use VitesseCms\Core\Utils\SystemUtil;
 use VitesseCms\Content\Repositories\ItemRepository;
+use VitesseCms\Form\Factories\ElementFactory;
+use VitesseCms\Form\Services\FormService;
 use VitesseCms\Language\Models\Language;
 use VitesseCms\Language\Services\LanguageService;
 use VitesseCms\Media\Services\AssetsService;
@@ -251,12 +254,15 @@ class BootstrapService extends FactoryDefault implements InjectableInterface
 
     public function flash(): BootstrapService
     {
-        $this->setShared('flash', new FlashService ([
-                'error' => 'alert alert-danger',
-                'success' => 'alert alert-success',
-                'notice' => 'alert alert-info',
-                'warning' => 'alert alert-warning',
-            ])
+        $this->setShared('flash', new FlashService (
+                $this->getLanguage(),
+                new \Phalcon\Flash\Session([
+                    'error' => 'alert alert-danger',
+                    'success' => 'alert alert-success',
+                    'notice' => 'alert alert-info',
+                    'warning' => 'alert alert-warning',
+                ])
+            )
         );
 
         return $this;
@@ -478,6 +484,15 @@ class BootstrapService extends FactoryDefault implements InjectableInterface
         return $this;
     }
 
+    public function form(): BootstrapService
+    {
+        $this->setShared('form', new FormService(
+            new ElementFactory($this->getLanguage())
+        ));
+
+        return $this;
+    }
+
     public function getBlock(): BlockService
     {
         return $this->get('block');
@@ -531,5 +546,10 @@ class BootstrapService extends FactoryDefault implements InjectableInterface
     public function getView(): ViewService
     {
         return $this->get('view');
+    }
+
+    public function getLanguage(): LanguageService
+    {
+        return $this->get('language');
     }
 }
