@@ -1,9 +1,0 @@
-{{#isDev}}
-{{/isDev}}
-{{^isDev}}
-    {{#MAILCHIMP_USER_ID}}
-        {{#MAILCHIMP_LIST_ID}}
-    <script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/{{MAILCHIMP_USER_ID}}/{{MAILCHIMP_LIST_ID}}.js");</script>
-        {{/MAILCHIMP_LIST_ID}}
-    {{/MAILCHIMP_USER_ID}}
-{{/isDev}}
