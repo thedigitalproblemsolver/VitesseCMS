@@ -1,7 +1,0 @@
-@import "../../../../vendor/components/flag-icon-css/sass/_flag-icon-base.scss";
-
-@mixin flag-icon($country) {
-    .flag-icon-#{$country} {
-        background-image: url('/assets/default/images/flags/4x3/#{$country}.svg');
-    }
-}
