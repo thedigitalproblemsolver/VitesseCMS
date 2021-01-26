@@ -20,6 +20,7 @@ use VitesseCms\Export\Services\ChannelEngineService;
 use VitesseCms\Form\Services\FormService;
 use VitesseCms\Language\Services\LanguageService;
 use VitesseCms\Media\Services\AssetsService;
+use VitesseCms\Search\Models\Elasticsearch;
 use VitesseCms\Setting\Services\SettingService;
 use VitesseCms\Shop\Services\ShopService;
 use VitesseCms\User\Models\User;
@@ -60,6 +61,7 @@ use Phalcon\Session\Adapter\Files;
  * @property LanguageService $language
  * @property BlockService $block
  * @property FormService $form
+ * @property Elasticsearch $search
  */
 interface InjectableInterface
 {

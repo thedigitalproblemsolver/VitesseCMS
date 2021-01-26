@@ -2,6 +2,7 @@
 
 namespace VitesseCms\Core\Services;
 
+use Elasticsearch\ClientBuilder;
 use Phalcon\Forms\Form;
 use Phalcon\Http\Request;
 use Phalcon\Loader;
@@ -30,6 +31,7 @@ use VitesseCms\Media\Services\AssetsService;
 use VitesseCms\Mustache\Engine;
 use VitesseCms\Mustache\Loader_FilesystemLoader;
 use VitesseCms\Mustache\MustacheEngine;
+use VitesseCms\Search\Models\Elasticsearch;
 use VitesseCms\Setting\Services\SettingService;
 use VitesseCms\Shop\Helpers\CartHelper;
 use VitesseCms\Shop\Helpers\CheckoutHelper;
@@ -488,6 +490,16 @@ class BootstrapService extends FactoryDefault implements InjectableInterface
     {
         $this->setShared('form', new FormService(
             new ElementFactory($this->getLanguage())
+        ));
+
+        return $this;
+    }
+
+    public function search(): BootstrapService
+    {
+        $this->setShared('search', new Elasticsearch(
+            ClientBuilder::create()->setHosts([$this->getConfiguration()->getElasticSearchHost()])->build(),
+            $this->getConfiguration()->getAccount()
         ));
 
         return $this;
