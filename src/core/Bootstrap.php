@@ -70,7 +70,9 @@ $bootstrap
     ->acl()
     ->assets()
     ->block()
-    ->form();
+    ->form()
+    ->search()
+;
 
 $application = $bootstrap->application();
 
