@@ -46,12 +46,12 @@ class ProductController extends AbstractController implements ModuleInterface
                     $printType = PrintType::findFirst();
 
                     $minDelivery = $maxDelivery = '';
-                    if (!empty($this->setting->_('SPREADSHIRT_MIN_DELIVERY'))) :
+                    if (!empty($this->setting->get('SPREADSHIRT_MIN_DELIVERY'))) :
                         Setting::setFindValue('calling_name', 'SPREADSHIRT_MIN_DELIVERY');
                         $minDeliverySetting = Setting::findFirst();
                         $minDelivery = $minDeliverySetting->value;
                     endif;
-                    if (!empty($this->setting->_('SPREADSHIRT_MAX_DELIVERY'))) :
+                    if (!empty($this->setting->get('SPREADSHIRT_MAX_DELIVERY'))) :
                         Setting::setFindValue('calling_name', 'SPREADSHIRT_MAX_DELIVERY');
                         $maxDeliverySetting = Setting::findFirst();
                         $maxDelivery = $maxDeliverySetting->value;

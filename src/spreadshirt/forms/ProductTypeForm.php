@@ -55,8 +55,8 @@ class ProductTypeForm extends AbstractForm implements ModuleInterface
         $html .= '</div>';
 
         $productTypeItems = [];
-        if($this->setting->_('SPREADSHIRT_DATAGROUP_MANUFACTURER')) :
-            Item::setFindValue('datagroup', $this->setting->_('SPREADSHIRT_DATAGROUP_MANUFACTURER'));
+        if($this->setting->has('SPREADSHIRT_DATAGROUP_MANUFACTURER')) :
+            Item::setFindValue('datagroup', $this->setting->get('SPREADSHIRT_DATAGROUP_MANUFACTURER'));
             Item::addFindOrder('name');
             $productTypeItems = Item::findAll();
         endif;

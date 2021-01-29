@@ -32,6 +32,7 @@ use VitesseCms\Mustache\Engine;
 use VitesseCms\Mustache\Loader_FilesystemLoader;
 use VitesseCms\Mustache\MustacheEngine;
 use VitesseCms\Search\Models\Elasticsearch;
+use VitesseCms\Setting\Repositories\SettingRepository;
 use VitesseCms\Setting\Services\SettingService;
 use VitesseCms\Shop\Helpers\CartHelper;
 use VitesseCms\Shop\Helpers\CheckoutHelper;
@@ -396,7 +397,8 @@ class BootstrapService extends FactoryDefault implements InjectableInterface
     {
         $this->setShared('setting', new SettingService(
             $this->getCache(),
-            $this->getConfiguration()
+            $this->getConfiguration(),
+            new SettingRepository()
         ));
 
         return $this;
