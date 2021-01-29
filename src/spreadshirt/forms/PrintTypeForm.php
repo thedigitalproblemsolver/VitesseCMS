@@ -18,8 +18,8 @@ class PrintTypeForm extends AbstractForm implements InjectableInterface
     public function initialize(): void
     {
         $productionTechniques = [];
-        if($this->setting->_('SPREADSHIRT_DATAGROUP_PRODUCTIONTECHNIQUES')) :
-            Item::setFindValue('datagroup', $this->setting->_('SPREADSHIRT_DATAGROUP_PRODUCTIONTECHNIQUES'));
+        if($this->setting->has('SPREADSHIRT_DATAGROUP_PRODUCTIONTECHNIQUES')) :
+            Item::setFindValue('datagroup', $this->setting->get('SPREADSHIRT_DATAGROUP_PRODUCTIONTECHNIQUES'));
             $productionTechniques = Item::findAll();
         endif;
 

@@ -52,8 +52,8 @@ abstract class AbstractController extends Controller implements InjectableInterf
             else :
                 $settings = Setting::findAll();
                 foreach ($settings as $setting) :
-                    $this->view->set($setting->_('calling_name'), $setting->_('value'));
-                    $this->view->setVar($setting->_('calling_name'), $setting->_('value'));
+                    $this->view->set($setting->getCallingName(), $setting->getValueField());
+                    $this->view->setVar($setting->getCallingName(), $setting->getValueField());
                 endforeach;
                 $this->view->set('ACCOUNT', $this->config->get('account'));
                 $this->view->set('BASE_URI', $this->url->getBaseUri());
