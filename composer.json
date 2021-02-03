@@ -5,7 +5,7 @@
   "keywords": ["php","phalcon"],
   "homepage": "https://github.com/thedigitalproblemsolver/VitesseCMS",
   "license": "GPL-2.0-or-later",
-  "version": "0.0.46",
+  "version": "0.0.47",
   "authors": [
     {
       "name": "Jasper Jaklofsky",
@@ -13,44 +13,21 @@
     }
   ],
   "require": {
-    "twbs/bootstrap": "^4.3",
-    "mustache/mustache": "^2.11",
-    "snowair/phalcon-debugbar": "^1.1",
-    "components/flag-icon-css": "^2.8",
-    "seiyria/bootstrap-slider": "^4.8",
-    "itsjavi/bootstrap-colorpicker": "^2.5",
-    "multisafepay/api": "^2.0",
-    "misd/linkify": "^1.1",
-    "dividebv/postnl": "^1.1",
-    "myparcelnl/sdk": "^1.3",
-    "michele-angioni/phalcon-repositories": "^0.5.0",
-    "ext-curl": "*",
-    "ext-simplexml": "*",
-    "ext-fileinfo": "*",
-    "ext-mongodb": "*",
-    "ext-json": "*",
-    "ext-zlib": "*",
-    "scssphp/scssphp": "^1.1",
-    "phalcon/incubator": "3.2.6",
-    "vitessecms/admin": "~0.0.11",
-    "vitessecms/block": "~0.0.8",
+    "vitessecms/admin": "~0.0.12",
+    "vitessecms/block": "~0.0.9",
     "vitessecms/communication": "~0.0.9",
     "vitessecms/configuration": "~0.0.7",
-    "vitessecms/content": "~0.0.7",
+    "vitessecms/content": "~0.0.8",
     "vitessecms/database": "~0.0.2",
     "vitessecms/datafield": "~0.0.3",
     "vitessecms/form": "~0.0.3",
     "vitessecms/language": "~0.0.1",
-    "vitessecms/media": "~0.0.1",
+    "vitessecms/media": "~0.0.2",
     "vitessecms/mustache": "~0.0.1",
     "vitessecms/search": "~0.0.1",
     "vitessecms/sef": "~0.0.1",
     "vitessecms/setting": "~0.0.2",
-    "vitessecms/user": "~0.0.1"
-  },
-  "autoload": {
-    "psr-4": {
-      "VitesseCms\\": "src/"
-    }
+    "vitessecms/user": "~0.0.1",
+    "vitessecms/core": "~0.0.1"
   }
 }
