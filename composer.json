@@ -13,9 +13,9 @@
     }
   ],
   "require": {
-    "vitessecms/core": "~0.2.8",
-    "vitessecms/cli": "~0.2.0",
-    "vitessecms/install": "~0.2.4",
+    "vitessecms/core": "~0.2.9",
+    "vitessecms/cli": "~0.2.1",
+    "vitessecms/install": "~0.2.5",
     "vitessecms/export": "~0.2.7"
   }
 }
