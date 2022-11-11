@@ -2,7 +2,10 @@
   "name": "vitessecms/vitessecms",
   "type": "library",
   "description": "CMS based on Phalcon 3 framework",
-  "keywords": ["php","phalcon"],
+  "keywords": [
+    "php",
+    "phalcon"
+  ],
   "homepage": "https://github.com/thedigitalproblemsolver/VitesseCMS",
   "license": "GPL-2.0-or-later",
   "version": "0.2.12",
@@ -17,5 +20,8 @@
     "vitessecms/cli": "~0.2.6",
     "vitessecms/install": "~0.2.11",
     "vitessecms/export": "~0.2.8"
+  },
+  "require-dev": {
+    "phalcon/ide-stubs": "5.1.0"
   }
 }
