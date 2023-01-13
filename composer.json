@@ -1,7 +1,7 @@
 {
   "name": "vitessecms/vitessecms",
   "type": "library",
-  "description": "CMS based on Phalcon 3 framework",
+  "description": "CMS based on PHP Phalcon framework",
   "keywords": [
     "php",
     "phalcon"
