@@ -17,7 +17,7 @@
   ],
   "require": {
     "php": ">=7.4",
-    "ext-phalcon": "5.1.0",
+    "ext-phalcon": "5.1.4",
     "vitessecms/core": "~0.3.0",
     "vitessecms/cli": "~0.3.0",
     "vitessecms/install": "~0.3.0",
