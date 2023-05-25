@@ -8,7 +8,7 @@
   ],
   "homepage": "https://github.com/thedigitalproblemsolver/VitesseCMS",
   "license": "GPL-2.0-or-later",
-  "version": "0.5.0",
+  "version": "1.0.0",
   "authors": [
     {
       "name": "Jasper Jaklofsky",
@@ -18,10 +18,10 @@
   "require": {
     "php": ">=8.1",
     "ext-phalcon": "5.1.4",
-    "vitessecms/core": "~0.5.0",
-    "vitessecms/cli": "~0.3.2",
-    "vitessecms/install": "~0.3.3",
-    "vitessecms/export": "~0.4.0"
+    "vitessecms/core": "^1.0.0",
+    "vitessecms/cli": "^1.0.0",
+    "vitessecms/install": "^1.0.0",
+    "vitessecms/export": "^1.0.0"
   },
   "require-dev": {
     "phalcon/ide-stubs": "5.1.0"
